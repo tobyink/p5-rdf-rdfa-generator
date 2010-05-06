@@ -1,0 +1,33 @@
+/* <link rel="stylesheet" type="text/css" href="example1.css"/> */
+
+div > div
+{
+	background: #fd9;
+	border: 1px solid #db7;
+	margin: 1em;
+	padding: 0.67em;
+}
+
+div > div h3
+{
+	margin: 0;
+	padding: 0;
+}
+
+div > div span.rdf-type
+{
+	float: right;
+	text-align: right;
+	width: 40px;
+	position: relative;
+	top: -1.67em;
+}
+
+div > div dl dt
+{
+	margin: 0.5em 0 0;
+	padding: 0;
+	font-weight: bold;
+	font-style: italic;
+	font-size: smaller;
+}

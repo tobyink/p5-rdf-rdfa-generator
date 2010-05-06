@@ -131,19 +131,8 @@ sub _process_predicate
 		return $self;
 	}
 	
-	my ($uri_prefix, $uri_suffix) = ($st->predicate->uri =~ m'^(.+?)([A-Za-z0-9_-]*)$');
-	if (length $uri_suffix and !length $uri_prefix)
-	{
-		($uri_prefix, $uri_suffix) = ($uri_suffix, $uri_prefix);
-	}
-	
-	unless (defined $prefixes->{$uri_prefix})
-	{
-		$prefixes->{$uri_prefix} = $self->{ns}->{$uri_prefix} || 'ns' . (1 + scalar keys %$prefixes);
-	}
-	my $curie_prefix = $prefixes->{$uri_prefix};
-	
-	$node->setAttribute($attr, sprintf('%s:%s', $curie_prefix, $uri_suffix));
+	$node->setAttribute($attr, 
+		$self->_make_curie($st->predicate->uri, $prefixes));
 	
 	return $self;
 }
@@ -182,19 +171,8 @@ sub _process_object
 	
 	if (defined $st->object->literal_datatype)
 	{
-		my ($uri_prefix, $uri_suffix) = ($st->object->literal_datatype =~ m'^(.+?)([A-Za-z0-9_-]*)$');
-		if (length $uri_suffix and !length $uri_prefix)
-		{
-			($uri_prefix, $uri_suffix) = ($uri_suffix, $uri_prefix);
-		}
-		
-		unless (defined $prefixes->{$uri_prefix})
-		{
-			$prefixes->{$uri_prefix} = $self->{ns}->{$uri_prefix} || 'ns' . (1 + scalar keys %$prefixes);
-		}
-		my $curie_prefix = $prefixes->{$uri_prefix};
-		
-		$node->setAttribute('datatype', sprintf('%s:%s', $curie_prefix, $uri_suffix));
+		$node->setAttribute('datatype', 
+			$self->_make_curie($st->object->literal_datatype, $prefixes));
 	}
 	else
 	{
@@ -204,16 +182,40 @@ sub _process_object
 	return $self;
 }
 
+sub _make_curie
+{
+	my ($self, $uri, $prefixes) = @_;
+	
+	my ($uri_prefix, $uri_suffix) = ($uri =~ m'^(.+?)([A-Za-z0-9_-]*)$');
+	if (length $uri_suffix and !length $uri_prefix)
+	{
+		($uri_prefix, $uri_suffix) = ($uri_suffix, $uri_prefix);
+	}
+	
+	unless (defined $prefixes->{$uri_prefix})
+	{
+		$prefixes->{$uri_prefix} = $self->{ns}->{$uri_prefix} || 'ns' . (1 + scalar keys %$prefixes);
+	}
+	my $curie_prefix = $prefixes->{$uri_prefix};
+	
+	return sprintf('%s:%s', $curie_prefix, $uri_suffix);
+}
+
 1;
 
 __DATA__
+bibo    http://purl.org/ontology/bibo/
 cc      http://creativecommons.org/ns#
 ctag    http://commontag.org/ns#
+dbp     http://dbpedia.org/property/
 dc      http://purl.org/dc/terms/
 doap    http://usefulinc.com/ns/doap#
+fb      http://developers.facebook.com/schema/
 foaf    http://xmlns.com/foaf/0.1/
 geo     http://www.w3.org/2003/01/geo/wgs84_pos#
 gr      http://purl.org/goodrelations/v1#
+ical    http://www.w3.org/2002/12/cal/ical#
+og      http://opengraphprotocol.org/schema/
 owl     http://www.w3.org/2002/07/owl#
 rdf     http://www.w3.org/1999/02/22-rdf-syntax-ns#
 rdfa    http://www.w3.org/ns/rdfa#
@@ -224,6 +226,10 @@ rss     http://purl.org/rss/1.0/
 sioc    http://rdfs.org/sioc/ns#
 skos    http://www.w3.org/2004/02/skos/core#
 tag     http://www.holygoat.co.uk/owl/redwood/0.1/tags/
+v       http://rdf.data-vocabulary.org/#
+vann    http://purl.org/vocab/vann/
+vcard   http://www.w3.org/2006/vcard/ns#
+void    http://rdfs.org/ns/void#
 xfn     http://vocab.sindice.com/xfn#
 xhv     http://www.w3.org/1999/xhtml/vocab#
 xsd     http://www.w3.org/2001/XMLSchema#

@@ -22,9 +22,5 @@ my $graph = rdf_parse(<<TURTLE, type=>'turtle');
 
 TURTLE
 
-my $gen = RDF::RDFa::Generator::HTML::Pretty->new(base=>'http://example.net/');
+print RDF::RDFa::Generator::HTML::Hidden->create_document($graph)->toString;
 
-foreach my $n ($gen->nodes($graph))
-{
-	print $n->toString . "\n";
-}

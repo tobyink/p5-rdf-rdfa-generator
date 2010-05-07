@@ -5,6 +5,11 @@ use base qw'RDF::RDFa::Generator::HTML::Head';
 use common::sense;
 use XML::LibXML qw':all';
 
+sub injection_site
+{
+	return '//xhtml:body';
+}
+
 sub nodes
 {
 	my ($proto, $model) = @_;
@@ -82,7 +87,7 @@ sub _process_subject
 	elsif ($st->subject->is_resource) 
 		{ $node->setAttribute('src', $st->subject->uri); }
 	else
-		{ $node->setAttribute('about', '_:'.$st->subject->blank_identifier); }
+		{ $node->setAttribute('about', '[_:'.$st->subject->blank_identifier.']'); }
 	
 	return $self;
 }

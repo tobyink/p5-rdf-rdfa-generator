@@ -1,6 +1,7 @@
 package RDF::RDFa::Generator::HTML::Head;
 
 use 5.008;
+use base qw'RDF::RDFa::Generator';
 use common::sense;
 use XML::LibXML qw':all';
 
@@ -16,6 +17,55 @@ sub new
 	}
 	
 	bless \%opts, $class;
+}
+
+sub injection_site
+{
+	return '//xhtml:head';
+}
+
+sub inject_document
+{
+	my ($proto, $html, $model) = @_;
+	my $dom   = $proto->_get_dom($html);
+	my @nodes = $proto->nodes($model);
+	
+	my $xc = XML::LibXML::XPathContext->new($dom);
+	$xc->registerNs('xhtml', 'http://www.w3.org/1999/xhtml');
+	my @sites = $xc->findnodes($proto->injection_site);
+	
+	die "No suitable place to inject this document." unless @sites;
+	
+	$sites[0]->appendChild($_) foreach @nodes;
+	return $dom;
+}
+
+sub create_document
+{
+	my ($proto, $model) = @_;
+	my $self = (ref $proto) ? $proto : $proto->new;
+	
+	my $html = sprintf(<<HTML, ($self->{'version'}||'1.0'), ($self->{'title'} || 'RDFa Document'), ref $self);
+<html xmlns="http://www.w3.org/1999/xhtml" version="XHTML+RDFa %1\$s">
+<head profile="http://www.w3.org/1999/xhtml/vocab">
+<title>%2\$s</title>
+<meta nane="generator" value="%3\$s" />
+</head>
+<body />
+</html>
+HTML
+
+	return $proto->inject_document($html, $model);
+}
+
+sub _get_dom
+{
+	my ($proto, $html) = @_;
+	
+	return $html if UNIVERSAL::isa($html, 'XML::LibXML::Document');
+	
+	my $p = XML::LibXML->new;
+	return $p->parse_string($html);
 }
 
 sub nodes
@@ -98,7 +148,7 @@ sub _process_subject
 	if ($st->subject->is_resource) 
 		{ $node->setAttribute('about', $st->subject->uri); }
 	else
-		{ $node->setAttribute('about', '_:'.$st->subject->blank_identifier); }
+		{ $node->setAttribute('about', '[_:'.$st->subject->blank_identifier.']'); }
 	
 	return $self;
 }
@@ -163,7 +213,7 @@ sub _process_object
 	}
 	elsif ($st->object->is_blank)
 	{
-		$node->setAttribute('resource', '_:'.$st->object->blank_identifier);
+		$node->setAttribute('resource', '[_:'.$st->object->blank_identifier.']');
 		return $self;
 	}
 	

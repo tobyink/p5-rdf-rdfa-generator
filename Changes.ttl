@@ -23,7 +23,7 @@
 my:v_0-01
 
 	a               :Version ;
-	dc:issued       "2010-06-01"^^xsd:date ;
+	dc:issued       "2010-05-09"^^xsd:date ;
 	:revision       "0.01"^^xsd:string ;
 	:file-release   <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.01.tar.gz> ;
 	rdfs:comment    "Original version"@en .

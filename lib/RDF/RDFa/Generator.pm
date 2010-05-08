@@ -18,6 +18,16 @@ our $VERSION = '0.01';
 use RDF::RDFa::Generator::HTML::Head;
 use RDF::RDFa::Generator::HTML::Hidden;
 use RDF::RDFa::Generator::HTML::Pretty;
+use RDF::Trine;
+
+BEGIN
+{
+	$RDF::Trine::Serializer::serializer_names{ 'rdfa' }   = __PACKAGE__;
+	foreach my $type (qw(application/xhtml+xml text/html))
+	{
+		$RDF::Trine::Serializer::media_types{ $type }   = __PACKAGE__;
+	}
+}
 
 =head1 DESCRIPTION
 
@@ -25,9 +35,9 @@ use RDF::RDFa::Generator::HTML::Pretty;
 
 =over 4
 
-=item C<< $gen = RDF::RDFa::Generator->new($type, %options) >>
+=item C<< $gen = RDF::RDFa::Generator->new(style => $style, %options) >>
 
-Creates a new generator object. Type is one of the following case-sensitive strings:
+Creates a new generator object. $style is one of the following case-sensitive strings:
 'HTML::Head' (the default), 'HTML::Hidden' or 'HTML::Pretty'. You can also construct
 an object like this:
 
@@ -57,9 +67,8 @@ Options include:
 
 sub new
 {
-	my ($class, $implementation, %opts) = @_;
-	$implementation ||= 'HTML::Head';
-	$implementation = sprintf('%s::%s', __PACKAGE__, $implementation);
+	my ($class, %opts) = @_;
+	my $implementation = sprintf('%s::%s', __PACKAGE__, $opts{'style'} || 'HTML::Head');
 	return $implementation->new(%opts);
 }
 
@@ -132,11 +141,51 @@ sub nodes
 	return $self->nodes(@_);
 }
 
+=back
+
+Additionally the methods C<serialize_model_to_file>, C<serialize_model_to_string>,
+C<serialize_iterator_to_file> and C<serialize_iterator_to_string> are provided for
+compatibility with the L<RDF::Trine::Serializer> interface.
+
+=cut
+
+sub serialize_model_to_string
+{
+	my ($proto, $model) = @_;
+	return $proto->create_document($model)->toString;
+}
+
+sub serialize_model_to_file
+{
+	my ($proto, $fh, $model) = @_;
+	print {$fh} $proto->create_document($model)->toString;
+}
+
+sub serialize_iterator_to_string
+{
+	my ($proto, $iter) = @_;
+	my $model = RDF::Trine::Model->temporary_model;
+	while (my $st = $iter->next)
+	{
+		$model->add_statement($st);
+	}
+	return $proto->serialize_model_to_string($model);
+}
+
+sub serialize_iterator_to_file
+{
+	my ($proto, $fh, $iter) = @_;
+	my $model = RDF::Trine::Model->temporary_model;
+	while (my $st = $iter->next)
+	{
+		$model->add_statement($st);
+	}
+	return $proto->serialize_model_to_file($fh, $model);
+}
+
 1;
 
 __END__
-
-=back
 
 =head1 BUGS
 
@@ -160,7 +209,10 @@ This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.8 or,
 at your option, any later version of Perl 5 you may have available.
 
-TODO: check image licences are proper.
+=head2 Icons
+
+The icons in RDF::RDFa::Generator::HTML::Pretty are taken from the
+Tango Project.
 
 =cut
 

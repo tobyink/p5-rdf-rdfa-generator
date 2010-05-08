@@ -1,7 +1,7 @@
 use lib "lib";
 
 use RDF::TrineShortcuts;
-use RDF::RDFa::Generator::HTML::Pretty;
+use RDF::RDFa::Generator;
 
 my $graph = rdf_parse(<<TURTLE, type=>'turtle');
 
@@ -22,5 +22,5 @@ my $graph = rdf_parse(<<TURTLE, type=>'turtle');
 
 TURTLE
 
-print RDF::RDFa::Generator::HTML::Hidden->create_document($graph)->toString;
+print RDF::RDFa::Generator->new(style=>'HTML::Pretty')->create_document($graph)->toString;
 

@@ -3,7 +3,7 @@ use warnings;
 
 use inc::Module::Install;
 
-my $dist = 'Example-Example';
+my $dist = 'RDF-RDFa-Generator';
 my $fn   = "lib/$dist.pm"; $fn =~ s#-#/#g;
 
 name                $dist;
@@ -16,11 +16,9 @@ license             'perl';
 
 test_requires       'Test::More' => '0.61';
 
-requires            'Carp'               => '1.00';
-requires            'DateTime'           => 0;
+requires            'common::sense'      => 0;
 requires            'RDF::Trine'         => '0.112';
 requires            'XML::LibXML'        => '1.60';
-requires            'URI'                => '1.30';
 
 # install_script 'fingerw';
 

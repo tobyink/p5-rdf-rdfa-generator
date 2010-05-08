@@ -7,6 +7,27 @@ MANIFEST.SKIP
 README
 META.yml
 SIGNATURE
+TODO
 
 t/00sig.t
 t/01basic.t
+
+lib/RDF/RDFa/Generator.pm
+lib/RDF/RDFa/Generator/HTML/Pretty.pm
+lib/RDF/RDFa/Generator/HTML/Head.pm
+lib/RDF/RDFa/Generator/HTML/Hidden.pm
+
+inc/Module/AutoInstall.pm
+inc/Module/Install/AutoInstall.pm
+inc/Module/Install/Base.pm
+inc/Module/Install/Can.pm
+inc/Module/Install/DOAPChangeSets.pm
+inc/Module/Install/Fetch.pm
+inc/Module/Install/Include.pm
+inc/Module/Install/Makefile.pm
+inc/Module/Install/Metadata.pm
+inc/Module/Install.pm
+inc/Module/Install/ReadmeFromPod.pm
+inc/Module/Install/Win32.pm
+inc/Module/Install/WriteAll.pm
+inc/Test/Signature.pm

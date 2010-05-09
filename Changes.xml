@@ -16,7 +16,7 @@
     <dc:title>Changes</dc:title>
   </rdf:Description>
   <Version rdf:about="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-01">
-    <dc:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2010-06-01</dc:issued>
+    <dc:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2010-05-09</dc:issued>
     <file-release rdf:resource="http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.01.tar.gz"/>
     <revision rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.01</revision>
     <rdfs:comment xml:lang="en">Original version</rdfs:comment>

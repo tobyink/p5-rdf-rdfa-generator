@@ -6,8 +6,8 @@ VERSION
 
 DESCRIPTION
   Constructor
-    "$gen = RDF::RDFa::Generator->new($type, %options)"
-        Creates a new generator object. Type is one of the following
+    "$gen = RDF::RDFa::Generator->new(style => $style, %options)"
+        Creates a new generator object. $style is one of the following
         case-sensitive strings: 'HTML::Head' (the default), 'HTML::Hidden'
         or 'HTML::Pretty'. You can also construct an object like this:
 
@@ -75,6 +75,11 @@ DESCRIPTION
         Can also be called as a class method. See "create_document" for
         details.
 
+    Additionally the methods "serialize_model_to_file",
+    "serialize_model_to_string", "serialize_iterator_to_file" and
+    "serialize_iterator_to_string" are provided for compatibility with the
+    RDF::Trine::Serializer interface.
+
 BUGS
     Please report any bugs to <http://rt.cpan.org/>.
 
@@ -93,5 +98,7 @@ COPYRIGHT AND LICENCE
     under the same terms as Perl itself, either Perl version 5.8 or, at your
     option, any later version of Perl 5 you may have available.
 
-    TODO: check image licences are proper.
+  Icons
+    The icons in RDF::RDFa::Generator::HTML::Pretty are taken from the Tango
+    Project.
 

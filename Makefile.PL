@@ -17,6 +17,7 @@ license             'perl';
 test_requires       'Test::More' => '0.61';
 
 requires            'common::sense'      => 0;
+requires            'Icon::FamFamFam::Silk' => 0;
 requires            'RDF::Trine'         => '0.112';
 requires            'XML::LibXML'        => '1.60';
 

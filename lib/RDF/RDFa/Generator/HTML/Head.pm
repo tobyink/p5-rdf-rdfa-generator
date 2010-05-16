@@ -26,9 +26,9 @@ sub injection_site
 
 sub inject_document
 {
-	my ($proto, $html, $model) = @_;
+	my ($proto, $html, $model, %opts) = @_;
 	my $dom   = $proto->_get_dom($html);
-	my @nodes = $proto->nodes($model);
+	my @nodes = $proto->nodes($model, %opts);
 	
 	my $xc = XML::LibXML::XPathContext->new($dom);
 	$xc->registerNs('xhtml', 'http://www.w3.org/1999/xhtml');
@@ -42,7 +42,7 @@ sub inject_document
 
 sub create_document
 {
-	my ($proto, $model) = @_;
+	my ($proto, $model, %opts) = @_;
 	my $self = (ref $proto) ? $proto : $proto->new;
 	
 	my $html = sprintf(<<HTML, ($self->{'version'}||'1.0'), ($self->{'title'} || 'RDFa Document'), ref $self);
@@ -55,7 +55,7 @@ sub create_document
 </html>
 HTML
 
-	return $proto->inject_document($html, $model);
+	return $proto->inject_document($html, $model, %opts);
 }
 
 sub _get_dom

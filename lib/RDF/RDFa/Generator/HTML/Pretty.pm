@@ -5,11 +5,12 @@ use base qw'RDF::RDFa::Generator::HTML::Hidden';
 use common::sense;
 use constant XHTML_NS => 'http://www.w3.org/1999/xhtml';
 use Icon::FamFamFam::Silk;
+use RDF::RDFa::Generator::HTML::Pretty::Note;
 use XML::LibXML qw':all';
 
 sub create_document
 {
-	my ($proto, $model) = @_;
+	my ($proto, $model, %opts) = @_;
 	my $self = (ref $proto) ? $proto : $proto->new;
 	
 	my $html = sprintf(<<HTML, ($self->{'version'}||'1.0'), ($self->{'title'} || 'RDFa Document'), ref $self);
@@ -25,12 +26,12 @@ sub create_document
 </html>
 HTML
 
-	return $proto->inject_document($html, $model);
+	return $proto->inject_document($html, $model, %opts);
 }
 
 sub nodes
 {
-	my ($proto, $model) = @_;
+	my ($proto, $model, %opts) = @_;
 	my $self = (ref $proto) ? $proto : $proto->new;
 	
 	my $stream = $self->_get_stream($model);
@@ -57,10 +58,10 @@ sub nodes
 		$self->_resource_heading($subjects->{$s}->[0]->subject, $subject_node, $subjects->{$s}, $prefixes);
 		$self->_resource_classes($subjects->{$s}->[0]->subject, $subject_node, $subjects->{$s}, $prefixes);
 		$self->_resource_statements($subjects->{$s}->[0]->subject, $subject_node, $subjects->{$s}, $prefixes);
-		## TODO Query $model for statements that act as special notes for the subject (in a separate graph)
-		#$self->_resource_notes($subjects->{$s}->[0]->subject, $subject_node, $model);
+		$self->_resource_notes($subjects->{$s}->[0]->subject, $subject_node, $model, $opts{'notes_heading'}||'Notes', $opts{'notes'})
+			if defined $opts{'notes'};
 	}
-	
+
 	if ($self->{'version'} == 1.1
 	and $self->{'prefix_attr'})
 	{
@@ -99,10 +100,6 @@ sub _resource_heading
 	
 	return $self;
 }
-
-## TODO
-## <span rel="rdf:type"><img about="[foaf:Person]" src="fsfwfwfr.png"
-##                           title="http://xmlns.com/foaf/0.1/Person" /></span>
 
 sub _resource_classes
 {
@@ -215,9 +212,42 @@ sub _resource_statements
 	return $self;
 }
 
+sub _resource_notes
+{
+	my ($self, $subject, $node, $model, $notes_heading, $notes) = @_;
+	
+	my @relevant;
+	
+	foreach my $note (@$notes)
+	{
+		push @relevant, $note
+			if $note->is_relevant_to($subject);
+	}
+	
+	if (@relevant)
+	{
+		my $heading = $node->addNewChild(XHTML_NS, 'h4');
+		$heading->appendTextNode($notes_heading || 'Notes');
+
+		my $list = $node->addNewChild(XHTML_NS, 'ul');
+
+		foreach my $note (@relevant)
+		{
+			$list->appendChild( $note->node(XHTML_NS, 'li') );
+		}
+	}
+	
+	return $self;
+}
+
 sub _img
 {
 	my ($self, $type) = @_;
+	
+	if ($type eq 'urn:x-rdf-rdfa-linter:internals:OpenGraphProtocolNode')
+	{
+		return 'data:image/png;charset=binary;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAIAAACQkWg2AAAAAXNSR0IArs4c6QAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9oFEBYGBzcdoOEAAALhSURBVCjPJdLfb4trHADw7/d53nbr2661X9ZV29mE/VLMYplwchwnmCziR7iSEHbpQnAj7lxJJBIhJELcSBAh50iErAcJ2wnLRrJstQXdL7Sbtmpv173P3vd9nq8Ln7/hg3/t6BJCAEB9Q/2Na1d8Xt1YmsuaSVsKn7u6Sl/lZjoAIiIAEJG2aJpSyi2dnceOH87I4UfD12fyw7aJ0mIu3fHqZbHa7s4VxwLuECJDRA0Bund3vXz1cmWCjMyzz33uz31e4zsCANcg2Kimtz8Ya32xv+VC1N/BkPM//tzW03MEArN3b/1X6vJ8G+VKYmWUwjEyC8A0TPa7hVjMlsUbKjf7S2r4m//7YVl6sHB56q1uzGJkPYkC1HdQrEulxrAiAkgwMaC5y5ac6kRrdbfm83kfj9yYGtK4BvUdKhFnjENmEhbnubQwEcdwTK3rVh96S0KxkanIG61o56fyQzNDnrU7VfPf0jQwO4luDy1kcVmI5mehba8Mr6Ovw2wuoY83xrW8mHEslf+KP9P4/l+emUQ9QBURUJJsAVzDj694bpqQQW6GZcykJpUgQMeC+TQgQ2GAcjA1BqBAOuDYkE+hJcAyQdoglaWVuYPIHV8l1bVTzRo18pRbJoRalFVEZJCbxtadMhyj3kuat1L5Sqo1f0ltuR6qaTRSH7C2BQpZNGbBsTgiWSYW81j8gQs5MjK44YAT9W9iHF0bQwcbti6kEqzvJrcFlAagrl1tOSq95RQI0qd+9uKqFmpWVVG+KXyIAWBb8FBT0+rYHpGbZv7l5KugQgYKGSzmMdhITduULUDSUlfzmYf34khERJQujj4YPTk+mB154jHm0OUh7oKlAgKDtr2yPCpe34YTPacGBt4hEf1umBMTzycvJr68zk2UZpPMsdBbTsEWq2pF6a7m02ay7uy587Zto1Lqd10AcJSVLo6OZ3u/L35ylPC5qiL+9rbQvn8ePr9z9346lXKk/AUjmnS/afx+BwAAAABJRU5ErkJggg==';
+	}
 	
 	my $icons = {
 		'http://xmlns.com/foaf/0.1/Document'                   => 'page_white_text',

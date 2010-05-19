@@ -13,9 +13,10 @@ t/00sig.t
 t/01basic.t
 
 lib/RDF/RDFa/Generator.pm
-lib/RDF/RDFa/Generator/HTML/Pretty.pm
 lib/RDF/RDFa/Generator/HTML/Head.pm
 lib/RDF/RDFa/Generator/HTML/Hidden.pm
+lib/RDF/RDFa/Generator/HTML/Pretty.pm
+lib/RDF/RDFa/Generator/HTML/Pretty/Note.pm
 
 inc/Module/AutoInstall.pm
 inc/Module/Install/AutoInstall.pm

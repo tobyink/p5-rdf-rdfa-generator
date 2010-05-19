@@ -28,6 +28,18 @@ my:v_0-01
 	:file-release   <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.01.tar.gz> ;
 	rdfs:comment    "Original version"@en .
 
+my:v_0-02
+
+	a               :Version ;
+	dc:issued       "2010-05-18"^^xsd:date ;
+	:revision       "0.02"^^xsd:string ;
+	:file-release   <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.02.tar.gz> ;
+	dcs:changeset [
+			dcs:versus my:v_0-01 ;
+			dcs:item [ rdfs:label "Using FamFamFam Silk icons."@en ] ;
+			dcs:item [ rdfs:label "HTML::Pretty can now include additional textual notes in the output. This functionality added for RDF::RDFa::Linter."@en ; a dcs:Addition ]
+		] .
+
 #############################################################
 
 my:project
@@ -46,7 +58,7 @@ my:project
 	:tester         toby:i ;
 	:created        "2010-05-05"^^xsd:date ;
 	:license        <http://dev.perl.org/licenses/> ;
-	:release        my:v_0-01 .
+	:release        my:v_0-01 , my:v_0-02 .
 
 #############################################################
 

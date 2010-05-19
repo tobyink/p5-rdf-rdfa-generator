@@ -4,7 +4,7 @@ RDF::RDFa::Generator - generate some data in RDFa
 
 =head1 VERSION
 
-0.01
+0.02
 
 =cut
 
@@ -13,7 +13,7 @@ package RDF::RDFa::Generator;
 use 5.008;
 use common::sense;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use RDF::RDFa::Generator::HTML::Head;
 use RDF::RDFa::Generator::HTML::Hidden;
@@ -132,6 +132,13 @@ a list of such elements.
 
 Can also be called as a class method. See C<create_document> for details.
 
+The HTML::Pretty generator can be passed a couple of additional options:
+
+  $gen->nodes($model, notes_heading=>'Additional Info', notes=>\@notes);
+
+The notes are a list of RDF::RDFa::Generator::HTML::Pretty::Note objects
+which are added as notes to the end of each subject's data.
+
 =cut
 
 sub nodes
@@ -211,8 +218,8 @@ at your option, any later version of Perl 5 you may have available.
 
 =head2 Icons
 
-The icons in RDF::RDFa::Generator::HTML::Pretty are taken from the
-Tango Project.
+RDF::RDFa::Generator::HTML::Pretty uses the FamFamFam Silk icons;
+see L<http://famfamfam.com/lab/icons/silk/>.
 
 =cut
 

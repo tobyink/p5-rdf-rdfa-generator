@@ -2,7 +2,7 @@ NAME
     RDF::RDFa::Generator - generate some data in RDFa
 
 VERSION
-    0.01
+    0.02
 
 DESCRIPTION
   Constructor
@@ -75,6 +75,14 @@ DESCRIPTION
         Can also be called as a class method. See "create_document" for
         details.
 
+        The HTML::Pretty generator can be passed a couple of additional
+        options:
+
+          $gen->nodes($model, notes_heading=>'Additional Info', notes=>\@notes);
+
+        The notes are a list of RDF::RDFa::Generator::HTML::Pretty::Note
+        objects which are added as notes to the end of each subject's data.
+
     Additionally the methods "serialize_model_to_file",
     "serialize_model_to_string", "serialize_iterator_to_file" and
     "serialize_iterator_to_string" are provided for compatibility with the
@@ -99,6 +107,6 @@ COPYRIGHT AND LICENCE
     option, any later version of Perl 5 you may have available.
 
   Icons
-    The icons in RDF::RDFa::Generator::HTML::Pretty are taken from the Tango
-    Project.
+    RDF::RDFa::Generator::HTML::Pretty uses the FamFamFam Silk icons; see
+    <http://famfamfam.com/lab/icons/silk/>.
 

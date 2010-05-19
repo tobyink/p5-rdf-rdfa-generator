@@ -8,6 +8,8 @@ use Icon::FamFamFam::Silk;
 use RDF::RDFa::Generator::HTML::Pretty::Note;
 use XML::LibXML qw':all';
 
+our $VERSION = '0.03';
+
 sub create_document
 {
 	my ($proto, $model, %opts) = @_;
@@ -189,6 +191,17 @@ sub _resource_statements
 			$DD->setAttribute('class', 'plain-literal');
 			$DD->setAttribute('xml:lang',  $st->object->literal_value_language);
 			$DD->appendTextNode($st->object->literal_value);
+		}
+		elsif ($self->{'safe_xml_literals'}
+		&& $st->object->is_literal
+		&& $st->object->has_datatype
+		&& $st->object->literal_datatype eq 'http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral')
+		{
+			$DD->setAttribute('property',  $self->_make_curie($st->predicate->uri, $prefixes));
+			$DD->setAttribute('class', 'typed-literal datatype-xmlliteral');
+			$DD->setAttribute('datatype',  $self->_make_curie($st->object->literal_datatype, $prefixes));
+			$DD->setAttribute('content', $st->object->literal_value);
+			$DD->addNewChild(XHTML_NS, 'pre')->addNewChild(XHTML_NS, 'code')->appendTextNode($st->object->literal_value);
 		}
 		elsif ($st->object->is_literal
 		&& $st->object->has_datatype

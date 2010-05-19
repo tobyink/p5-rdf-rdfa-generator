@@ -40,6 +40,18 @@ my:v_0-02
 			dcs:item [ rdfs:label "HTML::Pretty can now include additional textual notes in the output. This functionality added for RDF::RDFa::Linter."@en ; a dcs:Addition ]
 		] .
 
+my:v_0-03
+
+	a               :Version ;
+	dc:issued       "2010-05-19"^^xsd:date ;
+	:revision       "0.03"^^xsd:string ;
+	:file-release   <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.03.tar.gz> ;
+	dcs:changeset [
+			dcs:versus my:v_0-02 ;
+			dcs:item [ rdfs:label "HTML::Pretty Fallback to sorting by object now works."@en ; a dcs:Bugfix ] ;
+			dcs:item [ rdfs:label "HTML::Pretty can now force safe HTML (prevents injection attacks)."@en ; a dcs:Addition ]
+		] .
+
 #############################################################
 
 my:project
@@ -58,7 +70,7 @@ my:project
 	:tester         toby:i ;
 	:created        "2010-05-05"^^xsd:date ;
 	:license        <http://dev.perl.org/licenses/> ;
-	:release        my:v_0-01 , my:v_0-02 .
+	:release        my:v_0-01 , my:v_0-02 , my:v_0-03 .
 
 #############################################################
 

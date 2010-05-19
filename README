@@ -2,7 +2,7 @@ NAME
     RDF::RDFa::Generator - generate some data in RDFa
 
 VERSION
-    0.02
+    0.03
 
 DESCRIPTION
   Constructor
@@ -28,6 +28,9 @@ DESCRIPTION
 
         *   prefix_attr - use the @prefix attribute for CURIE prefixes (RDFa
             1.1 only). Boolean, defaults to false.
+
+        *   safe_xml_literals - prevents XML literals from injecting
+            arbitrary XHTML into the output. Boolean, defaults to FALSE.
 
         *   title - assign a <title> element for generated XHTML documents.
 

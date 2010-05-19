@@ -5,6 +5,8 @@ use base qw'RDF::RDFa::Generator';
 use common::sense;
 use XML::LibXML qw':all';
 
+our $VERSION = '0.03';
+
 sub new
 {
 	my ($class, %opts) = @_;

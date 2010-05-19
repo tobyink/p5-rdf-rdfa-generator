@@ -4,7 +4,7 @@ RDF::RDFa::Generator - generate some data in RDFa
 
 =head1 VERSION
 
-0.02
+0.03
 
 =cut
 
@@ -13,7 +13,7 @@ package RDF::RDFa::Generator;
 use 5.008;
 use common::sense;
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 use RDF::RDFa::Generator::HTML::Head;
 use RDF::RDFa::Generator::HTML::Hidden;
@@ -54,6 +54,8 @@ Options include:
 =item * B<ns> - a {uri=>prefix} hashref of preferred CURIE prefixes. There are already some defaults, and if you clash with them BAD THINGS will happen.
 
 =item * B<prefix_attr> - use the @prefix attribute for CURIE prefixes (RDFa 1.1 only).  Boolean, defaults to false.
+
+=item * B<safe_xml_literals> - prevents XML literals from injecting arbitrary XHTML into the output. Boolean, B<defaults to FALSE>.
 
 =item * B<title> - assign a <title> element for generated XHTML documents.
 

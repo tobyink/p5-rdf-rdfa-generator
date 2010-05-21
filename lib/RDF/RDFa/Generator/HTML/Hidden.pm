@@ -5,7 +5,7 @@ use base qw'RDF::RDFa::Generator::HTML::Head';
 use common::sense;
 use XML::LibXML qw':all';
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 sub injection_site
 {
@@ -85,9 +85,9 @@ sub _process_subject
 	if (defined $self->{'base'} 
 	and $st->subject->is_resource
 	and $st->subject->uri eq $self->{'base'})
-		{ $node->setAttribute('src', ''); }
+		{ $node->setAttribute('about', ''); }
 	elsif ($st->subject->is_resource) 
-		{ $node->setAttribute('src', $st->subject->uri); }
+		{ $node->setAttribute('about', $st->subject->uri); }
 	else
 		{ $node->setAttribute('about', '[_:'.$st->subject->blank_identifier.']'); }
 	

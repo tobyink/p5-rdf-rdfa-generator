@@ -8,7 +8,7 @@ use Icon::FamFamFam::Silk;
 use RDF::RDFa::Generator::HTML::Pretty::Note;
 use XML::LibXML qw':all';
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 sub create_document
 {
@@ -166,7 +166,16 @@ sub _resource_statements
 		
 		my $DD = $DL->addNewChild(XHTML_NS, 'dd');
 		
-		if ($st->object->is_resource)
+		if ($st->object->is_resource && $st->object->uri =~ /^javascript:/i)
+		{
+			$DD->setAttribute('rel',  $self->_make_curie($st->predicate->uri, $prefixes));
+			$DD->setAttribute('class', 'resource');
+			
+			my $A = $DD->addNewChild(XHTML_NS, 'span');
+			$A->setAttribute('about', $st->object->uri);
+			$A->appendTextNode($st->object->uri);
+		}
+		elsif ($st->object->is_resource)
 		{
 			$DD->setAttribute('rel',  $self->_make_curie($st->predicate->uri, $prefixes));
 			$DD->setAttribute('class', 'resource');

@@ -52,6 +52,18 @@ my:v_0-03
 			dcs:item [ rdfs:label "HTML::Pretty can now force safe HTML (prevents injection attacks)."@en ; a dcs:Addition ]
 		] .
 
+my:v_0-04
+
+	a               :Version ;
+	dc:issued       "2010-05-21"^^xsd:date ;
+	:revision       "0.04"^^xsd:string ;
+	:file-release   <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.04.tar.gz> ;
+	dcs:changeset [
+			dcs:versus my:v_0-03 ;
+			dcs:item [ rdfs:label "HTML::Hidden and HTML::Pretty now use @about instead of @src to set the subject URI."@en ] ;
+			dcs:item [ rdfs:label "HTML::Pretty no longer makes 'javascript:' URLs into links."@en ]
+		] .
+
 #############################################################
 
 my:project
@@ -70,7 +82,7 @@ my:project
 	:tester         toby:i ;
 	:created        "2010-05-05"^^xsd:date ;
 	:license        <http://dev.perl.org/licenses/> ;
-	:release        my:v_0-01 , my:v_0-02 , my:v_0-03 .
+	:release        my:v_0-01 , my:v_0-02 , my:v_0-03 , my:v_0-04 .
 
 #############################################################
 
@@ -80,6 +92,7 @@ toby:i
 	foaf:name       "Toby Inkster" ;
 	foaf:homepage   <http://tobyinkster.co.uk/> ;
 	foaf:page       <http://search.cpan.org/~tobyink/> ;
-	foaf:mbox       <mailto:tobyink@cpan.org> .
+	foaf:mbox       <mailto:tobyink@cpan.org> ;
+	<http://www.w3.org/2002/07/owl#sameAs> <http://purl.org/NET/cpan-uri/person/tobyink> .
 
 #############################################################

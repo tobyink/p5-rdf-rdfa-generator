@@ -10,10 +10,20 @@ Home page:    <http://search.cpan.org/dist/RDF-RDFa-Generator/>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=RDF-RDFa-Generator>
 Maintainer:   Toby Inkster <mailto:tobyink@cpan.org>
 
+0.04 [2010-05-21]
+ - HTML::Pretty no longer makes 'javascript:' URLs into links.
+ - HTML::Hidden and HTML::Pretty now use @about instead of @src to set the
+   subject URI.
+
+0.03 [2010-05-19]
+ - (Addition) HTML::Pretty can now force safe HTML (prevents injection
+   attacks).
+ - (Bugfix) HTML::Pretty Fallback to sorting by object now works.
+
 0.02 [2010-05-18]
- - Using FamFamFam Silk icons.
  - (Addition) HTML::Pretty can now include additional textual notes in the
    output. This functionality added for RDF::RDFa::Linter.
+ - Using FamFamFam Silk icons.
 
 0.01 [2010-05-09]
 

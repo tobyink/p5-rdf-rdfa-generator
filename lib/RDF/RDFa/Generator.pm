@@ -13,7 +13,7 @@ package RDF::RDFa::Generator;
 use 5.008;
 use common::sense;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 use RDF::RDFa::Generator::HTML::Head;
 use RDF::RDFa::Generator::HTML::Hidden;

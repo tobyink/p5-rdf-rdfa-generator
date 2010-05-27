@@ -3,6 +3,7 @@ package RDF::RDFa::Generator::HTML::Head;
 use 5.008;
 use base qw'RDF::RDFa::Generator';
 use common::sense;
+use Encode qw'encode_utf8';
 use XML::LibXML qw':all';
 
 our $VERSION = '0.04';
@@ -219,7 +220,7 @@ sub _process_object
 		return $self;
 	}
 	
-	$node->setAttribute('content',  $st->object->literal_value);
+	$node->setAttribute('content',  encode_utf8($st->object->literal_value));
 	
 	if (defined $st->object->literal_datatype)
 	{

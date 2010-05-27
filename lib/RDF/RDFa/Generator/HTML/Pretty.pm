@@ -4,6 +4,7 @@ use 5.008;
 use base qw'RDF::RDFa::Generator::HTML::Hidden';
 use common::sense;
 use constant XHTML_NS => 'http://www.w3.org/1999/xhtml';
+use Encode qw'encode_utf8';
 use Icon::FamFamFam::Silk;
 use RDF::RDFa::Generator::HTML::Pretty::Note;
 use XML::LibXML qw':all';
@@ -199,7 +200,7 @@ sub _resource_statements
 			$DD->setAttribute('property',  $self->_make_curie($st->predicate->uri, $prefixes));
 			$DD->setAttribute('class', 'plain-literal');
 			$DD->setAttribute('xml:lang',  $st->object->literal_value_language);
-			$DD->appendTextNode($st->object->literal_value);
+			$DD->appendTextNode(encode_utf8($st->object->literal_value));
 		}
 		elsif ($self->{'safe_xml_literals'}
 		&& $st->object->is_literal
@@ -209,8 +210,8 @@ sub _resource_statements
 			$DD->setAttribute('property',  $self->_make_curie($st->predicate->uri, $prefixes));
 			$DD->setAttribute('class', 'typed-literal datatype-xmlliteral');
 			$DD->setAttribute('datatype',  $self->_make_curie($st->object->literal_datatype, $prefixes));
-			$DD->setAttribute('content', $st->object->literal_value);
-			$DD->addNewChild(XHTML_NS, 'pre')->addNewChild(XHTML_NS, 'code')->appendTextNode($st->object->literal_value);
+			$DD->setAttribute('content', encode_utf8($st->object->literal_value));
+			$DD->addNewChild(XHTML_NS, 'pre')->addNewChild(XHTML_NS, 'code')->appendTextNode(encode_utf8($st->object->literal_value));
 		}
 		elsif ($st->object->is_literal
 		&& $st->object->has_datatype
@@ -219,7 +220,7 @@ sub _resource_statements
 			$DD->setAttribute('property',  $self->_make_curie($st->predicate->uri, $prefixes));
 			$DD->setAttribute('class', 'typed-literal datatype-xmlliteral');
 			$DD->setAttribute('datatype',  $self->_make_curie($st->object->literal_datatype, $prefixes));
-			$DD->appendWellBalancedChunk($st->object->literal_value);
+			$DD->appendWellBalancedChunk(encode_utf8($st->object->literal_value));
 		}
 		elsif ($st->object->is_literal
 		&& $st->object->has_datatype)
@@ -227,7 +228,7 @@ sub _resource_statements
 			$DD->setAttribute('property',  $self->_make_curie($st->predicate->uri, $prefixes));
 			$DD->setAttribute('class', 'typed-literal');
 			$DD->setAttribute('datatype',  $self->_make_curie($st->object->literal_datatype, $prefixes));
-			$DD->appendTextNode($st->object->literal_value);
+			$DD->appendTextNode(encode_utf8($st->object->literal_value));
 		}
 	}
 	

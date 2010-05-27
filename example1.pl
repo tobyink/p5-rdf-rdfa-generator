@@ -18,6 +18,7 @@ my $graph = rdf_parse(<<TURTLE, type=>'turtle');
 		foaf:name "Joe Bloggs" ;
 		foaf:plan "To conquer the world!"\@en
 	] ;
+	foaf:utf8 "fæces" ;
 	foaf:segment "Hello <b xmlns='http://www.w3.org/1999/xhtml'>World</b>"^^rdf:XMLLiteral .
 
 TURTLE

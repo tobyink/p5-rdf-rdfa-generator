@@ -5,7 +5,7 @@ use base qw'RDF::RDFa::Generator::HTML::Head';
 use common::sense;
 use XML::LibXML qw':all';
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 sub injection_site
 {

@@ -64,6 +64,17 @@ my:v_0-04
 			dcs:item [ rdfs:label "HTML::Pretty no longer makes 'javascript:' URLs into links."@en ]
 		] .
 
+my:v_0-05
+
+	a               :Version ;
+	dc:issued       "2010-05-27"^^xsd:date ;
+	:revision       "0.05"^^xsd:string ;
+	:file-release   <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.05.tar.gz> ;
+	dcs:changeset [
+			dcs:versus my:v_0-04 ;
+			dcs:item [ rdfs:label "UTF-8 fixes."@en ; a dcs:Bugfix ]
+		] .
+
 #############################################################
 
 my:project
@@ -82,7 +93,7 @@ my:project
 	:tester         toby:i ;
 	:created        "2010-05-05"^^xsd:date ;
 	:license        <http://dev.perl.org/licenses/> ;
-	:release        my:v_0-01 , my:v_0-02 , my:v_0-03 , my:v_0-04 .
+	:release        my:v_0-01 , my:v_0-02 , my:v_0-03 , my:v_0-04 , my:v_0-05 .
 
 #############################################################
 

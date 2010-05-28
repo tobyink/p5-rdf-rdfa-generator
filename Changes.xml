@@ -81,6 +81,21 @@
     <file-release rdf:resource="http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.04.tar.gz"/>
     <revision rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.04</revision>
   </Version>
+  <Version rdf:about="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-05">
+    <dcs:changeset>
+      <rdf:Description>
+        <dcs:item>
+          <dcs:Bugfix>
+            <rdfs:label xml:lang="en">UTF-8 fixes.</rdfs:label>
+          </dcs:Bugfix>
+        </dcs:item>
+        <dcs:versus rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-04"/>
+      </rdf:Description>
+    </dcs:changeset>
+    <dc:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2010-05-27</dc:issued>
+    <file-release rdf:resource="http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.05.tar.gz"/>
+    <revision rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.05</revision>
+  </Version>
   <Project rdf:about="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/project">
     <bug-database rdf:resource="http://rt.cpan.org/Dist/Display.html?Queue=RDF-RDFa-Generator"/>
     <created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2010-05-05</created>
@@ -96,6 +111,7 @@
     <release rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-02"/>
     <release rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-03"/>
     <release rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-04"/>
+    <release rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-05"/>
     <repository>
       <SVNRepository>
         <browse rdf:resource="http://goddamn.co.uk/viewvc/perlmods/RDF-RDFa-Generator/"/>

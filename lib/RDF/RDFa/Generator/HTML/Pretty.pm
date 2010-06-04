@@ -256,7 +256,7 @@ sub _resource_statements
 				my $seealso = $DD->addNewChild(XHTML_NS, 'a');
 				$seealso->setAttribute('about', $st->object->is_resource ? $st->object->uri : '[_:'.$st->object->blank_identifier.']');
 				$seealso->setAttribute('rel', 'seeAlso');
-				$seealso->setAttribute('href', '#'._make_id($st->object->is_resource ? $st->object->uri : $st->object->blank_identifier, $id_prefix));
+				$seealso->setAttribute('href', '#'._make_id($st->object->is_resource ? $st->object->uri : '_:'.$st->object->blank_identifier, $id_prefix));
 				$seealso->appendTextNode($interlink);
 			}
 		}
@@ -274,7 +274,7 @@ sub _resource_statements
 			my $sadata = {};
 			while (my $sast = $iter->next)
 			{
-				my $sas = $sast->subject->is_resource ? $sast->subject->uri : $sast->subject->blank_identifier;
+				my $sas = $sast->subject->is_resource ? $sast->subject->uri : '_:'.$sast->subject->blank_identifier;
 				my $p = $self->_make_curie($sast->predicate->uri, $prefixes);
 				$sadata->{$sas}->{$p} = $sast->predicate->uri;
 			}

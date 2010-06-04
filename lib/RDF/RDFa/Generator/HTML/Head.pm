@@ -6,7 +6,7 @@ use common::sense;
 use Encode qw'encode_utf8';
 use XML::LibXML qw':all';
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 sub new
 {

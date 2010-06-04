@@ -23,5 +23,5 @@ my $graph = rdf_parse(<<TURTLE, type=>'turtle');
 
 TURTLE
 
-print RDF::RDFa::Generator->new(style=>'HTML::Pretty')->create_document($graph)->toString;
-
+my @nodes = RDF::RDFa::Generator->new(style=>'HTML::Pretty')->nodes($graph,id_prefix=>'id-',interlink=>'see also');
+print $_->toString foreach @nodes;

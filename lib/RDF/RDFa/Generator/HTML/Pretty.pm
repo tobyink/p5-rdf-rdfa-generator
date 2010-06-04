@@ -9,7 +9,7 @@ use Icon::FamFamFam::Silk;
 use RDF::RDFa::Generator::HTML::Pretty::Note;
 use XML::LibXML qw':all';
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 sub create_document
 {
@@ -53,14 +53,17 @@ sub nodes
 		push @{ $subjects->{$s} }, $st;
 	}
 	
-	foreach my $s (keys %$subjects)
+	foreach my $s (sort keys %$subjects)
 	{
 		my $subject_node = $root_node->addNewChild(XHTML_NS, 'div');
+		
+		my $id = _make_id($s, $opts{'id_prefix'});
+		$subject_node->setAttribute('id', $id) if defined $id;
 		
 		$self->_process_subject($subjects->{$s}->[0], $subject_node, $prefixes);
 		$self->_resource_heading($subjects->{$s}->[0]->subject, $subject_node, $subjects->{$s}, $prefixes);
 		$self->_resource_classes($subjects->{$s}->[0]->subject, $subject_node, $subjects->{$s}, $prefixes);
-		$self->_resource_statements($subjects->{$s}->[0]->subject, $subject_node, $subjects->{$s}, $prefixes);
+		$self->_resource_statements($subjects->{$s}->[0]->subject, $subject_node, $subjects->{$s}, $prefixes, $opts{'interlink'}||0, $opts{'id_prefix'}, $model);
 		$self->_resource_notes($subjects->{$s}->[0]->subject, $subject_node, $model, $opts{'notes_heading'}||'Notes', $opts{'notes'})
 			if defined $opts{'notes'};
 	}
@@ -91,6 +94,19 @@ sub nodes
 	my $nodelist = XML::LibXML::NodeList->new;
 	$nodelist->push(@nodes);
 	return $nodelist;
+}
+
+sub _make_id
+{
+	my ($ident, $prefix) = @_;
+	
+	if ($prefix =~ /^[A-Za-z][A-Za-z0-9\_\:\.\-]*$/)
+	{
+		$ident =~ s/([^A-Za-z0-9\_\:\.])/sprintf('-%x-',ord($1))/ge;
+		return $prefix . $ident;
+	}
+	
+	return undef;
 }
 
 sub _resource_heading
@@ -139,7 +155,7 @@ sub _resource_classes
 
 sub _resource_statements
 {
-	my ($self, $subject, $node, $statements, $prefixes) = @_;
+	my ($self, $subject, $node, $statements, $prefixes, $interlink, $id_prefix, $model) = @_;
 	
 	my @statements = sort {
 		$a->predicate->uri cmp $b->predicate->uri
@@ -164,34 +180,35 @@ sub _resource_statements
 			$DT->setAttribute('title', $st->predicate->uri);
 			$DT->appendTextNode($self->_make_curie($st->predicate->uri, $prefixes));
 		}
+		$current_property = $st->predicate->uri;
 		
 		my $DD = $DL->addNewChild(XHTML_NS, 'dd');
 		
 		if ($st->object->is_resource && $st->object->uri =~ /^javascript:/i)
 		{
-			$DD->setAttribute('rel',  $self->_make_curie($st->predicate->uri, $prefixes));
 			$DD->setAttribute('class', 'resource');
 			
 			my $A = $DD->addNewChild(XHTML_NS, 'span');
-			$A->setAttribute('about', $st->object->uri);
+			$A->setAttribute('rel',  $self->_make_curie($st->predicate->uri, $prefixes));
+			$A->setAttribute('resource', $st->object->uri);
 			$A->appendTextNode($st->object->uri);
 		}
 		elsif ($st->object->is_resource)
 		{
-			$DD->setAttribute('rel',  $self->_make_curie($st->predicate->uri, $prefixes));
 			$DD->setAttribute('class', 'resource');
 			
 			my $A = $DD->addNewChild(XHTML_NS, 'a');
+			$A->setAttribute('rel',  $self->_make_curie($st->predicate->uri, $prefixes));
 			$A->setAttribute('href', $st->object->uri);
-			$A->appendTextNode($st->object->uri);
+			$A->appendTextNode($st->object->uri);			
 		}
 		elsif ($st->object->is_blank)
 		{
-			$DD->setAttribute('rel',  $self->_make_curie($st->predicate->uri, $prefixes));
 			$DD->setAttribute('class', 'blank');
 			
 			my $A = $DD->addNewChild(XHTML_NS, 'span');
-			$A->setAttribute('about', '[_:'.$st->object->blank_identifier.']');
+			$A->setAttribute('rel',  $self->_make_curie($st->predicate->uri, $prefixes));
+			$A->setAttribute('resource', '[_:'.$st->object->blank_identifier.']');
 			$A->appendTextNode('_:'.$st->object->blank_identifier);
 		}
 		elsif ($st->object->is_literal
@@ -229,6 +246,62 @@ sub _resource_statements
 			$DD->setAttribute('class', 'typed-literal');
 			$DD->setAttribute('datatype',  $self->_make_curie($st->object->literal_datatype, $prefixes));
 			$DD->appendTextNode(encode_utf8($st->object->literal_value));
+		}
+
+		if ($interlink && !$st->object->is_literal)
+		{
+			if ($model->count_statements($st->object, undef, undef))
+			{
+				$DD->appendTextNode(' ');
+				my $seealso = $DD->addNewChild(XHTML_NS, 'a');
+				$seealso->setAttribute('about', $st->object->is_resource ? $st->object->uri : '[_:'.$st->object->blank_identifier.']');
+				$seealso->setAttribute('rel', 'seeAlso');
+				$seealso->setAttribute('href', '#'._make_id($st->object->is_resource ? $st->object->uri : $st->object->blank_identifier, $id_prefix));
+				$seealso->appendTextNode($interlink);
+			}
+		}
+	}
+	
+	if ($interlink)
+	{
+		my $iter = $model->get_statements(undef, undef, $subject);
+		if ($iter->peek)
+		{
+			my $seealsoDT = $DL->addNewChild(XHTML_NS, 'dt');
+			$seealsoDT->setAttribute('class', 'seeAlso');
+			$seealsoDT->appendTextNode($interlink);
+
+			my $sadata = {};
+			while (my $sast = $iter->next)
+			{
+				my $sas = $sast->subject->is_resource ? $sast->subject->uri : $sast->subject->blank_identifier;
+				my $p = $self->_make_curie($sast->predicate->uri, $prefixes);
+				$sadata->{$sas}->{$p} = $sast->predicate->uri;
+			}
+			
+			my $seealso = $DL->addNewChild(XHTML_NS, 'dd');
+			$seealso->setAttribute('class', 'seeAlso');
+			my @keys = sort keys %$sadata;
+			foreach my $sas (@keys)
+			{
+				my $span = $seealso->addNewChild(XHTML_NS, 'span');
+				$span->appendTextNode('is ');
+				my @pkeys = sort keys %{$sadata->{$sas}};
+				foreach my $curie (@pkeys)
+				{
+					my $i = $span->addNewChild(XHTML_NS, 'i');
+					$i->appendTextNode($curie);
+					$i->setAttribute(title => $sadata->{$sas}->{$curie});
+					$seealso->appendTextNode( $curie eq $pkeys[-1] ? '' : ', ' );
+				}
+				$span->appendTextNode(' of ');
+				my $a = $span->addNewChild(XHTML_NS, 'a');
+				$a->setAttribute('about', $sas !~ /^_:/ ? $sas : '[_:'.$sas.']');
+				$a->setAttribute('rel', 'seeAlso');
+				$a->setAttribute('href', '#'._make_id($sas, $id_prefix));
+				$a->appendTextNode($sas);
+				$seealso->appendTextNode( $sas eq $keys[-1] ? '.' : '; ' );
+			}
 		}
 	}
 	

@@ -9,7 +9,7 @@ use Icon::FamFamFam::Silk;
 use RDF::RDFa::Generator::HTML::Pretty::Note;
 use XML::LibXML qw':all';
 
-our $VERSION = '0.06';
+our $VERSION = '0.05';
 
 sub create_document
 {
@@ -292,7 +292,7 @@ sub _resource_statements
 					my $i = $span->addNewChild(XHTML_NS, 'i');
 					$i->appendTextNode($curie);
 					$i->setAttribute(title => $sadata->{$sas}->{$curie});
-					$seealso->appendTextNode( $curie eq $pkeys[-1] ? '' : ', ' );
+					$span->appendTextNode( $curie eq $pkeys[-1] ? '' : ', ' );
 				}
 				$span->appendTextNode(' of ');
 				my $a = $span->addNewChild(XHTML_NS, 'a');

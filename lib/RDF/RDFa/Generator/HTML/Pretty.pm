@@ -9,7 +9,7 @@ use Icon::FamFamFam::Silk;
 use RDF::RDFa::Generator::HTML::Pretty::Note;
 use XML::LibXML qw':all';
 
-our $VERSION = '0.05';
+our $VERSION = '0.100';
 
 sub create_document
 {

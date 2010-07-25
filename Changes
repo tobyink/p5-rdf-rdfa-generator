@@ -10,6 +10,9 @@ Home page:    <http://search.cpan.org/dist/RDF-RDFa-Generator/>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=RDF-RDFa-Generator>
 Maintainer:   Toby Inkster <mailto:tobyink@cpan.org>
 
+0.100 [2010-07-25]
+ - (Addition) HTML::Pretty now includes cross-links to other resources.
+
 0.05 [2010-05-27]
  - (Bugfix) UTF-8 fixes.
 
@@ -24,9 +27,9 @@ Maintainer:   Toby Inkster <mailto:tobyink@cpan.org>
  - (Bugfix) HTML::Pretty Fallback to sorting by object now works.
 
 0.02 [2010-05-18]
+ - Using FamFamFam Silk icons.
  - (Addition) HTML::Pretty can now include additional textual notes in the
    output. This functionality added for RDF::RDFa::Linter.
- - Using FamFamFam Silk icons.
 
 0.01 [2010-05-09]
 

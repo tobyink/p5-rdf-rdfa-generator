@@ -2,10 +2,6 @@
 
 RDF::RDFa::Generator - generate some data in RDFa
 
-=head1 VERSION
-
-0.03
-
 =cut
 
 package RDF::RDFa::Generator;
@@ -13,7 +9,7 @@ package RDF::RDFa::Generator;
 use 5.008;
 use common::sense;
 
-our $VERSION = '0.06';
+our $VERSION = '0.100';
 
 use RDF::RDFa::Generator::HTML::Head;
 use RDF::RDFa::Generator::HTML::Hidden;

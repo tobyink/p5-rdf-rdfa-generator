@@ -1,9 +1,6 @@
 NAME
     RDF::RDFa::Generator - generate some data in RDFa
 
-VERSION
-    0.03
-
 DESCRIPTION
   Constructor
     "$gen = RDF::RDFa::Generator->new(style => $style, %options)"

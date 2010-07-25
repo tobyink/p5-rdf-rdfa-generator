@@ -75,6 +75,17 @@ my:v_0-05
 			dcs:item [ rdfs:label "UTF-8 fixes."@en ; a dcs:Bugfix ]
 		] .
 
+my:v_0-100
+
+	a               :Version ;
+	dc:issued       "2010-07-25"^^xsd:date ;
+	:revision       "0.100"^^xsd:string ;
+	:file-release   <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.100.tar.gz> ;
+	dcs:changeset [
+			dcs:versus my:v_0-05 ;
+			dcs:item [ rdfs:label "HTML::Pretty now includes cross-links to other resources."@en ; a dcs:Addition ]
+		] .
+
 #############################################################
 
 my:project
@@ -93,7 +104,8 @@ my:project
 	:tester         toby:i ;
 	:created        "2010-05-05"^^xsd:date ;
 	:license        <http://dev.perl.org/licenses/> ;
-	:release        my:v_0-01 , my:v_0-02 , my:v_0-03 , my:v_0-04 , my:v_0-05 .
+	:release        my:v_0-01 , my:v_0-02 , my:v_0-03 , my:v_0-04 , my:v_0-05 ,
+	                my:v_0-100 .
 
 #############################################################
 

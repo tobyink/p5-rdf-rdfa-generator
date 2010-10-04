@@ -10,6 +10,12 @@ Home page:    <http://search.cpan.org/dist/RDF-RDFa-Generator/>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=RDF-RDFa-Generator>
 Maintainer:   Toby Inkster <mailto:tobyink@cpan.org>
 
+0.101 [2010-09-06]
+ - (Addition) Icons for a few extra classes.
+ - (Addition) use RDF::Prefixes.
+ - (Addition) Support 'namespaces' option for the constructor, for
+   compatibility with other Trine serialisers.
+
 0.100 [2010-07-25]
  - (Addition) HTML::Pretty now includes cross-links to other resources.
 
@@ -17,9 +23,9 @@ Maintainer:   Toby Inkster <mailto:tobyink@cpan.org>
  - (Bugfix) UTF-8 fixes.
 
 0.04 [2010-05-21]
+ - HTML::Pretty no longer makes 'javascript:' URLs into links.
  - HTML::Hidden and HTML::Pretty now use @about instead of @src to set the
    subject URI.
- - HTML::Pretty no longer makes 'javascript:' URLs into links.
 
 0.03 [2010-05-19]
  - (Addition) HTML::Pretty can now force safe HTML (prevents injection

@@ -9,7 +9,7 @@ use Icon::FamFamFam::Silk;
 use RDF::RDFa::Generator::HTML::Pretty::Note;
 use XML::LibXML qw':all';
 
-our $VERSION = '0.100';
+our $VERSION = '0.101';
 
 sub create_document
 {
@@ -43,7 +43,7 @@ sub nodes
 	my $root_node = XML::LibXML::Element->new('div');
 	$root_node->setNamespace(XHTML_NS, undef, 1);
 	
-	my $prefixes = {};
+	my $prefixes = RDF::Prefixes->new($self->{namespaces});
 	my $subjects = {};
 	while (my $st = $stream->next)
 	{
@@ -68,22 +68,17 @@ sub nodes
 			if defined $opts{'notes'};
 	}
 
+	use Data::Dumper; Dumper($prefixes);
+	
 	if ($self->{'version'} == 1.1
 	and $self->{'prefix_attr'})
 	{
-		my $prefix_string = '';
-		while (my ($u,$p) = each(%$prefixes))
-		{
-			$prefix_string .= sprintf("%s: %s ", $p, $u);
-		}
-		if (length $prefix_string)
-		{
-			$root_node->setAttribute('prefix', $prefix_string);
-		}
+		$root_node->setAttribute('prefix', $prefixes->rdfa)
+			if %$prefixes;
 	}
 	else
 	{
-		while (my ($u,$p) = each(%$prefixes))
+		while (my ($p,$u) = each(%{$prefixes->to_hashref}))
 		{
 			$root_node->setNamespace($u, $p, 0);
 		}
@@ -346,39 +341,61 @@ sub _img
 	}
 	
 	my $icons = {
-		'http://xmlns.com/foaf/0.1/Document'                   => 'page_white_text',
-		'http://xmlns.com/foaf/0.1/Person'                     => 'user',
-		'http://xmlns.com/foaf/0.1/Group'                      => 'group',
-		'http://xmlns.com/foaf/0.1/Organization'               => 'chart_organisation',
-		'http://xmlns.com/foaf/0.1/Image'                      => 'image',
-		'http://www.w3.org/2006/vcard/ns#Vcard'                => 'vcard',
-		'http://www.w3.org/2006/vcard/ns#Address'              => 'house',
-		'http://www.w3.org/2006/vcard/ns#Location'             => 'world', 
-		'http://www.w3.org/2002/12/cal/ical#Vcalendar'         => 'calendar',
-		'http://www.w3.org/2002/12/cal/ical#Vevent'            => 'date',
+		'http://bblfish.net/work/atom-owl/2006-06-06/#Entry'   => 'page_white_link',
+		'http://bblfish.net/work/atom-owl/2006-06-06/#Feed'    => 'feed',
+		'http://commontag.org/ns#AuthorTag'                    => 'tag_green',
+		'http://commontag.org/ns#AutoTag'                      => 'tag_red',
+		'http://commontag.org/ns#ReaderTag'                    => 'tag_yellow',
+		'http://commontag.org/ns#Tag'                          => 'tag_blue',
+		'http://ontologi.es/doap-bugs#Bug'                     => 'bug',
+		'http://purl.org/goodrelations/v1#PriceSpecification'  => 'money',
+		'http://purl.org/NET/book/vocab#Book'                  => 'book',
+		'http://purl.org/NET/c4dm/event.owl#Event'             => 'date',
+		'http://purl.org/ontology/bibo/Book'                   => 'book',
 		'http://purl.org/rss/1.0/channel'                      => 'feed',
 		'http://purl.org/rss/1.0/item'                         => 'page_white_link' ,
-		'http://bblfish.net/work/atom-owl/2006-06-06/#Feed'    => 'feed',
-		'http://bblfish.net/work/atom-owl/2006-06-06/#Entry'   => 'page_white_link',
-		'http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing' => 'world',
-		'http://www.w3.org/2003/01/geo/wgs84_pos#Point'        => 'world', 
-		'http://purl.org/NET/c4dm/event.owl#Event'             => 'date',
-		'http://www.holygoat.co.uk/owl/redwood/0.1/tags/Tag'   => 'tag_blue',
-		'http://www.holygoat.co.uk/owl/redwood/0.1/tags/Tagging' => 'tag_blue_add',
-		'http://commontag.org/ns#Tag'                          => 'tag_blue',
-		'http://commontag.org/ns#AutoTag'                      => 'tag_red',
-		'http://commontag.org/ns#AuthorTag'                    => 'tag_green',
-		'http://commontag.org/ns#ReaderTag'                    => 'tag_yellow',
-		'http://usefulinc.com/ns/doap#Project'                 => 'application_xp_terminal',
-		'http://purl.org/goodrelations/v1#PriceSpecification'  => 'money',
-		'http://www.w3.org/ns/auth/rsa#RSAPublicKey'           => 'key',
-		'http://purl.org/ontology/bibo/Book'                   => 'book',
-		'http://purl.org/NET/book/vocab#Book'                  => 'book',
 		'http://purl.org/stuff/rev#Review'                     => 'award_star_gold_1',
-		'http://rdf.data-vocabulary.org/#Person'               => 'user',
 		'http://rdf.data-vocabulary.org/#Organization'         => 'chart_organisation',
-		'http://rdf.data-vocabulary.org/#Review'               => 'award_star_gold_1',
+		'http://rdf.data-vocabulary.org/#Person'               => 'user',
 		'http://rdf.data-vocabulary.org/#Review-aggregate'     => 'award_star_add',
+		'http://rdf.data-vocabulary.org/#Review'               => 'award_star_gold_1',
+		'http://usefulinc.com/ns/doap#Project'                 => 'application_double',
+		'http://usefulinc.com/ns/doap#Version'                 => 'application_lightning',
+		'http://www.holygoat.co.uk/owl/redwood/0.1/tags/Tagging' => 'tag_blue_add',
+		'http://www.holygoat.co.uk/owl/redwood/0.1/tags/Tag'   => 'tag_blue',
+		'http://www.w3.org/1999/02/22-rdf-syntax-ns#Property'  => 'arrow_right',
+		'http://www.w3.org/2000/01/rdf-schema#Class'           => 'cog',
+		'http://www.w3.org/2002/12/cal/ical#Vcalendar'         => 'calendar',
+		'http://www.w3.org/2002/12/cal/ical#Vevent'            => 'date',
+		'http://www.w3.org/2002/07/owl#AnnotationProperty'     => 'arrow_right',
+		'http://www.w3.org/2002/07/owl#AsymmetricProperty'     => 'arrow_right',
+		'http://www.w3.org/2002/07/owl#Class'                  => 'cog',
+		'http://www.w3.org/2002/07/owl#DatatypeProperty'       => 'arrow_right',
+		'http://www.w3.org/2002/07/owl#DeprecatedProperty'     => 'arrow_right',
+		'http://www.w3.org/2002/07/owl#FunctionalProperty'     => 'arrow_right',
+		'http://www.w3.org/2002/07/owl#InverseFunctionalProperty' => 'arrow_right',
+		'http://www.w3.org/2002/07/owl#IrreflexiveProperty'    => 'arrow_right',
+		'http://www.w3.org/2002/07/owl#ObjectProperty'         => 'arrow_right',
+		'http://www.w3.org/2002/07/owl#OntologyProperty'       => 'arrow_right',
+		'http://www.w3.org/2002/07/owl#ReflexiveProperty'      => 'arrow_right',
+		'http://www.w3.org/2002/07/owl#SymmetricProperty'      => 'arrow_right',
+		'http://www.w3.org/2002/07/owl#TransitiveProperty'     => 'arrow_right',
+		'http://www.w3.org/2003/01/geo/wgs84_pos#Point'        => 'world', 
+		'http://www.w3.org/2003/01/geo/wgs84_pos#SpatialThing' => 'world',
+		'http://www.w3.org/2004/02/skos/core#Concept'          => 'brick',
+		'http://www.w3.org/2004/02/skos/core#ConceptScheme'    => 'bricks',
+		'http://www.w3.org/2006/vcard/ns#Address'              => 'house',
+		'http://www.w3.org/2006/vcard/ns#Location'             => 'world', 
+		'http://www.w3.org/2006/vcard/ns#Vcard'                => 'vcard',
+		'http://www.w3.org/ns/auth/rsa#RSAPublicKey'           => 'key',
+		'http://xmlns.com/foaf/0.1/Agent'                      => 'user_gray',
+		'http://xmlns.com/foaf/0.1/Document'                   => 'page_white_text',
+		'http://xmlns.com/foaf/0.1/Group'                      => 'group',
+		'http://xmlns.com/foaf/0.1/Image'                      => 'image',
+		'http://xmlns.com/foaf/0.1/OnlineAccount'              => 'status_online',
+		'http://xmlns.com/foaf/0.1/Organization'               => 'chart_organisation',
+		'http://xmlns.com/foaf/0.1/Person'                     => 'user_green',
+		'http://xmlns.com/foaf/0.1/PersonalProfileDocument'    => 'page_green',
 	};
 	
 	return Icon::FamFamFam::Silk->new($icons->{$type}||'asterisk_yellow')->uri;

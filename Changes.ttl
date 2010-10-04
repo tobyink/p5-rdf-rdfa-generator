@@ -86,6 +86,19 @@ my:v_0-100
 			dcs:item [ rdfs:label "HTML::Pretty now includes cross-links to other resources."@en ; a dcs:Addition ]
 		] .
 
+my:v_0-101
+
+	a               :Version ;
+	dc:issued       "2010-09-06"^^xsd:date ;
+	:revision       "0.101"^^xsd:string ;
+	:file-release   <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.101.tar.gz> ;
+	dcs:changeset [
+			dcs:versus my:v_0-100 ;
+			dcs:item [ rdfs:label "use RDF::Prefixes."@en ; a dcs:Addition ] ;
+			dcs:item [ rdfs:label "Support 'namespaces' option for the constructor, for compatibility with other Trine serialisers."@en ; a dcs:Addition ] ;
+			dcs:item [ rdfs:label "Icons for a few extra classes."@en ; a dcs:Addition ] 
+		] .
+
 #############################################################
 
 my:project
@@ -105,7 +118,7 @@ my:project
 	:created        "2010-05-05"^^xsd:date ;
 	:license        <http://dev.perl.org/licenses/> ;
 	:release        my:v_0-01 , my:v_0-02 , my:v_0-03 , my:v_0-04 , my:v_0-05 ,
-	                my:v_0-100 .
+	                my:v_0-100 , my:v_0-101 .
 
 #############################################################
 

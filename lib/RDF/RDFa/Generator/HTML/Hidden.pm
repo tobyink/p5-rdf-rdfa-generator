@@ -3,9 +3,10 @@ package RDF::RDFa::Generator::HTML::Hidden;
 use 5.008;
 use base qw'RDF::RDFa::Generator::HTML::Head';
 use common::sense;
+use RDF::Prefixes;
 use XML::LibXML qw':all';
 
-our $VERSION = '0.100';
+our $VERSION = '0.101';
 
 sub injection_site
 {
@@ -24,7 +25,7 @@ sub nodes
 	$rootnode->setNamespace('http://www.w3.org/1999/xhtml', undef, 1);
 	$rootnode->setAttribute('style','display:none');
 	
-	my $prefixes = {};
+	my $prefixes = RDF::Prefixes->new($self->{namespaces});
 	my $subjects = {};
 	while (my $st = $stream->next)
 	{
@@ -48,18 +49,13 @@ sub nodes
 		}
 	}
 	
+	use Data::Dumper; Dumper($prefixes);
+	
 	if ($self->{'version'} == 1.1
 	and $self->{'prefix_attr'})
 	{
-		my $prefix_string = '';
-		while (my ($u,$p) = each(%$prefixes))
-		{
-			$prefix_string .= sprintf("%s: %s ", $p, $u);
-		}
-		if (length $prefix_string)
-		{
-			$rootnode->setAttribute('prefix', $prefix_string);
-		}
+		$rootnode->setAttribute('prefix', $prefixes->rdfa)
+			if %$prefixes;
 	}
 	else
 	{

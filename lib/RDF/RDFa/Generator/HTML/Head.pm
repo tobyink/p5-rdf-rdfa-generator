@@ -4,20 +4,33 @@ use 5.008;
 use base qw'RDF::RDFa::Generator';
 use common::sense;
 use Encode qw'encode_utf8';
+use RDF::Prefixes;
 use XML::LibXML qw':all';
 
-our $VERSION = '0.100';
+our $VERSION = '0.101';
 
 sub new
 {
 	my ($class, %opts) = @_;
 	
-	while (<DATA>)
+	if (!defined $opts{namespaces})
 	{
-		chomp;
-		my ($p, $u)  = split /\s+/;
-		$opts{ns}->{$u} ||= $p;
+		$opts{namespaces} = {};
+		while (<DATA>)
+		{
+			chomp;
+			my ($p, $u)  = split /\s+/;
+			$opts{namespaces}->{$p} ||= $u;
+		}
 	}
+	
+	# handle deprecated {ns}.
+	while (my ($u,$p) = each %{ $opts{ns} })
+	{
+		$opts{namespaces}->{$p} ||= $u;
+	}
+	
+	delete $opts{ns};
 	
 	bless \%opts, $class;
 }
@@ -86,23 +99,18 @@ sub nodes
 			XML::LibXML::Element->new('link');
 		$node->setNamespace('http://www.w3.org/1999/xhtml', undef, 1);
 		
-		my $prefixes = {};
+		my $prefixes = RDF::Prefixes->new($self->{namespaces});
 		$self->_process_subject($st, $node, $prefixes)
 		     ->_process_predicate($st, $node, $prefixes)
 		     ->_process_object($st, $node, $prefixes);
 		
+		use Data::Dumper; Dumper($prefixes);
+		
 		if ($self->{'version'} == 1.1
 		and $self->{'prefix_attr'})
 		{
-			my $prefix_string = '';
-			while (my ($u,$p) = each(%$prefixes))
-			{
-				$prefix_string .= sprintf("%s: %s ", $p, $u);
-			}
-			if (length $prefix_string)
-			{
-				$node->setAttribute('prefix', $prefix_string);
-			}
+			$node->setAttribute('prefix', $prefixes->rdfa)
+				if %$prefixes;
 		}
 		else
 		{
@@ -237,21 +245,9 @@ sub _process_object
 
 sub _make_curie
 {
-	my ($self, $uri, $prefixes) = @_;
-	
-	my ($uri_prefix, $uri_suffix) = ($uri =~ m'^(.+?)([A-Za-z0-9_-]*)$');
-	if (length $uri_suffix and !length $uri_prefix)
-	{
-		($uri_prefix, $uri_suffix) = ($uri_suffix, $uri_prefix);
-	}
-	
-	unless (defined $prefixes->{$uri_prefix})
-	{
-		$prefixes->{$uri_prefix} = $self->{ns}->{$uri_prefix} || 'ns' . (1 + scalar keys %$prefixes);
-	}
-	my $curie_prefix = $prefixes->{$uri_prefix};
-	
-	return sprintf('%s:%s', $curie_prefix, $uri_suffix);
+	my ($self, $uri, $prefixes) = @_;	
+	use Data::Dumper; Dumper($prefixes); # this shouldn't do anything, but it fixes a bug!!
+	return $prefixes->get_qname($uri);
 }
 
 1;

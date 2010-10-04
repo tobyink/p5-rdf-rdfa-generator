@@ -9,7 +9,7 @@ package RDF::RDFa::Generator;
 use 5.008;
 use common::sense;
 
-our $VERSION = '0.100';
+our $VERSION = '0.101';
 
 use RDF::RDFa::Generator::HTML::Head;
 use RDF::RDFa::Generator::HTML::Hidden;
@@ -47,7 +47,9 @@ Options include:
 
 =item * B<data_context> - if non-null, a URI (string) which indicates the context (named graph) containing the data to generate RDFa for.
 
-=item * B<ns> - a {uri=>prefix} hashref of preferred CURIE prefixes. There are already some defaults, and if you clash with them BAD THINGS will happen.
+=item * B<namespaces> - a {prefix=>uri} hashref of preferred CURIE prefixes. 
+
+=item * B<ns> - a {uri=>prefix} hashref of preferred CURIE prefixes. DEPRECATED - use B<namespaces> instead.
 
 =item * B<prefix_attr> - use the @prefix attribute for CURIE prefixes (RDFa 1.1 only).  Boolean, defaults to false.
 
@@ -198,7 +200,8 @@ Please report any bugs to L<http://rt.cpan.org/>.
 
 =head1 SEE ALSO
 
-L<HTML::HTML5::Writer>, L<XML::LibXML>, L<RDF::RDFa::Parser>, L<RDF::Trine>.
+L<HTML::HTML5::Writer>, L<XML::LibXML>, L<RDF::RDFa::Parser>, L<RDF::Trine>,
+L<RDF::Prefixes>.
 
 L<http://www.perlrdf.org/>.
 

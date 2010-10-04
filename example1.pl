@@ -1,7 +1,7 @@
 use lib "lib";
 
-use RDF::TrineShortcuts;
 use RDF::RDFa::Generator;
+use RDF::TrineShortcuts;
 
 my $graph = rdf_parse(<<TURTLE, type=>'turtle');
 

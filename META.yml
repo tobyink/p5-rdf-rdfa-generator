@@ -8,7 +8,18 @@ build_requires:
 configure_requires:
   ExtUtils::MakeMaker: 6.42
 distribution_type: module
-generated_by: 'Module::Install version 0.95'
+generated_by: 'Module::Install version 0.91'
+keywords:
+  - RDF
+  - RDFa
+  - 'Semantic Web'
+  - Generator
+  - Serializer
+  - Serialiser
+  - Output
+  - Writer
+  - HTML
+  - XHTML
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -19,7 +30,9 @@ no_index:
     - inc
     - t
 requires:
+  Data::Dumper: 0
   Icon::FamFamFam::Silk: 0
+  RDF::Prefixes: 0
   RDF::Trine: 0.112
   XML::LibXML: 1.60
   common::sense: 0
@@ -29,4 +42,4 @@ resources:
   homepage: http://search.cpan.org/dist/RDF-RDFa-Generator/
   license: http://dev.perl.org/licenses/
   repository: http://goddamn.co.uk/viewvc/perlmods/RDF-RDFa-Generator/
-version: 0.100
+version: 0.101

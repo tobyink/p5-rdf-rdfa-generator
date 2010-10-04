@@ -19,9 +19,11 @@ DESCRIPTION
         *   data_context - if non-null, a URI (string) which indicates the
             context (named graph) containing the data to generate RDFa for.
 
-        *   ns - a {uri=>prefix} hashref of preferred CURIE prefixes. There
-            are already some defaults, and if you clash with them BAD THINGS
-            will happen.
+        *   namespaces - a {prefix=>uri} hashref of preferred CURIE
+            prefixes.
+
+        *   ns - a {uri=>prefix} hashref of preferred CURIE prefixes.
+            DEPRECATED - use namespaces instead.
 
         *   prefix_attr - use the @prefix attribute for CURIE prefixes (RDFa
             1.1 only). Boolean, defaults to false.
@@ -92,7 +94,8 @@ BUGS
     Please report any bugs to <http://rt.cpan.org/>.
 
 SEE ALSO
-    HTML::HTML5::Writer, XML::LibXML, RDF::RDFa::Parser, RDF::Trine.
+    HTML::HTML5::Writer, XML::LibXML, RDF::RDFa::Parser, RDF::Trine,
+    RDF::Prefixes.
 
     <http://www.perlrdf.org/>.
 

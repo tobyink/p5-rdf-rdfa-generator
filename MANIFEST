@@ -9,7 +9,6 @@ META.yml
 SIGNATURE
 TODO
 
-t/00sig.t
 t/01basic.t
 
 lib/RDF/RDFa/Generator.pm

@@ -10,11 +10,15 @@ Home page:    <http://search.cpan.org/dist/RDF-RDFa-Generator/>
 Bug tracker:  <http://rt.cpan.org/Dist/Display.html?Queue=RDF-RDFa-Generator>
 Maintainer:   Toby Inkster <mailto:tobyink@cpan.org>
 
+0.102 [2011-07-06]
+ - (Bugfix) <meta> element should name @name, not @nane.
+ - (Bugfix) Namespaces in HTML::Head and HTML::Hidden.
+
 0.101 [2010-09-06]
- - (Addition) Icons for a few extra classes.
- - (Addition) use RDF::Prefixes.
  - (Addition) Support 'namespaces' option for the constructor, for
    compatibility with other Trine serialisers.
+ - (Addition) use RDF::Prefixes.
+ - (Addition) Icons for a few extra classes.
 
 0.100 [2010-07-25]
  - (Addition) HTML::Pretty now includes cross-links to other resources.
@@ -23,14 +27,14 @@ Maintainer:   Toby Inkster <mailto:tobyink@cpan.org>
  - (Bugfix) UTF-8 fixes.
 
 0.04 [2010-05-21]
- - HTML::Pretty no longer makes 'javascript:' URLs into links.
  - HTML::Hidden and HTML::Pretty now use @about instead of @src to set the
    subject URI.
+ - HTML::Pretty no longer makes 'javascript:' URLs into links.
 
 0.03 [2010-05-19]
+ - (Bugfix) HTML::Pretty Fallback to sorting by object now works.
  - (Addition) HTML::Pretty can now force safe HTML (prevents injection
    attacks).
- - (Bugfix) HTML::Pretty Fallback to sorting by object now works.
 
 0.02 [2010-05-18]
  - Using FamFamFam Silk icons.

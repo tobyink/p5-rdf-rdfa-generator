@@ -6,7 +6,7 @@ use common::sense;
 use RDF::Prefixes;
 use XML::LibXML qw':all';
 
-our $VERSION = '0.101';
+our $VERSION = '0.102';
 
 sub injection_site
 {
@@ -61,7 +61,7 @@ sub nodes
 	{
 		while (my ($u,$p) = each(%$prefixes))
 		{
-			$rootnode->setNamespace($u, $p, 0);
+			$rootnode->setNamespace($p, $u, 0);
 		}
 	}
 	

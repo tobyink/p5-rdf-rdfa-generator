@@ -10,6 +10,7 @@ SIGNATURE
 TODO
 
 t/01basic.t
+t/02_kk_namespaces.t
 
 lib/RDF/RDFa/Generator.pm
 lib/RDF/RDFa/Generator/HTML/Head.pm

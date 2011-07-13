@@ -1,172 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rdf:RDF
-   xmlns:dc="http://purl.org/dc/terms/"
-   xmlns:dcs="http://ontologi.es/doap-changeset#"
-   xmlns:foaf="http://xmlns.com/foaf/0.1/"
-   xmlns:my="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-   xmlns:toby="http://tobyinkster.co.uk/#"
-   xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-   xmlns="http://usefulinc.com/ns/doap#">
-  <rdf:Description rdf:about="file:///home/tai/src/perlmods/RDF-RDFa-Generator/Changes.ttl">
-    <dc:creator rdf:resource="http://tobyinkster.co.uk/#i"/>
-    <dc:description xml:lang="en">Revision history for Perl extension RDF::RDFa::Generator.</dc:description>
-    <dc:subject rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/project"/>
-    <dc:title>Changes</dc:title>
-  </rdf:Description>
-  <Version rdf:about="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-01">
-    <dc:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2010-05-09</dc:issued>
-    <file-release rdf:resource="http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.01.tar.gz"/>
-    <revision rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.01</revision>
-    <rdfs:comment xml:lang="en">Original version</rdfs:comment>
-  </Version>
-  <Version rdf:about="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-02">
-    <dcs:changeset>
-      <rdf:Description>
-        <dcs:item>
-          <rdf:Description>
-            <rdfs:label xml:lang="en">Using FamFamFam Silk icons.</rdfs:label>
-          </rdf:Description>
-        </dcs:item>
-        <dcs:item>
-          <dcs:Addition>
-            <rdfs:label xml:lang="en">HTML::Pretty can now include additional textual notes in the output. This functionality added for RDF::RDFa::Linter.</rdfs:label>
-          </dcs:Addition>
-        </dcs:item>
-        <dcs:versus rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-01"/>
-      </rdf:Description>
-    </dcs:changeset>
-    <dc:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2010-05-18</dc:issued>
-    <file-release rdf:resource="http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.02.tar.gz"/>
-    <revision rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.02</revision>
-  </Version>
-  <Version rdf:about="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-03">
-    <dcs:changeset>
-      <rdf:Description>
-        <dcs:item>
-          <dcs:Bugfix>
-            <rdfs:label xml:lang="en">HTML::Pretty Fallback to sorting by object now works.</rdfs:label>
-          </dcs:Bugfix>
-        </dcs:item>
-        <dcs:item>
-          <dcs:Addition>
-            <rdfs:label xml:lang="en">HTML::Pretty can now force safe HTML (prevents injection attacks).</rdfs:label>
-          </dcs:Addition>
-        </dcs:item>
-        <dcs:versus rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-02"/>
-      </rdf:Description>
-    </dcs:changeset>
-    <dc:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2010-05-19</dc:issued>
-    <file-release rdf:resource="http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.03.tar.gz"/>
-    <revision rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.03</revision>
-  </Version>
-  <Version rdf:about="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-04">
-    <dcs:changeset>
-      <rdf:Description>
-        <dcs:item>
-          <rdf:Description>
-            <rdfs:label xml:lang="en">HTML::Hidden and HTML::Pretty now use @about instead of @src to set the subject URI.</rdfs:label>
-          </rdf:Description>
-        </dcs:item>
-        <dcs:item>
-          <rdf:Description>
-            <rdfs:label xml:lang="en">HTML::Pretty no longer makes 'javascript:' URLs into links.</rdfs:label>
-          </rdf:Description>
-        </dcs:item>
-        <dcs:versus rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-03"/>
-      </rdf:Description>
-    </dcs:changeset>
-    <dc:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2010-05-21</dc:issued>
-    <file-release rdf:resource="http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.04.tar.gz"/>
-    <revision rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.04</revision>
-  </Version>
-  <Version rdf:about="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-05">
-    <dcs:changeset>
-      <rdf:Description>
-        <dcs:item>
-          <dcs:Bugfix>
-            <rdfs:label xml:lang="en">UTF-8 fixes.</rdfs:label>
-          </dcs:Bugfix>
-        </dcs:item>
-        <dcs:versus rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-04"/>
-      </rdf:Description>
-    </dcs:changeset>
-    <dc:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2010-05-27</dc:issued>
-    <file-release rdf:resource="http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.05.tar.gz"/>
-    <revision rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.05</revision>
-  </Version>
-  <Version rdf:about="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-100">
-    <dcs:changeset>
-      <rdf:Description>
-        <dcs:item>
-          <dcs:Addition>
-            <rdfs:label xml:lang="en">HTML::Pretty now includes cross-links to other resources.</rdfs:label>
-          </dcs:Addition>
-        </dcs:item>
-        <dcs:versus rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-05"/>
-      </rdf:Description>
-    </dcs:changeset>
-    <dc:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2010-07-25</dc:issued>
-    <file-release rdf:resource="http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.100.tar.gz"/>
-    <revision rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.100</revision>
-  </Version>
-  <Version rdf:about="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-101">
-    <dcs:changeset>
-      <rdf:Description>
-        <dcs:item>
-          <dcs:Addition>
-            <rdfs:label xml:lang="en">use RDF::Prefixes.</rdfs:label>
-          </dcs:Addition>
-        </dcs:item>
-        <dcs:item>
-          <dcs:Addition>
-            <rdfs:label xml:lang="en">Support 'namespaces' option for the constructor, for compatibility with other Trine serialisers.</rdfs:label>
-          </dcs:Addition>
-        </dcs:item>
-        <dcs:item>
-          <dcs:Addition>
-            <rdfs:label xml:lang="en">Icons for a few extra classes.</rdfs:label>
-          </dcs:Addition>
-        </dcs:item>
-        <dcs:versus rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-100"/>
-      </rdf:Description>
-    </dcs:changeset>
-    <dc:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2010-09-06</dc:issued>
-    <file-release rdf:resource="http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.101.tar.gz"/>
-    <revision rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.101</revision>
-  </Version>
-  <Project rdf:about="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/project">
-    <bug-database rdf:resource="http://rt.cpan.org/Dist/Display.html?Queue=RDF-RDFa-Generator"/>
-    <created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2010-05-05</created>
-    <developer rdf:resource="http://tobyinkster.co.uk/#i"/>
-    <documenter rdf:resource="http://tobyinkster.co.uk/#i"/>
-    <download-page rdf:resource="http://search.cpan.org/dist/RDF-RDFa-Generator/"/>
-    <homepage rdf:resource="http://search.cpan.org/dist/RDF-RDFa-Generator/"/>
-    <license rdf:resource="http://dev.perl.org/licenses/"/>
-    <maintainer rdf:resource="http://tobyinkster.co.uk/#i"/>
-    <name>RDF-RDFa-Generator</name>
-    <programming-language>Perl</programming-language>
-    <release rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-01"/>
-    <release rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-02"/>
-    <release rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-03"/>
-    <release rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-04"/>
-    <release rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-05"/>
-    <release rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-100"/>
-    <release rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-101"/>
-    <repository>
-      <SVNRepository>
-        <browse rdf:resource="http://goddamn.co.uk/viewvc/perlmods/RDF-RDFa-Generator/"/>
-      </SVNRepository>
-    </repository>
-    <shortdesc xml:lang="en">generate some data in RDFa</shortdesc>
-    <tester rdf:resource="http://tobyinkster.co.uk/#i"/>
-  </Project>
-  <foaf:Person rdf:about="http://tobyinkster.co.uk/#i">
-    <ns1:sameAs xmlns:ns1="http://www.w3.org/2002/07/owl#" rdf:resource="http://purl.org/NET/cpan-uri/person/tobyink"/>
-    <foaf:homepage rdf:resource="http://tobyinkster.co.uk/"/>
-    <foaf:mbox rdf:resource="mailto:tobyink@cpan.org"/>
-    <foaf:name>Toby Inkster</foaf:name>
-    <foaf:page rdf:resource="http://search.cpan.org/~tobyink/"/>
-  </foaf:Person>
+<rdf:RDF xmlns:dbug="http://ontologi.es/doap-bugs#" xmlns:dc="http://purl.org/dc/terms/" xmlns:dcs="http://ontologi.es/doap-changeset#" xmlns:doap="http://usefulinc.com/ns/doap#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+<rdf:Description rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r0">
+	<dcs:item rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r1"/>
+	<dcs:item rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r2"/>
+	<dcs:versus rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-01"/>
+</rdf:Description>
+<rdf:Description rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r1">
+	<rdfs:label xml:lang="en">Using FamFamFam Silk icons.</rdfs:label>
+</rdf:Description>
+<rdf:Description rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r10">
+	<rdf:type rdf:resource="http://ontologi.es/doap-changeset#Bugfix"/>
+	<rdfs:label xml:lang="en">UTF-8 fixes.</rdfs:label>
+</rdf:Description>
+<rdf:Description rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r11">
+	<dcs:item rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r12"/>
+	<dcs:versus rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-05"/>
+</rdf:Description>
+<rdf:Description rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r12">
+	<rdf:type rdf:resource="http://ontologi.es/doap-changeset#Addition"/>
+	<rdfs:label xml:lang="en">HTML::Pretty now includes cross-links to other resources.</rdfs:label>
+</rdf:Description>
+<rdf:Description rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r13">
+	<dcs:item rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r14"/>
+	<dcs:item rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r15"/>
+	<dcs:item rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r16"/>
+	<dcs:versus rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-100"/>
+</rdf:Description>
+<rdf:Description rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r14">
+	<rdf:type rdf:resource="http://ontologi.es/doap-changeset#Addition"/>
+	<rdfs:label xml:lang="en">use RDF::Prefixes.</rdfs:label>
+</rdf:Description>
+<rdf:Description rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r15">
+	<rdf:type rdf:resource="http://ontologi.es/doap-changeset#Addition"/>
+	<rdfs:label xml:lang="en">Support 'namespaces' option for the constructor, for compatibility with other Trine serialisers.</rdfs:label>
+</rdf:Description>
+<rdf:Description rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r16">
+	<rdf:type rdf:resource="http://ontologi.es/doap-changeset#Addition"/>
+	<rdfs:label xml:lang="en">Icons for a few extra classes.</rdfs:label>
+</rdf:Description>
+<rdf:Description rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r17">
+	<dcs:item rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r18"/>
+	<dcs:item rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r20"/>
+	<dcs:versus rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-101"/>
+</rdf:Description>
+<rdf:Description rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r18">
+	<dcs:fixes rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r19"/>
+	<rdf:type rdf:resource="http://ontologi.es/doap-changeset#Bugfix"/>
+	<rdfs:label xml:lang="en">&lt;meta> element should name @name, not @nane.</rdfs:label>
+</rdf:Description>
+<rdf:Description rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r19">
+	<dbug:reporter rdf:resource="http://purl.org/NET/cpan-uri/person/kjetilk"/>
+</rdf:Description>
+<rdf:Description rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r2">
+	<rdf:type rdf:resource="http://ontologi.es/doap-changeset#Addition"/>
+	<rdfs:label xml:lang="en">HTML::Pretty can now include additional textual notes in the output. This functionality added for RDF::RDFa::Linter.</rdfs:label>
+</rdf:Description>
+<rdf:Description rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r20">
+	<dcs:fixes rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r21"/>
+	<rdf:type rdf:resource="http://ontologi.es/doap-changeset#Bugfix"/>
+	<rdfs:label xml:lang="en">Namespaces in HTML::Head and HTML::Hidden.</rdfs:label>
+</rdf:Description>
+<rdf:Description rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r21">
+	<dbug:reporter rdf:resource="http://purl.org/NET/cpan-uri/person/kjetilk"/>
+</rdf:Description>
+<rdf:Description rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r22">
+	<doap:browse rdf:resource="http://goddamn.co.uk/viewvc/perlmods/RDF-RDFa-Generator/"/>
+	<rdf:type rdf:resource="http://usefulinc.com/ns/doap#SVNRepository"/>
+</rdf:Description>
+<rdf:Description rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r3">
+	<dcs:item rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r4"/>
+	<dcs:item rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r5"/>
+	<dcs:versus rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-02"/>
+</rdf:Description>
+<rdf:Description rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r4">
+	<rdf:type rdf:resource="http://ontologi.es/doap-changeset#Bugfix"/>
+	<rdfs:label xml:lang="en">HTML::Pretty Fallback to sorting by object now works.</rdfs:label>
+</rdf:Description>
+<rdf:Description rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r5">
+	<rdf:type rdf:resource="http://ontologi.es/doap-changeset#Addition"/>
+	<rdfs:label xml:lang="en">HTML::Pretty can now force safe HTML (prevents injection attacks).</rdfs:label>
+</rdf:Description>
+<rdf:Description rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r6">
+	<dcs:item rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r7"/>
+	<dcs:item rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r8"/>
+	<dcs:versus rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-03"/>
+</rdf:Description>
+<rdf:Description rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r7">
+	<rdfs:label xml:lang="en">HTML::Hidden and HTML::Pretty now use @about instead of @src to set the subject URI.</rdfs:label>
+</rdf:Description>
+<rdf:Description rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r8">
+	<rdfs:label xml:lang="en">HTML::Pretty no longer makes 'javascript:' URLs into links.</rdfs:label>
+</rdf:Description>
+<rdf:Description rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r9">
+	<dcs:item rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r10"/>
+	<dcs:versus rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-04"/>
+</rdf:Description>
+<rdf:Description rdf:about="file:///home/tai/src/perlmods/RDF-RDFa-Generator/Changes.ttl">
+	<dc:creator rdf:resource="http://tobyinkster.co.uk/#i"/>
+	<dc:description xml:lang="en">Revision history for Perl extension RDF::RDFa::Generator.</dc:description>
+	<dc:subject rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/project"/>
+	<dc:title>Changes</dc:title>
+</rdf:Description>
+<rdf:Description rdf:about="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/project">
+	<doap:bug-database rdf:resource="http://rt.cpan.org/Dist/Display.html?Queue=RDF-RDFa-Generator"/>
+	<doap:created rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2010-05-05</doap:created>
+	<doap:developer rdf:resource="http://tobyinkster.co.uk/#i"/>
+	<doap:documenter rdf:resource="http://tobyinkster.co.uk/#i"/>
+	<doap:download-page rdf:resource="http://search.cpan.org/dist/RDF-RDFa-Generator/"/>
+	<doap:homepage rdf:resource="http://search.cpan.org/dist/RDF-RDFa-Generator/"/>
+	<doap:license rdf:resource="http://dev.perl.org/licenses/"/>
+	<doap:maintainer rdf:resource="http://tobyinkster.co.uk/#i"/>
+	<doap:name>RDF-RDFa-Generator</doap:name>
+	<doap:programming-language>Perl</doap:programming-language>
+	<doap:release rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-01"/>
+	<doap:release rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-02"/>
+	<doap:release rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-03"/>
+	<doap:release rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-04"/>
+	<doap:release rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-05"/>
+	<doap:release rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-100"/>
+	<doap:release rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-101"/>
+	<doap:release rdf:resource="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-102"/>
+	<doap:repository rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r22"/>
+	<doap:shortdesc xml:lang="en">generate some data in RDFa</doap:shortdesc>
+	<doap:tester rdf:resource="http://tobyinkster.co.uk/#i"/>
+	<rdf:type rdf:resource="http://usefulinc.com/ns/doap#Project"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-01">
+	<dc:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2010-05-09</dc:issued>
+	<doap:file-release rdf:resource="http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.01.tar.gz"/>
+	<doap:revision rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.01</doap:revision>
+	<rdf:type rdf:resource="http://usefulinc.com/ns/doap#Version"/>
+	<rdfs:comment xml:lang="en">Original version</rdfs:comment>
+</rdf:Description>
+<rdf:Description rdf:about="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-02">
+	<dcs:changeset rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r0"/>
+	<dc:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2010-05-18</dc:issued>
+	<doap:file-release rdf:resource="http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.02.tar.gz"/>
+	<doap:revision rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.02</doap:revision>
+	<rdf:type rdf:resource="http://usefulinc.com/ns/doap#Version"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-03">
+	<dcs:changeset rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r3"/>
+	<dc:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2010-05-19</dc:issued>
+	<doap:file-release rdf:resource="http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.03.tar.gz"/>
+	<doap:revision rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.03</doap:revision>
+	<rdf:type rdf:resource="http://usefulinc.com/ns/doap#Version"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-04">
+	<dcs:changeset rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r6"/>
+	<dc:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2010-05-21</dc:issued>
+	<doap:file-release rdf:resource="http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.04.tar.gz"/>
+	<doap:revision rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.04</doap:revision>
+	<rdf:type rdf:resource="http://usefulinc.com/ns/doap#Version"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-05">
+	<dcs:changeset rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r9"/>
+	<dc:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2010-05-27</dc:issued>
+	<doap:file-release rdf:resource="http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.05.tar.gz"/>
+	<doap:revision rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.05</doap:revision>
+	<rdf:type rdf:resource="http://usefulinc.com/ns/doap#Version"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-100">
+	<dcs:changeset rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r11"/>
+	<dc:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2010-07-25</dc:issued>
+	<doap:file-release rdf:resource="http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.100.tar.gz"/>
+	<doap:revision rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.100</doap:revision>
+	<rdf:type rdf:resource="http://usefulinc.com/ns/doap#Version"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-101">
+	<dcs:changeset rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r13"/>
+	<dc:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2010-09-06</dc:issued>
+	<doap:file-release rdf:resource="http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.101.tar.gz"/>
+	<doap:revision rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.101</doap:revision>
+	<rdf:type rdf:resource="http://usefulinc.com/ns/doap#Version"/>
+</rdf:Description>
+<rdf:Description rdf:about="http://purl.org/NET/cpan-uri/dist/RDF-RDFa-Generator/v_0-102">
+	<dcs:changeset rdf:nodeID="r7A884604A7F611E0BD1AEA32E2081E58r17"/>
+	<dc:issued rdf:datatype="http://www.w3.org/2001/XMLSchema#date">2011-07-06</dc:issued>
+	<doap:file-release rdf:resource="http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.102.tar.gz"/>
+	<doap:revision rdf:datatype="http://www.w3.org/2001/XMLSchema#string">0.102</doap:revision>
+	<rdf:type rdf:resource="http://usefulinc.com/ns/doap#Version"/>
+</rdf:Description>
+<rdf:Description xmlns:ns1="http://www.w3.org/2002/07/owl#" rdf:about="http://tobyinkster.co.uk/#i">
+	<rdf:type rdf:resource="http://xmlns.com/foaf/0.1/Person"/>
+	<ns1:sameAs rdf:resource="http://purl.org/NET/cpan-uri/person/tobyink"/>
+	<foaf:homepage rdf:resource="http://tobyinkster.co.uk/"/>
+	<foaf:mbox rdf:resource="mailto:tobyink@cpan.org"/>
+	<foaf:name>Toby Inkster</foaf:name>
+	<foaf:page rdf:resource="http://search.cpan.org/~tobyink/"/>
+</rdf:Description>
 </rdf:RDF>

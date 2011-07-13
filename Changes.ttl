@@ -1,6 +1,8 @@
 #############################################################
 
 @prefix :        <http://usefulinc.com/ns/doap#> .
+@prefix author:  <http://purl.org/NET/cpan-uri/person/> .
+@prefix dbug:    <http://ontologi.es/doap-bugs#> .
 @prefix dcs:     <http://ontologi.es/doap-changeset#> .
 @prefix dc:      <http://purl.org/dc/terms/> .
 @prefix foaf:    <http://xmlns.com/foaf/0.1/> .
@@ -99,6 +101,18 @@ my:v_0-101
 			dcs:item [ rdfs:label "Icons for a few extra classes."@en ; a dcs:Addition ] 
 		] .
 
+my:v_0-102
+
+	a               :Version ;
+	dc:issued       "2011-07-06"^^xsd:date ;
+	:revision       "0.102"^^xsd:string ;
+	:file-release   <http://backpan.cpan.org/authors/id/T/TO/TOBYINK/RDF-RDFa-Generator-0.102.tar.gz> ;
+	dcs:changeset [
+			dcs:versus my:v_0-101 ;
+			dcs:item [ rdfs:label "<meta> element should name @name, not @nane."@en ; a dcs:Bugfix ; dcs:fixes [dbug:reporter author:kjetilk] ] ;
+			dcs:item [ rdfs:label "Namespaces in HTML::Head and HTML::Hidden."@en ; a dcs:Bugfix ; dcs:fixes [dbug:reporter author:kjetilk] ] 
+		] .
+
 #############################################################
 
 my:project
@@ -118,7 +132,7 @@ my:project
 	:created        "2010-05-05"^^xsd:date ;
 	:license        <http://dev.perl.org/licenses/> ;
 	:release        my:v_0-01 , my:v_0-02 , my:v_0-03 , my:v_0-04 , my:v_0-05 ,
-	                my:v_0-100 , my:v_0-101 .
+	                my:v_0-100 , my:v_0-101 , my:v_0-102 .
 
 #############################################################
 
@@ -129,6 +143,6 @@ toby:i
 	foaf:homepage   <http://tobyinkster.co.uk/> ;
 	foaf:page       <http://search.cpan.org/~tobyink/> ;
 	foaf:mbox       <mailto:tobyink@cpan.org> ;
-	<http://www.w3.org/2002/07/owl#sameAs> <http://purl.org/NET/cpan-uri/person/tobyink> .
+	<http://www.w3.org/2002/07/owl#sameAs> author:tobyink .
 
 #############################################################

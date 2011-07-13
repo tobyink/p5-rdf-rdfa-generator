@@ -9,7 +9,7 @@ use Icon::FamFamFam::Silk;
 use RDF::RDFa::Generator::HTML::Pretty::Note;
 use XML::LibXML qw':all';
 
-our $VERSION = '0.101';
+our $VERSION = '0.102';
 
 sub create_document
 {
@@ -20,7 +20,7 @@ sub create_document
 <html xmlns="http://www.w3.org/1999/xhtml" version="XHTML+RDFa %1\$s">
 <head profile="http://www.w3.org/1999/xhtml/vocab">
 <title>%2\$s</title>
-<meta nane="generator" value="%3\$s" />
+<meta name="generator" value="%3\$s" />
 </head>
 <body>
 <h1>%2\$s</h1>

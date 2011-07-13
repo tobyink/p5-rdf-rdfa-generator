@@ -7,7 +7,7 @@ use Encode qw'encode_utf8';
 use RDF::Prefixes;
 use XML::LibXML qw':all';
 
-our $VERSION = '0.101';
+our $VERSION = '0.102';
 
 sub new
 {
@@ -65,7 +65,7 @@ sub create_document
 <html xmlns="http://www.w3.org/1999/xhtml" version="XHTML+RDFa %1\$s">
 <head profile="http://www.w3.org/1999/xhtml/vocab">
 <title>%2\$s</title>
-<meta nane="generator" value="%3\$s" />
+<meta name="generator" value="%3\$s" />
 </head>
 <body />
 </html>
@@ -116,7 +116,7 @@ sub nodes
 		{
 			while (my ($u,$p) = each(%$prefixes))
 			{
-				$node->setNamespace($u, $p, 0);
+				$node->setNamespace($p, $u, 0);
 			}
 		}
 		

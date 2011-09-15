@@ -121,10 +121,10 @@ my:project
 	:name           "RDF-RDFa-Generator" ;
 	:shortdesc      "generate some data in RDFa"@en ;
 	:programming-language  "Perl" ;
-	:homepage       <http://search.cpan.org/dist/RDF-RDFa-Generator/> ;
-	:download-page  <http://search.cpan.org/dist/RDF-RDFa-Generator/> ;
+	:homepage       <https://metacpan.org/release/RDF-RDFa-Generator> ;
+	:download-page  <https://metacpan.org/release/RDF-RDFa-Generator> ;
 	:bug-database   <http://rt.cpan.org/Dist/Display.html?Queue=RDF-RDFa-Generator> ;
-	:repository     [ a :SVNRepository ; :browse <http://goddamn.co.uk/viewvc/perlmods/RDF-RDFa-Generator/> ] ;
+	:repository     [ a :SVNRepository ; :browse <http://goddamn.co.uk/svn-web/perlmods/browse/RDF-RDFa-Generator/> ] ;
 	:maintainer     toby:i ;
 	:developer      toby:i ;
 	:documenter     toby:i ;
@@ -141,7 +141,7 @@ toby:i
 	a               foaf:Person ;
 	foaf:name       "Toby Inkster" ;
 	foaf:homepage   <http://tobyinkster.co.uk/> ;
-	foaf:page       <http://search.cpan.org/~tobyink/> ;
+	foaf:page       <https://metacpan.org/author/TOBYINK> ;
 	foaf:mbox       <mailto:tobyink@cpan.org> ;
 	<http://www.w3.org/2002/07/owl#sameAs> author:tobyink .
 

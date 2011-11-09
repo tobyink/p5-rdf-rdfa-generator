@@ -1,7 +1,7 @@
 package RDF::RDFa::Generator::HTML::Head;
 
 use 5.008;
-use base qw'RDF::RDFa::Generator';
+use parent qw'RDF::RDFa::Generator';
 use common::sense;
 use Encode qw'encode_utf8';
 use RDF::Prefixes;

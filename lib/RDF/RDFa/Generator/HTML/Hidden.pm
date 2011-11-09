@@ -1,7 +1,7 @@
 package RDF::RDFa::Generator::HTML::Hidden;
 
 use 5.008;
-use base qw'RDF::RDFa::Generator::HTML::Head';
+use parent qw'RDF::RDFa::Generator::HTML::Head';
 use common::sense;
 use RDF::Prefixes;
 use XML::LibXML qw':all';

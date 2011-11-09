@@ -1,7 +1,7 @@
 package RDF::RDFa::Generator::HTML::Pretty;
 
 use 5.008;
-use base qw'RDF::RDFa::Generator::HTML::Hidden';
+use parent qw'RDF::RDFa::Generator::HTML::Hidden';
 use common::sense;
 use constant XHTML_NS => 'http://www.w3.org/1999/xhtml';
 use Encode qw'encode_utf8';

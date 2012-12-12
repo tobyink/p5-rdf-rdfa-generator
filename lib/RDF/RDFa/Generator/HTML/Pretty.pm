@@ -47,6 +47,7 @@ sub nodes
 	my $subjects = {};
 	while (my $st = $stream->next)
 	{
+		next if $st->subject->is_literal;  # ???
 		my $s = $st->subject->is_resource ?
 			$st->subject->uri :
 			('_:'.$st->subject->blank_identifier);

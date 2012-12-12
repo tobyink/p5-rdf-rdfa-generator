@@ -7,7 +7,7 @@ RDF::RDFa::Generator::HTML::Pretty::Note - a note about something
 package RDF::RDFa::Generator::HTML::Pretty::Note;
 
 use 5.008;
-use common::sense;
+use strict;
 use constant XHTML_NS => 'http://www.w3.org/1999/xhtml';
 use XML::LibXML qw':all';
 

@@ -5,7 +5,6 @@
 	version_from      m`RDF::RDFa::Generator`;
 	readme_from       m`RDF::RDFa::Generator`;
 	test_requires     p`Test::More 0.61`;
-	requires          p`common::sense`;
 	requires          p`Data::Dumper`;
 	requires          p`Icon::FamFamFam::Silk`;
 	requires          p`RDF::Trine 0.112`;

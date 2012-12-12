@@ -55,4 +55,5 @@
 	changeset [
 		item [ label "Upgrade distribution build system."@en ; a dcs:Packaging ] ;
 		item [ label "Fix strange buglet that affected RDF::RDFa::Linter."@en ; a dcs:Bugfix ] ;
+		item [ label "Drop common::sense and parent.pm deps."@en ] ;
 	] .

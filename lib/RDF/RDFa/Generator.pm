@@ -7,7 +7,7 @@ RDF::RDFa::Generator - generate some data in RDFa
 package RDF::RDFa::Generator;
 
 use 5.008;
-use common::sense;
+use strict;
 
 our $VERSION = '0.103';
 

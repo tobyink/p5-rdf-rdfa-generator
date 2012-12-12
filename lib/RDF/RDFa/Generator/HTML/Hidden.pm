@@ -6,7 +6,7 @@ use common::sense;
 use RDF::Prefixes;
 use XML::LibXML qw':all';
 
-our $VERSION = '0.102';
+our $VERSION = '0.103';
 
 sub injection_site
 {

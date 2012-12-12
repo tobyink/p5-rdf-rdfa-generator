@@ -49,3 +49,10 @@
 		item [ label "<meta> element should name @name, not @nane."@en ; a dcs:Bugfix ; dcs:fixes [dbug:reporter cpan:kjetilk] ] ;
 		item [ label "Namespaces in HTML::Head and HTML::Hidden."@en ; a dcs:Bugfix ; dcs:fixes [dbug:reporter cpan:kjetilk] ] ;
 	] .
+
+`RDF-RDFa-Generator 0.103 cpan:TOBYINK`
+	issued   2012-12-12 ;
+	changeset [
+		item [ label "Upgrade distribution build system."@en ; a dcs:Packaging ] ;
+		item [ label "Fix strange buglet that affected RDF::RDFa::Linter."@en ; a dcs:Bugfix ] ;
+	] .

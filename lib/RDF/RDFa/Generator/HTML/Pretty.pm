@@ -212,7 +212,7 @@ sub _resource_statements
 		{
 			$DD->setAttribute('property',  $self->_make_curie($st->predicate->uri, $prefixes));
 			$DD->setAttribute('class', 'plain-literal');
-			$DD->setAttribute('xml:lang',  $st->object->literal_value_language);
+			$DD->setAttribute('xml:lang',  ''.$st->object->literal_value_language);
 			$DD->appendTextNode(encode_utf8($st->object->literal_value));
 		}
 		elsif ($self->{'safe_xml_literals'}

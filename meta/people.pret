@@ -1,0 +1,16 @@
+# This file contains data about the project developers.
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix result: <http://git2prov.org/git2prov?giturl=https%3A%2F%2Fgithub.com%2Fkjetilk%2Fp5-rdf-rdfa-generator&serialization=PROV-O#> .
+@prefix : <http://xmlns.com/foaf/0.1/>.
+
+cpan:TOBYINK
+    :name  "Toby Inkster";
+    :page  <https://metacpan.org/author/TOBYINK>;
+    owl:sameAs  result:user-Toby-Inkster ;
+    :mbox  <mailto:tobyink@cpan.org>.
+
+cpan:KJETILK
+    a           foaf:Person ;
+    owl:sameAs  <http://www.kjetil.kjernsmo.net/foaf#me> , result:user-Kjetil-Kjernsmo ;
+    :name   "Kjetil Kjernsmo" ;
+    :mbox   <mailto:kjetilk@cpan.org> .

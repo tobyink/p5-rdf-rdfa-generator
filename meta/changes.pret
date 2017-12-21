@@ -57,3 +57,14 @@
 		item [ label "Fix strange buglet that affected RDF::RDFa::Linter."@en ; a dcs:Bugfix ] ;
 		item [ label "Drop common::sense and parent.pm deps."@en ] ;
 	] .
+
+`RDF-RDFa-Generator 0.105_01 cpan:KJETILK`
+	issued   2017-12-22 ;
+	changeset [
+	  item [ label "Upgrade distribution build system to Dist::Inkt."@en ; a dcs:Packaging ] ;
+          item [ label "Prevent XML::LibXML::Element::setAttribute complaining about uninitialized value."@en ;
+                 a dcs:Bugfix ;
+                 dcs:blame cpan:ZORAN ] ;
+          item [ label "Many minor improvements in packaging."@en ; a dcs:Packaging] ;
+
+	] .

@@ -11,7 +11,7 @@ use strict;
 use constant XHTML_NS => 'http://www.w3.org/1999/xhtml';
 use XML::LibXML qw':all';
 
-our $VERSION = '0.103';
+our $VERSION = '0.105_01';
 
 =head1 DESCRIPTION
 

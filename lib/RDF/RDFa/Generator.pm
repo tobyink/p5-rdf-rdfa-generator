@@ -9,7 +9,7 @@ package RDF::RDFa::Generator;
 use 5.008;
 use strict;
 
-our $VERSION = '0.103';
+our $VERSION = '0.105_01';
 
 use RDF::RDFa::Generator::HTML::Head;
 use RDF::RDFa::Generator::HTML::Hidden;

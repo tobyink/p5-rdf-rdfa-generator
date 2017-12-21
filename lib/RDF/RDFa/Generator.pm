@@ -1,6 +1,6 @@
 =head1 NAME
 
-RDF::RDFa::Generator - generate some data in RDFa
+RDF::RDFa::Generator - Generate data for RDFa serialization
 
 =cut
 

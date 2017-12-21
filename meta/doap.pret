@@ -3,7 +3,7 @@
 @prefix result: <http://git2prov.org/git2prov?giturl=https%3A%2F%2Fgithub.com%2Fkjetilk%2Fp5-rdf-rdfa-generator&serialization=PROV-O#> .
 
 `RDF-RDFa-Generator`
-	:shortdesc      "generate some data in RDFa"@en ;
+	:shortdesc      "Generate data for RDFa serialization"@en ;
 	:programming-language  "Perl" ;
 	:homepage       <https://metacpan.org/release/RDF-RDFa-Generator> ;
 	:download-page  <https://metacpan.org/release/RDF-RDFa-Generator> ;

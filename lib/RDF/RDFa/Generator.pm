@@ -196,7 +196,7 @@ __END__
 
 =head1 BUGS
 
-Please report any bugs to L<http://rt.cpan.org/>.
+Please report any bugs to L<https://github.com/kjetilk/p5-rdf-rdfa-generator/issues>.
 
 =head1 SEE ALSO
 

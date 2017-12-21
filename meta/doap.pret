@@ -1,26 +1,25 @@
 @prefix : <http://usefulinc.com/ns/doap#> .
+@prefix prov: <http://www.w3.org/ns/prov#>.
+@prefix result: <http://git2prov.org/git2prov?giturl=https%3A%2F%2Fgithub.com%2Fkjetilk%2Fp5-rdf-rdfa-generator&serialization=PROV-O#> .
 
 `RDF-RDFa-Generator`
 	:shortdesc      "generate some data in RDFa"@en ;
 	:programming-language  "Perl" ;
 	:homepage       <https://metacpan.org/release/RDF-RDFa-Generator> ;
 	:download-page  <https://metacpan.org/release/RDF-RDFa-Generator> ;
-	:bug-database   <https://github.com/kjetilk/p5-rdf-rdfa-generator/issues> ;
-	:repository     [ a :HgRepository; :browse <https://bitbucket.org/tobyink/p5-rdf-rdfa-generator> ] ;
-	:maintainer     cpan:TOBYINK ;
-	:developer      cpan:TOBYINK ;
+        :bug-database   <https://github.com/kjetilk/p5-rdf-rdfa-generator/issues> ;
+        :repository  [ a :GitRepository;
+                       :browse <https://github.com/kjetilk/p5-rdf-rdfa-generator> ;
+                       prov:has_provenance <http://git2prov.org/git2prov?giturl=https%3A%2F%2Fgithub.com%2Fkjetilk%2Fp5-rdf-rdfa-generator&serialization=PROV-O#>
+        ];
+        :support-forum  <irc://irc.perl.org/#perlrdf> ;
+	:maintainer     cpan:TOBYINK, cpan:KJETILK ;
+	:developer      cpan:TOBYINK, cpan:KJETILK ;
 	:documenter     cpan:TOBYINK ;
 	:tester         cpan:TOBYINK ;
 	:created        2010-05-05 ;
 	:license        <http://dev.perl.org/licenses/> ;
-	:category
-		[ label "RDF" ],
-		[ label "RDFa" ],
-		[ label "Semantic Web" ],
-		[ label "Generator" ],
-		[ label "Serializer" ],
-		[ label "Serialiser" ],
-		[ label "Output" ],
-		[ label "Writer" ],
-		[ label "HTML" ],
-		[ label "XHTML" ] .
+        :category             <http://dbpedia.org/resource/Category:Semantic_Web> .
+    
+<http://dev.perl.org/licenses/>
+	dc:title  "the same terms as the perl 5 programming language system itself".

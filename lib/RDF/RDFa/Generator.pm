@@ -209,9 +209,11 @@ L<http://www.perlrdf.org/>.
 
 Toby Inkster E<lt>tobyink@cpan.orgE<gt>.
 
+Kjetil Kjernsmo E<lt>kjetilk@cpan.orgE<gt>.
+
 =head1 COPYRIGHT AND LICENCE
 
-Copyright (C) 2010 by Toby Inkster
+Copyright (C) 2010 by Toby Inkster, 2017 Kjetil Kjernsmo
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself, either Perl version 5.8 or,

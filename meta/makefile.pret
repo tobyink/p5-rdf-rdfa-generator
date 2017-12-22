@@ -5,6 +5,7 @@
 `RDF-RDFa-Generator`
     :test-requirement [ :on "Test::More 0.96"^^:CpanId ];
     :test-requirement [ :on "Test::Output"^^:CpanId ];
+    :runtime-requirement    [ :on "perl 5.008"^^:CpanId ];
     :runtime-requirement    [ :on "Data::Dumper"^^:CpanId ];
     :runtime-requirement    [ :on "Icon::FamFamFam::Silk"^^:CpanId ];
     :runtime-requirement    [ :on "RDF::Trine 0.112"^^:CpanId ];

@@ -9,6 +9,9 @@ use Icon::FamFamFam::Silk;
 use RDF::RDFa::Generator::HTML::Pretty::Note;
 use XML::LibXML qw':all';
 
+use warnings;
+
+
 our $VERSION = '0.105_01';
 
 sub create_document

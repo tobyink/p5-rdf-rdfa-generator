@@ -54,7 +54,7 @@ sub nodes
 	
 	use Data::Dumper; Dumper($prefixes);
 	
-	if ($self->{'version'} == 1.1
+	if (defined($self->{'version'}) && $self->{'version'} == 1.1
 	and $self->{'prefix_attr'})
 	{
 		$rootnode->setAttribute('prefix', $prefixes->rdfa)

@@ -74,7 +74,7 @@ sub nodes
 
 	use Data::Dumper; Dumper($prefixes);
 	
-	if ($self->{'version'} == 1.1
+	if (defined($self->{'version'}) && $self->{'version'} == 1.1
 	and $self->{'prefix_attr'})
 	{
 		$root_node->setAttribute('prefix', $prefixes->rdfa)
@@ -99,7 +99,7 @@ sub _make_id
 {
 	my ($ident, $prefix) = @_;
 	
-	if ($prefix =~ /^[A-Za-z][A-Za-z0-9\_\:\.\-]*$/)
+	if (defined($prefix) && ($prefix =~ /^[A-Za-z][A-Za-z0-9\_\:\.\-]*$/))
 	{
 		$ident =~ s/([^A-Za-z0-9\_\:\.])/sprintf('-%x-',ord($1))/ge;
 		return $prefix . $ident;
@@ -173,7 +173,7 @@ sub _resource_statements
 	my $current_property = undef;
 	foreach my $st (@statements)
 	{
-		unless ($st->predicate->uri eq $current_property)
+		unless (defined($current_property) && ($st->predicate->uri eq $current_property))
 		{
 			my $DT = $DL->addNewChild(XHTML_NS, 'dt');
 			$DT->setAttribute('title', $st->predicate->uri);

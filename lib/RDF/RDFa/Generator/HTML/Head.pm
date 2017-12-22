@@ -109,7 +109,7 @@ sub nodes
 		
 		use Data::Dumper; Dumper($prefixes);
 		
-		if ($self->{'version'} == 1.1
+		if (defined($self->{'version'}) && $self->{'version'} == 1.1
 		and $self->{'prefix_attr'})
 		{
 			$node->setAttribute('prefix', $prefixes->rdfa)
@@ -189,7 +189,7 @@ sub _process_predicate
 		$node->setAttribute($attr, ':'.$1);
 		return $self;
 	}
-	elsif ($self->{'version'} == 1.1)
+	elsif (defined($self->{'version'}) && $self->{'version'} == 1.1)
 	{
 		$node->setAttribute($attr, $st->predicate->uri);
 		return $self;

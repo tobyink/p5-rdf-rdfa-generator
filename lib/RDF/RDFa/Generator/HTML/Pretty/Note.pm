@@ -52,7 +52,7 @@ sub new
 
 $node is an RDF::Trine::Node. Checks if the subject of $note is $node.
 
-Alias: is_relelvant_to.
+Alias: is_relevant_to.
 
 =cut
 

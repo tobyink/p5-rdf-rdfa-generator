@@ -18,6 +18,7 @@ use RDF::RDFa::Generator::HTML::Head;
 use RDF::RDFa::Generator::HTML::Hidden;
 use RDF::RDFa::Generator::HTML::Pretty;
 use RDF::Trine;
+use Carp;
 
 BEGIN
 {
@@ -153,44 +154,30 @@ sub nodes
 
 =back
 
-Additionally the methods C<serialize_model_to_file>, C<serialize_model_to_string>,
-C<serialize_iterator_to_file> and C<serialize_iterator_to_string> are provided for
-compatibility with the L<RDF::Trine::Serializer> interface.
+=head1 NOTE
+
+The methods C<serialize_model_to_file>, C<serialize_model_to_string>,
+C<serialize_iterator_to_file> and C<serialize_iterator_to_string> that
+were provided for compatibility with the L<RDF::Trine::Serializer>
+interface have been moved to a module L<RDF::Trine::Serializer::RDFa>
+that has to be installed separately.
 
 =cut
 
-sub serialize_model_to_string
-{
-	my ($proto, $model) = @_;
-	return $proto->create_document($model)->toString;
+sub serialize_model_to_string {
+  croak 'serialize_model_to_string have been to moved RDF::Trine::Serializer::RDFa';
 }
 
-sub serialize_model_to_file
-{
-	my ($proto, $fh, $model) = @_;
-	print {$fh} $proto->create_document($model)->toString;
+sub serialize_model_to_file {
+  croak 'serialize_model_to_file have been to moved RDF::Trine::Serializer::RDFa';
 }
 
-sub serialize_iterator_to_string
-{
-	my ($proto, $iter) = @_;
-	my $model = RDF::Trine::Model->temporary_model;
-	while (my $st = $iter->next)
-	{
-		$model->add_statement($st);
-	}
-	return $proto->serialize_model_to_string($model);
+sub serialize_iterator_to_string {
+  croak 'serialize_iterator_to_string have been to moved RDF::Trine::Serializer::RDFa';
 }
 
-sub serialize_iterator_to_file
-{
-	my ($proto, $fh, $iter) = @_;
-	my $model = RDF::Trine::Model->temporary_model;
-	while (my $st = $iter->next)
-	{
-		$model->add_statement($st);
-	}
-	return $proto->serialize_model_to_file($fh, $model);
+sub serialize_iterator_to_file {
+  croak 'serialize_iterator_to_string have been to moved RDF::Trine::Serializer::RDFa';
 }
 
 1;

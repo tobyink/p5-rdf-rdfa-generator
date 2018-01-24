@@ -411,7 +411,7 @@ sub _img
 		'http://xmlns.com/foaf/0.1/PersonalProfileDocument'    => 'page_green',
 	};
 	
-	return Icon::FamFamFam::Silk->new($icons->{$type}||'asterisk_yellow')->abs;
+	return Icon::FamFamFam::Silk->new($icons->{$type}||'asterisk_yellow')->uri;
 }
 
 1;

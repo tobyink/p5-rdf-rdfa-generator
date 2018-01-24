@@ -145,7 +145,7 @@ sub _get_stream
 			RDF::Trine::Node::Resource->new($self->{'data_context'});
 	}
 	
-	return $model->get_statements(undef, undef, undef, $data_context);
+	return $model->get_quads(undef, undef, undef, $data_context);
 }
 
 sub _process_subject

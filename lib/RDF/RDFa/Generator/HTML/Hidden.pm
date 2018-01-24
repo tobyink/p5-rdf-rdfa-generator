@@ -33,8 +33,8 @@ sub nodes
 	while (my $st = $stream->next)
 	{
 		my $s = $st->subject->is_resource ?
-			$st->subject->uri :
-			('_:'.$st->subject->blank_identifier);
+			$st->subject->abs :
+			('_:'.$st->subject->value);
 		push @{ $subjects->{$s} }, $st;
 	}
 	
@@ -83,12 +83,12 @@ sub _process_subject
 	
 	if (defined $self->{'base'} 
 	and $st->subject->is_resource
-	and $st->subject->uri eq $self->{'base'})
+	and $st->subject->abs eq $self->{'base'})
 		{ $node->setAttribute('about', ''); }
 	elsif ($st->subject->is_resource) 
-		{ $node->setAttribute('about', $st->subject->uri); }
+		{ $node->setAttribute('about', $st->subject->abs); }
 	else
-		{ $node->setAttribute('about', '[_:'.$st->subject->blank_identifier.']'); }
+		{ $node->setAttribute('about', '[_:'.$st->subject->value.']'); }
 	
 	return $self;
 }

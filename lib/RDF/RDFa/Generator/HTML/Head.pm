@@ -154,13 +154,13 @@ sub _process_subject
 	
 	if (defined $self->{'base'} 
 	and $st->subject->is_resource
-	and $st->subject->uri eq $self->{'base'})
+	and $st->subject->abs eq $self->{'base'})
 	{
 		return $self;
 	}
 	
 	if ($st->subject->is_resource) 
-		{ $node->setAttribute('about', $st->subject->uri); }
+		{ $node->setAttribute('about', $st->subject->abs); }
 	else
 		{ $node->setAttribute('about', '[_:'.$st->subject->blank_identifier.']'); }
 	
@@ -174,7 +174,7 @@ sub _process_predicate
 	my $attr = $st->object->is_literal ? 'property' : 'rel';
 
 	if ($attr eq 'rel'
-	and $st->predicate->uri =~ m'^http://www\.w3\.org/1999/xhtml/vocab\#
+	and $st->predicate->abs =~ m'^http://www\.w3\.org/1999/xhtml/vocab\#
 										(alternate|appendix|bookmark|cite|
 										chapter|contents|copyright|first|glossary|help|icon|
 										index|last|license|meta|next|p3pv1|prev|role|section|
@@ -184,19 +184,19 @@ sub _process_predicate
 		return $self;
 	}
 	elsif ($attr eq 'rel'
-	and $st->predicate->uri =~ m'^http://www\.w3\.org/1999/xhtml/vocab#(.*)$')
+	and $st->predicate->abs =~ m'^http://www\.w3\.org/1999/xhtml/vocab#(.*)$')
 	{
 		$node->setAttribute($attr, ':'.$1);
 		return $self;
 	}
 	elsif (defined($self->{'version'}) && $self->{'version'} == 1.1)
 	{
-		$node->setAttribute($attr, $st->predicate->uri);
+		$node->setAttribute($attr, $st->predicate->abs);
 		return $self;
 	}
 	
 	$node->setAttribute($attr, 
-		$self->_make_curie($st->predicate->uri, $prefixes));
+		$self->_make_curie($st->predicate->abs, $prefixes));
 	
 	return $self;
 }
@@ -207,22 +207,22 @@ sub _process_object
 	
 	if (defined $self->{'base'} 
 	and $st->subject->is_resource
-	and $st->subject->uri eq $self->{'base'}
+	and $st->subject->abs eq $self->{'base'}
 	and $st->object->is_resource)
 	{
-		$node->setAttribute('href', $st->object->uri);
+		$node->setAttribute('href', $st->object->abs);
 		return $self;
 	}
 	elsif (defined $self->{'base'} 
 	and $st->object->is_resource
-	and $st->object->uri eq $self->{'base'})
+	and $st->object->abs eq $self->{'base'})
 	{
 		$node->setAttribute('resource', '');
 		return $self;
 	}
 	elsif ($st->object->is_resource)
 	{
-		$node->setAttribute('resource', $st->object->uri);
+		$node->setAttribute('resource', $st->object->abs);
 		return $self;
 	}
 	elsif ($st->object->is_blank)

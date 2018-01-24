@@ -52,7 +52,7 @@ sub nodes
 	{
 		next if $st->subject->is_literal;  # ???
 		my $s = $st->subject->is_resource ?
-			$st->subject->uri :
+			$st->subject->abs :
 			('_:'.$st->subject->blank_identifier);
 		push @{ $subjects->{$s} }, $st;
 	}
@@ -113,7 +113,7 @@ sub _resource_heading
 	my ($self, $subject, $node, $statements, $prefixes) = @_;
 	
 	my $heading = $node->addNewChild(XHTML_NS, 'h3');
-	$heading->appendTextNode( $subject->is_resource ? $subject->uri : ('_:'.$subject->blank_identifier) );
+	$heading->appendTextNode( $subject->is_resource ? $subject->abs : ('_:'.$subject->blank_identifier) );
 	$heading->setAttribute('class', $subject->is_resource ? 'resource' : 'blank' );
 	
 	return $self;
@@ -124,11 +124,11 @@ sub _resource_classes
 	my ($self, $subject, $node, $statements, $prefixes) = @_;
 	
 	my @statements = sort {
-		$a->predicate->uri cmp $b->predicate->uri
-		or $a->object->uri cmp $b->object->uri
+		$a->predicate->abs cmp $b->predicate->abs
+		or $a->object->abs cmp $b->object->abs
 		}
 		grep {
-			$_->predicate->uri eq 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'
+			$_->predicate->abs eq 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'
 			and $_->object->is_resource
 		}
 		@$statements;
@@ -142,10 +142,10 @@ sub _resource_classes
 	foreach my $st (@statements)
 	{
 		my $IMG = $SPAN->addNewChild(XHTML_NS, 'img');
-		$IMG->setAttribute('about', $st->object->uri);
-		$IMG->setAttribute('alt',   $st->object->uri);
-		$IMG->setAttribute('src',   $self->_img($st->object->uri));
-		$IMG->setAttribute('title', $st->object->uri);
+		$IMG->setAttribute('about', $st->object->abs);
+		$IMG->setAttribute('alt',   $st->object->abs);
+		$IMG->setAttribute('src',   $self->_img($st->object->abs));
+		$IMG->setAttribute('title', $st->object->abs);
 	}
 
 	return $self;
@@ -157,11 +157,11 @@ sub _resource_statements
 	my ($self, $subject, $node, $statements, $prefixes, $interlink, $id_prefix, $model) = @_;
 	
 	my @statements = sort {
-		$a->predicate->uri cmp $b->predicate->uri
+		$a->predicate->abs cmp $b->predicate->abs
 		or $a->object->as_ntriples cmp $b->object->as_ntriples
 		}
 		grep {
-			$_->predicate->uri ne 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'
+			$_->predicate->abs ne 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'
 			or !$_->object->is_resource
 		}
 		@$statements;
@@ -173,47 +173,47 @@ sub _resource_statements
 	my $current_property = undef;
 	foreach my $st (@statements)
 	{
-		unless (defined($current_property) && ($st->predicate->uri eq $current_property))
+		unless (defined($current_property) && ($st->predicate->abs eq $current_property))
 		{
 			my $DT = $DL->addNewChild(XHTML_NS, 'dt');
-			$DT->setAttribute('title', $st->predicate->uri);
-			$DT->appendTextNode($self->_make_curie($st->predicate->uri, $prefixes));
+			$DT->setAttribute('title', $st->predicate->abs);
+			$DT->appendTextNode($self->_make_curie($st->predicate->abs, $prefixes));
 		}
-		$current_property = $st->predicate->uri;
+		$current_property = $st->predicate->abs;
 		
 		my $DD = $DL->addNewChild(XHTML_NS, 'dd');
 		
-		if ($st->object->is_resource && $st->object->uri =~ /^javascript:/i)
+		if ($st->object->is_resource && $st->object->abs =~ /^javascript:/i)
 		{
 			$DD->setAttribute('class', 'resource');
 			
 			my $A = $DD->addNewChild(XHTML_NS, 'span');
-			$A->setAttribute('rel',  $self->_make_curie($st->predicate->uri, $prefixes));
-			$A->setAttribute('resource', $st->object->uri);
-			$A->appendTextNode($st->object->uri);
+			$A->setAttribute('rel',  $self->_make_curie($st->predicate->abs, $prefixes));
+			$A->setAttribute('resource', $st->object->abs);
+			$A->appendTextNode($st->object->abs);
 		}
 		elsif ($st->object->is_resource)
 		{
 			$DD->setAttribute('class', 'resource');
 			
 			my $A = $DD->addNewChild(XHTML_NS, 'a');
-			$A->setAttribute('rel',  $self->_make_curie($st->predicate->uri, $prefixes));
-			$A->setAttribute('href', $st->object->uri);
-			$A->appendTextNode($st->object->uri);			
+			$A->setAttribute('rel',  $self->_make_curie($st->predicate->abs, $prefixes));
+			$A->setAttribute('href', $st->object->abs);
+			$A->appendTextNode($st->object->abs);			
 		}
 		elsif ($st->object->is_blank)
 		{
 			$DD->setAttribute('class', 'blank');
 			
 			my $A = $DD->addNewChild(XHTML_NS, 'span');
-			$A->setAttribute('rel',  $self->_make_curie($st->predicate->uri, $prefixes));
+			$A->setAttribute('rel',  $self->_make_curie($st->predicate->abs, $prefixes));
 			$A->setAttribute('resource', '[_:'.$st->object->blank_identifier.']');
 			$A->appendTextNode('_:'.$st->object->blank_identifier);
 		}
 		elsif ($st->object->is_literal
 		&& !$st->object->has_datatype)
 		{
-			$DD->setAttribute('property',  $self->_make_curie($st->predicate->uri, $prefixes));
+			$DD->setAttribute('property',  $self->_make_curie($st->predicate->abs, $prefixes));
 			$DD->setAttribute('class', 'plain-literal');
 			$DD->setAttribute('xml:lang',  ''.$st->object->literal_value_language);
 			$DD->appendTextNode(encode_utf8($st->object->literal_value));
@@ -223,7 +223,7 @@ sub _resource_statements
 		&& $st->object->has_datatype
 		&& $st->object->literal_datatype eq 'http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral')
 		{
-			$DD->setAttribute('property',  $self->_make_curie($st->predicate->uri, $prefixes));
+			$DD->setAttribute('property',  $self->_make_curie($st->predicate->abs, $prefixes));
 			$DD->setAttribute('class', 'typed-literal datatype-xmlliteral');
 			$DD->setAttribute('datatype',  $self->_make_curie($st->object->literal_datatype, $prefixes));
 			$DD->setAttribute('content', encode_utf8($st->object->literal_value));
@@ -233,7 +233,7 @@ sub _resource_statements
 		&& $st->object->has_datatype
 		&& $st->object->literal_datatype eq 'http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral')
 		{
-			$DD->setAttribute('property',  $self->_make_curie($st->predicate->uri, $prefixes));
+			$DD->setAttribute('property',  $self->_make_curie($st->predicate->abs, $prefixes));
 			$DD->setAttribute('class', 'typed-literal datatype-xmlliteral');
 			$DD->setAttribute('datatype',  $self->_make_curie($st->object->literal_datatype, $prefixes));
 			$DD->appendWellBalancedChunk(encode_utf8($st->object->literal_value));
@@ -241,7 +241,7 @@ sub _resource_statements
 		elsif ($st->object->is_literal
 		&& $st->object->has_datatype)
 		{
-			$DD->setAttribute('property',  $self->_make_curie($st->predicate->uri, $prefixes));
+			$DD->setAttribute('property',  $self->_make_curie($st->predicate->abs, $prefixes));
 			$DD->setAttribute('class', 'typed-literal');
 			$DD->setAttribute('datatype',  $self->_make_curie($st->object->literal_datatype, $prefixes));
 			$DD->appendTextNode(encode_utf8($st->object->literal_value));
@@ -253,9 +253,9 @@ sub _resource_statements
 			{
 				$DD->appendTextNode(' ');
 				my $seealso = $DD->addNewChild(XHTML_NS, 'a');
-				$seealso->setAttribute('about', $st->object->is_resource ? $st->object->uri : '[_:'.$st->object->blank_identifier.']');
+				$seealso->setAttribute('about', $st->object->is_resource ? $st->object->abs : '[_:'.$st->object->blank_identifier.']');
 				$seealso->setAttribute('rel', 'seeAlso');
-				$seealso->setAttribute('href', '#'._make_id($st->object->is_resource ? $st->object->uri : '_:'.$st->object->blank_identifier, $id_prefix));
+				$seealso->setAttribute('href', '#'._make_id($st->object->is_resource ? $st->object->abs : '_:'.$st->object->blank_identifier, $id_prefix));
 				$seealso->appendTextNode($interlink);
 			}
 		}
@@ -273,9 +273,9 @@ sub _resource_statements
 			my $sadata = {};
 			while (my $sast = $iter->next)
 			{
-				my $sas = $sast->subject->is_resource ? $sast->subject->uri : '_:'.$sast->subject->blank_identifier;
-				my $p = $self->_make_curie($sast->predicate->uri, $prefixes);
-				$sadata->{$sas}->{$p} = $sast->predicate->uri;
+				my $sas = $sast->subject->is_resource ? $sast->subject->abs : '_:'.$sast->subject->blank_identifier;
+				my $p = $self->_make_curie($sast->predicate->abs, $prefixes);
+				$sadata->{$sas}->{$p} = $sast->predicate->abs;
 			}
 			
 			my $seealso = $DL->addNewChild(XHTML_NS, 'dd');
@@ -411,7 +411,7 @@ sub _img
 		'http://xmlns.com/foaf/0.1/PersonalProfileDocument'    => 'page_green',
 	};
 	
-	return Icon::FamFamFam::Silk->new($icons->{$type}||'asterisk_yellow')->uri;
+	return Icon::FamFamFam::Silk->new($icons->{$type}||'asterisk_yellow')->abs;
 }
 
 1;

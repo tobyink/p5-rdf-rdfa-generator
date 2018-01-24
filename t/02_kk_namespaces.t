@@ -5,13 +5,17 @@
 use strict;
 use Test::More;
 
-use RDF::Trine::Model;
+use Attean;
+use Attean::RDF qw(iri);
 
-my $model = RDF::Trine::Model->temporary_model;
 
-use RDF::Trine::Parser;
-my $parser     = RDF::Trine::Parser->new( 'turtle' );
-$parser->parse_into_model( 'http://example.org/', '</foo> a </Bar> .', $model );
+
+my $parser     = Attean->get_parser( 'turtle' )->new(base=>'http://example.org/');
+my $iter = $parser->parse_iter_from_bytes( '</foo> a </Bar> .' );
+
+my $store = Attean->get_store('Memory')->new();
+$store->add_iter($iter->as_quads(iri('http://graph.invalid/')));
+my $model = Attean::QuadModel->new( store => $store );
 
 use RDF::RDFa::Generator;
 

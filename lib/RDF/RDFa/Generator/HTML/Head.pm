@@ -233,10 +233,10 @@ sub _process_object
 	
 	$node->setAttribute('content',  encode_utf8($st->object->value));
 	
-	if (defined $st->object->literal_datatype)
+	if (defined $st->object->datatype)
 	{
 		$node->setAttribute('datatype', 
-			$self->_make_curie($st->object->literal_datatype, $prefixes));
+			$self->_make_curie($st->object->datatype, $prefixes));
 	}
 	else
 	{

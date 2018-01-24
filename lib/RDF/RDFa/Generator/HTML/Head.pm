@@ -162,7 +162,7 @@ sub _process_subject
 	if ($st->subject->is_resource) 
 		{ $node->setAttribute('about', $st->subject->abs); }
 	else
-		{ $node->setAttribute('about', '[_:'.$st->subject->blank_identifier.']'); }
+		{ $node->setAttribute('about', '[_:'.$st->subject->value.']'); }
 	
 	return $self;
 }
@@ -227,7 +227,7 @@ sub _process_object
 	}
 	elsif ($st->object->is_blank)
 	{
-		$node->setAttribute('resource', '[_:'.$st->object->blank_identifier.']');
+		$node->setAttribute('resource', '[_:'.$st->object->value.']');
 		return $self;
 	}
 	

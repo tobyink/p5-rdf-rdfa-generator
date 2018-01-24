@@ -53,7 +53,7 @@ sub nodes
 		next if $st->subject->is_literal;  # ???
 		my $s = $st->subject->is_resource ?
 			$st->subject->abs :
-			('_:'.$st->subject->blank_identifier);
+			('_:'.$st->subject->value);
 		push @{ $subjects->{$s} }, $st;
 	}
 	
@@ -113,7 +113,7 @@ sub _resource_heading
 	my ($self, $subject, $node, $statements, $prefixes) = @_;
 	
 	my $heading = $node->addNewChild(XHTML_NS, 'h3');
-	$heading->appendTextNode( $subject->is_resource ? $subject->abs : ('_:'.$subject->blank_identifier) );
+	$heading->appendTextNode( $subject->is_resource ? $subject->abs : ('_:'.$subject->value) );
 	$heading->setAttribute('class', $subject->is_resource ? 'resource' : 'blank' );
 	
 	return $self;
@@ -207,8 +207,8 @@ sub _resource_statements
 			
 			my $A = $DD->addNewChild(XHTML_NS, 'span');
 			$A->setAttribute('rel',  $self->_make_curie($st->predicate->abs, $prefixes));
-			$A->setAttribute('resource', '[_:'.$st->object->blank_identifier.']');
-			$A->appendTextNode('_:'.$st->object->blank_identifier);
+			$A->setAttribute('resource', '[_:'.$st->object->value.']');
+			$A->appendTextNode('_:'.$st->object->value);
 		}
 		elsif ($st->object->is_literal
 		&& !$st->object->has_datatype)
@@ -253,9 +253,9 @@ sub _resource_statements
 			{
 				$DD->appendTextNode(' ');
 				my $seealso = $DD->addNewChild(XHTML_NS, 'a');
-				$seealso->setAttribute('about', $st->object->is_resource ? $st->object->abs : '[_:'.$st->object->blank_identifier.']');
+				$seealso->setAttribute('about', $st->object->is_resource ? $st->object->abs : '[_:'.$st->object->value.']');
 				$seealso->setAttribute('rel', 'seeAlso');
-				$seealso->setAttribute('href', '#'._make_id($st->object->is_resource ? $st->object->abs : '_:'.$st->object->blank_identifier, $id_prefix));
+				$seealso->setAttribute('href', '#'._make_id($st->object->is_resource ? $st->object->abs : '_:'.$st->object->value, $id_prefix));
 				$seealso->appendTextNode($interlink);
 			}
 		}
@@ -273,7 +273,7 @@ sub _resource_statements
 			my $sadata = {};
 			while (my $sast = $iter->next)
 			{
-				my $sas = $sast->subject->is_resource ? $sast->subject->abs : '_:'.$sast->subject->blank_identifier;
+				my $sas = $sast->subject->is_resource ? $sast->subject->abs : '_:'.$sast->subject->value;
 				my $p = $self->_make_curie($sast->predicate->abs, $prefixes);
 				$sadata->{$sas}->{$p} = $sast->predicate->abs;
 			}

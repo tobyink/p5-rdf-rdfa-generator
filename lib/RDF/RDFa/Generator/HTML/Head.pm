@@ -231,7 +231,7 @@ sub _process_object
 		return $self;
 	}
 	
-	$node->setAttribute('content',  encode_utf8($st->object->literal_value));
+	$node->setAttribute('content',  encode_utf8($st->object->value));
 	
 	if (defined $st->object->literal_datatype)
 	{

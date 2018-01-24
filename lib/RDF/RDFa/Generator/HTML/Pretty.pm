@@ -216,7 +216,7 @@ sub _resource_statements
 			$DD->setAttribute('property',  $self->_make_curie($st->predicate->abs, $prefixes));
 			$DD->setAttribute('class', 'plain-literal');
 			$DD->setAttribute('xml:lang',  ''.$st->object->language);
-			$DD->appendTextNode(encode_utf8($st->object->literal_value));
+			$DD->appendTextNode(encode_utf8($st->object->value));
 		}
 		elsif ($self->{'safe_xml_literals'}
 		&& $st->object->is_literal
@@ -226,8 +226,8 @@ sub _resource_statements
 			$DD->setAttribute('property',  $self->_make_curie($st->predicate->abs, $prefixes));
 			$DD->setAttribute('class', 'typed-literal datatype-xmlliteral');
 			$DD->setAttribute('datatype',  $self->_make_curie($st->object->literal_datatype, $prefixes));
-			$DD->setAttribute('content', encode_utf8($st->object->literal_value));
-			$DD->addNewChild(XHTML_NS, 'pre')->addNewChild(XHTML_NS, 'code')->appendTextNode(encode_utf8($st->object->literal_value));
+			$DD->setAttribute('content', encode_utf8($st->object->value));
+			$DD->addNewChild(XHTML_NS, 'pre')->addNewChild(XHTML_NS, 'code')->appendTextNode(encode_utf8($st->object->value));
 		}
 		elsif ($st->object->is_literal
 		&& $st->object->has_datatype
@@ -236,7 +236,7 @@ sub _resource_statements
 			$DD->setAttribute('property',  $self->_make_curie($st->predicate->abs, $prefixes));
 			$DD->setAttribute('class', 'typed-literal datatype-xmlliteral');
 			$DD->setAttribute('datatype',  $self->_make_curie($st->object->literal_datatype, $prefixes));
-			$DD->appendWellBalancedChunk(encode_utf8($st->object->literal_value));
+			$DD->appendWellBalancedChunk(encode_utf8($st->object->value));
 		}
 		elsif ($st->object->is_literal
 		&& $st->object->has_datatype)
@@ -244,7 +244,7 @@ sub _resource_statements
 			$DD->setAttribute('property',  $self->_make_curie($st->predicate->abs, $prefixes));
 			$DD->setAttribute('class', 'typed-literal');
 			$DD->setAttribute('datatype',  $self->_make_curie($st->object->literal_datatype, $prefixes));
-			$DD->appendTextNode(encode_utf8($st->object->literal_value));
+			$DD->appendTextNode(encode_utf8($st->object->value));
 		}
 
 		if ($interlink && !$st->object->is_literal)

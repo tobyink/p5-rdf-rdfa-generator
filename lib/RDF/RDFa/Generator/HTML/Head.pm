@@ -240,7 +240,7 @@ sub _process_object
 	}
 	else
 	{
-		$node->setAttribute('xml:lang', ''.$st->object->literal_value_language);
+		$node->setAttribute('xml:lang', ''.$st->object->language);
 	}
 	
 	return $self;

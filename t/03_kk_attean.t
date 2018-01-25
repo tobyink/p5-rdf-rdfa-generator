@@ -40,7 +40,7 @@ subtest 'Hidden generator' => sub {
 subtest 'Pretty generator' => sub {
 	ok(my $document = RDF::RDFa::Generator::HTML::Pretty->new->create_document($model), 'Assignment OK');
 	my $string = tests($document);
-	like($string, qr|<dd property="ex:title" class="typed-literal" datatype="xsd:langString">Dahut</dd>|, 'Literals OK');
+	like($string, qr|<dd property="ex:title" class="typed-literal" xml:lang="fr" datatype="xsd:langString">Dahut</dd>|, 'Literals OK');
 };
 
 sub tests {

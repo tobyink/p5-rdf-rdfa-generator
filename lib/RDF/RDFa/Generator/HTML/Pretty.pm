@@ -155,7 +155,7 @@ sub _resource_statements
 	
 	my @statements = sort {
 		$a->predicate->abs cmp $b->predicate->abs
-		or $a->object->as_ntriples cmp $b->object->as_ntriples
+		or $a->object->ntriples_string cmp $b->object->ntriples_string
 		}
 		grep {
 			$_->predicate->abs ne 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type'

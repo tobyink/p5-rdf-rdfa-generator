@@ -55,6 +55,51 @@ subtest 'Head generator, list of unknown uris' => sub {
   like($string, qr|xmlns:ontology="http://example.org/ontology/"|, 'Correct dbo namespace declaration');
 };
 
+subtest 'Pretty generator, single given NS' => sub {
+  my $string = tests({ 'ex' => 'http://example.org/ns'}, 'xmlns:ex="http://example.org/ns"', 'HTML::Pretty');
+
+};
+
+subtest 'Pretty generator, list of known prefixes' => sub {
+  my $string = tests(['bibo', 'dbo', 'doap'], 'xmlns:bibo="http://purl.org/ontology/bibo/"', 'HTML::Pretty');
+  like($string, qr|xmlns:dbo="http://dbpedia.org/ontology/"|, 'Correct dbo namespace declaration');
+  like($string, qr|xmlns:doap="http://usefulinc.com/ns/doap#"|, 'Correct doap namespace declaration');
+};
+
+subtest 'Pretty generator, list of known uris' => sub {
+  my $string = tests(["http://dbpedia.org/ontology/", "http://usefulinc.com/ns/doap#", "http://purl.org/ontology/bibo/"], 'xmlns:bibo="http://purl.org/ontology/bibo/"', 'HTML::Pretty');
+  like($string, qr|xmlns:dbo="http://dbpedia.org/ontology/"|, 'Correct dbo namespace declaration');
+  like($string, qr|xmlns:doap="http://usefulinc.com/ns/doap#"|, 'Correct doap namespace declaration');
+};
+
+subtest 'Pretty generator, list of unknown uris' => sub {
+  my $string = tests(["http://example.org/ontology/", "http://nothinguseful.com/ns/doad#"], 'xmlns:doad="http://nothinguseful.com/ns/doad#"', 'HTML::Pretty');
+  like($string, qr|xmlns:ontology="http://example.org/ontology/"|, 'Correct dbo namespace declaration');
+};
+
+subtest 'Hidden generator, single given NS' => sub {
+  my $string = tests({ 'ex' => 'http://example.org/ns'}, 'xmlns:ex="http://example.org/ns"', 'HTML::Hidden');
+
+};
+
+subtest 'Hidden generator, list of known prefixes' => sub {
+  my $string = tests(['bibo', 'dbo', 'doap'], 'xmlns:bibo="http://purl.org/ontology/bibo/"', 'HTML::Hidden');
+  like($string, qr|xmlns:dbo="http://dbpedia.org/ontology/"|, 'Correct dbo namespace declaration');
+  like($string, qr|xmlns:doap="http://usefulinc.com/ns/doap#"|, 'Correct doap namespace declaration');
+};
+
+subtest 'Hidden generator, list of known uris' => sub {
+  my $string = tests(["http://dbpedia.org/ontology/", "http://usefulinc.com/ns/doap#", "http://purl.org/ontology/bibo/"], 'xmlns:bibo="http://purl.org/ontology/bibo/"', 'HTML::Hidden');
+  like($string, qr|xmlns:dbo="http://dbpedia.org/ontology/"|, 'Correct dbo namespace declaration');
+  like($string, qr|xmlns:doap="http://usefulinc.com/ns/doap#"|, 'Correct doap namespace declaration');
+};
+
+subtest 'Hidden generator, list of unknown uris' => sub {
+  my $string = tests(["http://example.org/ontology/", "http://nothinguseful.com/ns/doad#"], 'xmlns:doad="http://nothinguseful.com/ns/doad#"', 'HTML::Hidden');
+  like($string, qr|xmlns:ontology="http://example.org/ontology/"|, 'Correct dbo namespace declaration');
+};
+
+
 
 sub tests {
   my ($ns, $expect, $generator) = @_;

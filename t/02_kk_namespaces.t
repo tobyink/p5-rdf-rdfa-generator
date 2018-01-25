@@ -30,12 +30,21 @@ subtest 'Default generator, old bugfix' => sub {
 };
 
 subtest 'Default generator, single given NS' => sub {
-  ok(my $document = RDF::RDFa::Generator->new(namespaces => { 'ex' => 'http://example.org/ns'})->create_document($model), 'Assignment OK');
-  isa_ok($document, 'XML::LibXML::Document');
-  my $string = $document->toString;
-  like($string, qr|xmlns:ex="http://example.org/ns"|, 'Correct example namespace declaration');
+  my $string = tests({ 'ex' => 'http://example.org/ns'}, 'xmlns:ex="http://example.org/ns"');
 };
 
+#subtest 'Default generator, single given NS' => sub {
 
+#};
+
+
+sub tests {
+  my ($ns, $expect) = @_;
+  ok(my $document = RDF::RDFa::Generator->new(namespaces => $ns)->create_document($model), 'Assignment OK');
+  isa_ok($document, 'XML::LibXML::Document');
+  my $string = $document->toString;
+  like($string, qr|$expect|, 'Correct example namespace declaration');
+  return $string;
+}
 
 done_testing();

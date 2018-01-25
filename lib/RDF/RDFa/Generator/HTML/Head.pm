@@ -137,11 +137,13 @@ sub _get_stream
 	my ($self, $model) = @_;
 	
 	my $data_context = undef;
-	if (defined $self->{'data_context'})
-	{
-		$data_context = ( $self->{'data_context'} =~ /^_:(.*)$/ ) ?
-			RDF::Trine::Node::Blank->new($1) :
-			RDF::Trine::Node::Resource->new($self->{'data_context'});
+	if (defined($self->{'data_context'})) {
+	  if (! blessed($self->{'data_context'})) {
+		 croak "data_context can't be a string anymore, must be a Attean blank or IRI or an RDF::Trine::Node";
+	  } elsif ($self->{'data_context'}->does('Attean::API::BlankOrIRI')
+				  || $self->{'data_context'}->isa('RDF::Trine::Node')) {
+		 croak "data_context must be a Attean blank or IRI or an RDF::Trine::Node, not " . ref($self->{'data_context'});
+	  }
 	}
 	
 	return $model->get_quads(undef, undef, undef, $data_context);

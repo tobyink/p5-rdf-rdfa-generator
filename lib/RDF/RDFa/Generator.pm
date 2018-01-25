@@ -40,7 +40,7 @@ Options include:
 
 =item * B<base> - the base URL where the output data will be published. This allows in some cases for the generated RDFa to include relative URIs.
 
-=item * B<data_context> - if non-null, a URI (string) which indicates the context (named graph) containing the data to generate RDFa for.
+=item * B<data_context> - if non-null, an L<Attean> Blank or IRI object or an L<RDF::Trine::Node> which indicates the context (named graph) containing the data to generate RDFa for.
 
 =item * B<namespaces> - a {prefix=>uri} hashref of preferred CURIE prefixes. 
 

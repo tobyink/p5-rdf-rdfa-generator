@@ -210,17 +210,8 @@ sub _resource_statements
 			$A->setAttribute('resource', '[_:'.$st->object->value.']');
 			$A->appendTextNode('_:'.$st->object->value);
 		}
-		elsif ($st->object->is_literal
-		&& !$st->object->has_datatype)
-		{
-			$DD->setAttribute('property',  $self->_make_curie($st->predicate->abs, $prefixes));
-			$DD->setAttribute('class', 'plain-literal');
-			$DD->setAttribute('xml:lang',  ''.$st->object->language);
-			$DD->appendTextNode(encode_utf8($st->object->value));
-		}
 		elsif ($self->{'safe_xml_literals'}
 		&& $st->object->is_literal
-		&& $st->object->has_datatype
 		&& $st->object->datatype eq 'http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral')
 		{
 			$DD->setAttribute('property',  $self->_make_curie($st->predicate->abs, $prefixes));
@@ -230,7 +221,6 @@ sub _resource_statements
 			$DD->addNewChild(XHTML_NS, 'pre')->addNewChild(XHTML_NS, 'code')->appendTextNode(encode_utf8($st->object->value));
 		}
 		elsif ($st->object->is_literal
-		&& $st->object->has_datatype
 		&& $st->object->datatype eq 'http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral')
 		{
 			$DD->setAttribute('property',  $self->_make_curie($st->predicate->abs, $prefixes));
@@ -238,8 +228,7 @@ sub _resource_statements
 			$DD->setAttribute('datatype',  $self->_make_curie($st->object->datatype, $prefixes));
 			$DD->appendWellBalancedChunk(encode_utf8($st->object->value));
 		}
-		elsif ($st->object->is_literal
-		&& $st->object->has_datatype)
+		elsif ($st->object->is_literal)
 		{
 			$DD->setAttribute('property',  $self->_make_curie($st->predicate->abs, $prefixes));
 			$DD->setAttribute('class', 'typed-literal');

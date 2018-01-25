@@ -33,9 +33,27 @@ subtest 'Default generator, single given NS' => sub {
   my $string = tests({ 'ex' => 'http://example.org/ns'}, 'xmlns:ex="http://example.org/ns"');
 };
 
-#subtest 'Default generator, single given NS' => sub {
+subtest 'Head generator, single given NS' => sub {
+  my $string = tests({ 'ex' => 'http://example.org/ns'}, 'xmlns:ex="http://example.org/ns"', 'HTML::Head');
 
-#};
+};
+
+subtest 'Head generator, list of known prefixes' => sub {
+  my $string = tests(['bibo', 'dbo', 'doap'], 'xmlns:bibo="http://purl.org/ontology/bibo/"', 'HTML::Head');
+  like($string, qr|xmlns:dbo="http://dbpedia.org/ontology/"|, 'Correct dbo namespace declaration');
+  like($string, qr|xmlns:doap="http://usefulinc.com/ns/doap#"|, 'Correct doap namespace declaration');
+};
+
+subtest 'Head generator, list of known uris' => sub {
+  my $string = tests(["http://dbpedia.org/ontology/", "http://usefulinc.com/ns/doap#", "http://purl.org/ontology/bibo/"], 'xmlns:bibo="http://purl.org/ontology/bibo/"', 'HTML::Head');
+  like($string, qr|xmlns:dbo="http://dbpedia.org/ontology/"|, 'Correct dbo namespace declaration');
+  like($string, qr|xmlns:doap="http://usefulinc.com/ns/doap#"|, 'Correct doap namespace declaration');
+};
+
+subtest 'Head generator, list of unknown uris' => sub {
+  my $string = tests(["http://example.org/ontology/", "http://nothinguseful.com/ns/doad#"], 'xmlns:doad="http://nothinguseful.com/ns/doad#"', 'HTML::Head');
+  like($string, qr|xmlns:ontology="http://example.org/ontology/"|, 'Correct dbo namespace declaration');
+};
 
 
 sub tests {

@@ -5,10 +5,17 @@
 `RDF-RDFa-Generator`
     :test-requirement [ :on "Test::More 0.96"^^:CpanId ];
     :test-requirement [ :on "Test::Output"^^:CpanId ];
+    :test-requirement [ :on "Test::Modern"^^:CpanId ];
+    :test-requirement [ :on "Attean"^^:CpanId ];
+    :test-requirement [ :on "RDF::Prefixes"^^:CpanId ];
+    :runtime-recommendation [ :on "RDF::Prefixes"^^:CpanId ];
+    :runtime-recommendation [ :on "Attean"^^:CpanId ];
+    :runtime-suggestion     [ :on "RDF::Trine 0.112"^^:CpanId ];
+    :runtime-requirement    [ :on "URI::NamespaceMap 1.05"^^:CpanId ];
+    :runtime-requirement    [ :on "RDF::NS::Curated 0.006"^^:CpanId ];
     :runtime-requirement    [ :on "perl 5.008"^^:CpanId ];
     :runtime-requirement    [ :on "Data::Dumper"^^:CpanId ];
     :runtime-requirement    [ :on "Icon::FamFamFam::Silk"^^:CpanId ];
-    :runtime-requirement    [ :on "RDF::Trine 0.112"^^:CpanId ];
-    :runtime-requirement    [ :on "RDF::Prefixes"^^:CpanId ];
     :runtime-requirement    [ :on "XML::LibXML 1.60"^^:CpanId ];
+    :develop-recommendation [ :on "Dist::Inkt 0.001"^^:CpanId ];
 .

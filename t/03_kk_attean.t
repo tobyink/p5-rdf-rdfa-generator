@@ -7,7 +7,7 @@ use Test::More;
 use Test::Modern;
 
 BEGIN {
-  use_ok('Attean', "Attean required for tests");
+  use_ok('Attean') or BAIL_OUT "Attean required for tests";
   use_ok('RDF::RDFa::Generator');
 }
 

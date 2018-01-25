@@ -29,4 +29,13 @@ subtest 'Default generator, old bugfix' => sub {
   like($string, qr|xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"|, 'Correct RDF namespace declaration');
 };
 
+subtest 'Default generator, single given NS' => sub {
+  ok(my $document = RDF::RDFa::Generator->new(namespaces => { 'ex' => 'http://example.org/ns'})->create_document($model), 'Assignment OK');
+  isa_ok($document, 'XML::LibXML::Document');
+  my $string = $document->toString;
+  like($string, qr|xmlns:ex="http://example.org/ns"|, 'Correct example namespace declaration');
+};
+
+
+
 done_testing();

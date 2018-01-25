@@ -17,11 +17,11 @@ our $VERSION = '0.105_01';
 
 sub new
 {
-	my ($class, %opts) = @_;
+   my ($class, %opts) = @_;
 
 	unless (blessed($opts{namespacemap}) && $opts{namespacemap}->isa('URI::NamespaceMap')) {
 	  if (defined $opts{namespaces}) {
-		 $opts{namespacemap} = URI::NamespaceMap->new({$opts{namespaces}});
+		 $opts{namespacemap} = URI::NamespaceMap->new($opts{namespaces});
 	  } else {
 		 my $curated = RDF::NS::Curated->new;
 		 $opts{namespacemap} = URI::NamespaceMap->new($curated->all);
@@ -38,7 +38,6 @@ sub new
 	  delete $opts{ns};
 	  delete $opts{namespaces}
 	}
-	warn Data::Dumper::Dumper(\%opts);
 	bless \%opts, $class;
 }
 

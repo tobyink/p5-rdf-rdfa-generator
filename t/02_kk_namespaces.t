@@ -39,8 +39,14 @@ subtest 'Default generator, single given NS' => sub {
 
 
 sub tests {
-  my ($ns, $expect) = @_;
-  ok(my $document = RDF::RDFa::Generator->new(namespaces => $ns)->create_document($model), 'Assignment OK');
+  my ($ns, $expect, $generator) = @_;
+  my %opts = (namespaces => $ns);
+  if ($generator) {
+	 $opts{generator} = $generator;
+  } else {
+	 $generator = 'default';
+  }
+  ok(my $document = RDF::RDFa::Generator->new(%opts)->create_document($model), "Assignment of $generator generator OK");
   isa_ok($document, 'XML::LibXML::Document');
   my $string = $document->toString;
   like($string, qr|$expect|, 'Correct example namespace declaration');

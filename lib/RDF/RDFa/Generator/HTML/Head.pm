@@ -22,6 +22,7 @@ sub new
 	unless (blessed($opts{namespacemap}) && $opts{namespacemap}->isa('URI::NamespaceMap')) {
 	  if (defined $opts{namespaces}) {
 		 $opts{namespacemap} = URI::NamespaceMap->new($opts{namespaces});
+		 $opts{namespacemap}->guess_and_add('rdfa', 'rdf', 'xsd');
 	  } else {
 		 my $curated = RDF::NS::Curated->new;
 		 $opts{namespacemap} = URI::NamespaceMap->new($curated->all);
@@ -105,18 +106,16 @@ sub nodes
 			XML::LibXML::Element->new('link');
 		$node->setNamespace('http://www.w3.org/1999/xhtml', undef, 1);
 		
-		my $prefixes = {foo => 'bar'};;# = RDF::Prefixes->new($self->{namespaces});
-		$self->_process_subject($st, $node, $prefixes)
-		     ->_process_predicate($st, $node, $prefixes)
-		     ->_process_object($st, $node, $prefixes);
-		
-		use Data::Dumper; Dumper($prefixes);
+		$self->_process_subject($st, $node)
+		     ->_process_predicate($st, $node)
+		     ->_process_object($st, $node);
 		
 		if (defined($self->{'version'}) && $self->{'version'} == 1.1
 		and $self->{'prefix_attr'})
 		{
-			$node->setAttribute('prefix', $self->{namespacemap}->rdfa->as_string)
-				if %$prefixes;
+		  if (defined($self->{namespacemap}->rdfa)) {
+			 $node->setAttribute('prefix', $self->{namespacemap}->rdfa->as_string)
+		  }
 		} else {
 		  while (my ($prefix, $nsURI) = $self->{namespacemap}->each_map) {
 			 $node->setNamespace($nsURI->as_string, $prefix);
@@ -150,7 +149,7 @@ sub _get_stream
 
 sub _process_subject
 {
-	my ($self, $st, $node, $prefixes) = @_;
+	my ($self, $st, $node) = @_;
 	
 	if (defined $self->{'base'} 
 	and $st->subject->is_resource
@@ -169,7 +168,7 @@ sub _process_subject
 
 sub _process_predicate
 {
-	my ($self, $st, $node, $prefixes) = @_;
+	my ($self, $st, $node) = @_;
 
 	my $attr = $st->object->is_literal ? 'property' : 'rel';
 
@@ -195,15 +194,14 @@ sub _process_predicate
 		return $self;
 	}
 	
-	$node->setAttribute($attr, 
-		$self->_make_curie($st->predicate->abs, $prefixes));
+	$node->setAttribute($attr, $self->_make_curie($st->predicate));
 	
 	return $self;
 }
 
 sub _process_object
 {
-	my ($self, $st, $node, $prefixes) = @_;
+	my ($self, $st, $node) = @_;
 	
 	if (defined $self->{'base'} 
 	and $st->subject->is_resource
@@ -235,8 +233,7 @@ sub _process_object
 	
 	if (defined $st->object->datatype)
 	{
-		$node->setAttribute('datatype', 
-			$self->_make_curie($st->object->datatype, $prefixes));
+		$node->setAttribute('datatype', $self->_make_curie($st->object->datatype));
 	}
 	else
 	{
@@ -248,7 +245,17 @@ sub _process_object
 
 sub _make_curie {
   my ($self, $uri) = @_;
-  return $self->{namespacemap}->abbreviate($uri);
+  my $curie = $self->{namespacemap}->abbreviate($uri);
+  unless (defined($curie)) {
+	 $uri->as_string =~ m!(.*)(\#|/)(.*?)$!;
+	 my $trim = $1.$2;
+	 $self->{namespacemap}->guess_and_add($trim);
+	 $curie = $self->{namespacemap}->abbreviate($uri);
+  }
+  unless (defined($curie)) {
+	 $curie = $uri->as_string;
+  }
+  return $curie;
 }
 
 1;

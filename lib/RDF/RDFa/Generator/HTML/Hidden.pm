@@ -3,7 +3,6 @@ package RDF::RDFa::Generator::HTML::Hidden;
 use 5.008;
 use base qw'RDF::RDFa::Generator::HTML::Head';
 use strict;
-use RDF::Prefixes;
 use XML::LibXML qw':all';
 
 use warnings;
@@ -28,7 +27,6 @@ sub nodes
 	$rootnode->setNamespace('http://www.w3.org/1999/xhtml', undef, 1);
 	$rootnode->setAttribute('style','display:none');
 	
-	my $prefixes = RDF::Prefixes->new($self->{namespaces});
 	my $subjects = {};
 	while (my $st = $stream->next)
 	{
@@ -42,30 +40,25 @@ sub nodes
 	{
 		my $node = $rootnode->addNewChild('http://www.w3.org/1999/xhtml', 'i');
 		
-		$self->_process_subject($subjects->{$s}->[0], $node, $prefixes);
+		$self->_process_subject($subjects->{$s}->[0], $node);
 		
 		foreach my $st (@{ $subjects->{$s} })
 		{
 			my $node2 = $node->addNewChild('http://www.w3.org/1999/xhtml', 'i');
-			$self->_process_predicate($st, $node2, $prefixes)
-			     ->_process_object($st, $node2, $prefixes);
+			$self->_process_predicate($st, $node2)
+			     ->_process_object($st, $node2);
 		}
 	}
-	
-	use Data::Dumper; Dumper($prefixes);
 	
 	if (defined($self->{'version'}) && $self->{'version'} == 1.1
-	and $self->{'prefix_attr'})
-	{
-		$rootnode->setAttribute('prefix', $prefixes->rdfa)
-			if %$prefixes;
-	}
-	else
-	{
-		while (my ($u,$p) = each(%$prefixes))
-		{
-			$rootnode->setNamespace($p, $u, 0);
-		}
+		 and $self->{'prefix_attr'}) {
+	  if (defined($self->{namespacemap}->rdfa)) {
+		 $rootnode->setAttribute('prefix', $self->{namespacemap}->rdfa->as_string);
+	  }
+	} else {
+	  while (my ($prefix, $nsURI) = $self->{namespacemap}->each_map) {
+		 $rootnode->setNamespace($nsURI->as_string, $prefix);
+	  }
 	}
 	
 	push @nodes, $rootnode;
@@ -79,7 +72,7 @@ sub nodes
 
 sub _process_subject
 {
-	my ($self, $st, $node, $prefixes) = @_;
+	my ($self, $st, $node) = @_;
 	
 	if (defined $self->{'base'} 
 	and $st->subject->is_resource

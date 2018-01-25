@@ -232,6 +232,9 @@ sub _resource_statements
 		{
 			$DD->setAttribute('property',  $self->_make_curie($st->predicate->abs, $prefixes));
 			$DD->setAttribute('class', 'typed-literal');
+			if ($st->object->has_language) {
+			  $DD->setAttribute('xml:lang',  ''.$st->object->language);
+			}
 			$DD->setAttribute('datatype',  $self->_make_curie($st->object->datatype, $prefixes));
 			$DD->appendTextNode(encode_utf8($st->object->value));
 		}

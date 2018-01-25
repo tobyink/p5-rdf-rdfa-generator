@@ -51,6 +51,7 @@ sub tests {
 	like($string, qr|rel="rdf:type"|, 'Type predicate present');
 	like($string, qr|property="ex:pi"|, 'pi predicate present');
 	like($string, qr|3\.14|, 'pi decimal present');
+	like($string, qr|datatype="xsd:decimal"|, 'pi decimal datatype present');
 	return $string;
 }
 done_testing();

@@ -4,8 +4,10 @@ use 5.008;
 use base qw'RDF::RDFa::Generator';
 use strict;
 use Encode qw'encode_utf8';
-use RDF::Prefixes;
+use URI::NamespaceMap;
+use RDF::NS::Curated;
 use XML::LibXML qw':all';
+use Carp;
 
 use warnings;
 
@@ -15,25 +17,26 @@ our $VERSION = '0.105_01';
 sub new
 {
 	my ($class, %opts) = @_;
-	
-	if (!defined $opts{namespaces})
-	{
-		$opts{namespaces} = {};
-		while (<DATA>)
-		{
-			chomp;
-			my ($p, $u)  = split /\s+/;
-			$opts{namespaces}->{$p} ||= $u;
-		}
+
+	unless (blessed($opts{namespacemap}) && $opts{namespacemap}->isa('URI::NamespaceMap')) {
+	  if (defined $opts{namespaces}) {
+		 $self{namespacemap} = URI::NamespaceMap->new({$opts{namespaces}});
+	  } else {
+		 my $curated = RDF::NS::Curated->new;
+		 $self{namespacemap} = URI::NamespaceMap->new({$curated->all});
+	  }
+	  
+	  # handle deprecated {ns}.
+	  if (defined($opts{ns})) {
+		 carp "ns option is deprecated by the RDFa serializer";
+	  }
+	  while (my ($u,$p) = each %{ $opts{ns} }) {
+		 $self{namespacemap}->add_mapping($p => $u);
+	  }
+
+	  delete $opts{ns};
+	  delete $opts{namespaces}
 	}
-	
-	# handle deprecated {ns}.
-	while (my ($u,$p) = each %{ $opts{ns} })
-	{
-		$opts{namespaces}->{$p} ||= $u;
-	}
-	
-	delete $opts{ns};
 	
 	bless \%opts, $class;
 }
@@ -246,42 +249,9 @@ sub _process_object
 	return $self;
 }
 
-sub _make_curie
-{
-	my ($self, $uri, $prefixes) = @_;	
-	use Data::Dumper; Dumper($prefixes); # this shouldn't do anything, but it fixes a bug!!
-	return $prefixes->get_qname($uri);
+sub _make_curie {
+  my ($self, $uri) = @_;
+  return $self->{namespacemap}->abbreviate($uri);
 }
 
 1;
-
-__DATA__
-bibo    http://purl.org/ontology/bibo/
-cc      http://creativecommons.org/ns#
-ctag    http://commontag.org/ns#
-dbp     http://dbpedia.org/property/
-dc      http://purl.org/dc/terms/
-doap    http://usefulinc.com/ns/doap#
-fb      http://developers.facebook.com/schema/
-foaf    http://xmlns.com/foaf/0.1/
-geo     http://www.w3.org/2003/01/geo/wgs84_pos#
-gr      http://purl.org/goodrelations/v1#
-ical    http://www.w3.org/2002/12/cal/ical#
-og      http://opengraphprotocol.org/schema/
-owl     http://www.w3.org/2002/07/owl#
-rdf     http://www.w3.org/1999/02/22-rdf-syntax-ns#
-rdfa    http://www.w3.org/ns/rdfa#
-rdfs    http://www.w3.org/2000/01/rdf-schema#
-rel     http://purl.org/vocab/relationship/
-rev     http://purl.org/stuff/rev#
-rss     http://purl.org/rss/1.0/
-sioc    http://rdfs.org/sioc/ns#
-skos    http://www.w3.org/2004/02/skos/core#
-tag     http://www.holygoat.co.uk/owl/redwood/0.1/tags/
-v       http://rdf.data-vocabulary.org/#
-vann    http://purl.org/vocab/vann/
-vcard   http://www.w3.org/2006/vcard/ns#
-void    http://rdfs.org/ns/void#
-xfn     http://vocab.sindice.com/xfn#
-xhv     http://www.w3.org/1999/xhtml/vocab#
-xsd     http://www.w3.org/2001/XMLSchema#

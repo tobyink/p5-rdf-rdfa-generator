@@ -46,7 +46,6 @@ sub nodes
 	my $root_node = XML::LibXML::Element->new('div');
 	$root_node->setNamespace(XHTML_NS, undef, 1);
 	
-	my $prefixes = RDF::Prefixes->new($self->{namespaces});
 	my $subjects = {};
 	while (my $st = $stream->next)
 	{
@@ -64,28 +63,26 @@ sub nodes
 		my $id = _make_id($s, $opts{'id_prefix'});
 		$subject_node->setAttribute('id', $id) if defined $id;
 		
-		$self->_process_subject($subjects->{$s}->[0], $subject_node, $prefixes);
-		$self->_resource_heading($subjects->{$s}->[0]->subject, $subject_node, $subjects->{$s}, $prefixes);
-		$self->_resource_classes($subjects->{$s}->[0]->subject, $subject_node, $subjects->{$s}, $prefixes);
-		$self->_resource_statements($subjects->{$s}->[0]->subject, $subject_node, $subjects->{$s}, $prefixes, $opts{'interlink'}||0, $opts{'id_prefix'}, $model);
+		$self->_process_subject($subjects->{$s}->[0], $subject_node);
+		$self->_resource_heading($subjects->{$s}->[0]->subject, $subject_node, $subjects->{$s});
+		$self->_resource_classes($subjects->{$s}->[0]->subject, $subject_node, $subjects->{$s});
+		$self->_resource_statements($subjects->{$s}->[0]->subject, $subject_node, $subjects->{$s}, $opts{'interlink'}||0, $opts{'id_prefix'}, $model);
 		$self->_resource_notes($subjects->{$s}->[0]->subject, $subject_node, $model, $opts{'notes_heading'}||'Notes', $opts{'notes'})
 			if defined $opts{'notes'};
 	}
 
-	use Data::Dumper; Dumper($prefixes);
-	
 	if (defined($self->{'version'}) && $self->{'version'} == 1.1
 	and $self->{'prefix_attr'})
 	{
-		$root_node->setAttribute('prefix', $prefixes->rdfa)
-			if %$prefixes;
+	  if (defined($self->{namespacemap}->rdfa)) {
+		 $root_node->setAttribute('prefix', $self->{namespacemap}->rdfa->as_string)
+	  }
 	}
 	else
 	{
-		while (my ($p,$u) = each(%{$prefixes->to_hashref}))
-		{
-			$root_node->setNamespace($u, $p, 0);
-		}
+	  while (my ($prefix, $nsURI) = $self->{namespacemap}->each_map) {
+		 $root_node->setNamespace($nsURI->as_string, $prefix);
+	  }
 	}
 	
 	push @nodes, $root_node;
@@ -110,7 +107,7 @@ sub _make_id
 
 sub _resource_heading
 {
-	my ($self, $subject, $node, $statements, $prefixes) = @_;
+	my ($self, $subject, $node, $statements) = @_;
 	
 	my $heading = $node->addNewChild(XHTML_NS, 'h3');
 	$heading->appendTextNode( $subject->is_resource ? $subject->abs : ('_:'.$subject->value) );
@@ -121,7 +118,7 @@ sub _resource_heading
 
 sub _resource_classes
 {
-	my ($self, $subject, $node, $statements, $prefixes) = @_;
+	my ($self, $subject, $node, $statements) = @_;
 	
 	my @statements = sort {
 		$a->predicate->abs cmp $b->predicate->abs
@@ -137,7 +134,7 @@ sub _resource_classes
 
 	my $SPAN = $node->addNewChild(XHTML_NS, 'span');
 	$SPAN->setAttribute('class', 'rdf-type');
-	$SPAN->setAttribute('rel', $self->_make_curie('http://www.w3.org/1999/02/22-rdf-syntax-ns#type', $prefixes));
+	$SPAN->setAttribute('rel', $self->_make_curie('http://www.w3.org/1999/02/22-rdf-syntax-ns#type'));
 
 	foreach my $st (@statements)
 	{
@@ -154,7 +151,7 @@ sub _resource_classes
 
 sub _resource_statements
 {
-	my ($self, $subject, $node, $statements, $prefixes, $interlink, $id_prefix, $model) = @_;
+	my ($self, $subject, $node, $statements, $interlink, $id_prefix, $model) = @_;
 	
 	my @statements = sort {
 		$a->predicate->abs cmp $b->predicate->abs
@@ -177,7 +174,7 @@ sub _resource_statements
 		{
 			my $DT = $DL->addNewChild(XHTML_NS, 'dt');
 			$DT->setAttribute('title', $st->predicate->abs);
-			$DT->appendTextNode($self->_make_curie($st->predicate->abs, $prefixes));
+			$DT->appendTextNode($self->_make_curie($st->predicate));
 		}
 		$current_property = $st->predicate->abs;
 		
@@ -188,7 +185,7 @@ sub _resource_statements
 			$DD->setAttribute('class', 'resource');
 			
 			my $A = $DD->addNewChild(XHTML_NS, 'span');
-			$A->setAttribute('rel',  $self->_make_curie($st->predicate->abs, $prefixes));
+			$A->setAttribute('rel',  $self->_make_curie($st->predicate));
 			$A->setAttribute('resource', $st->object->abs);
 			$A->appendTextNode($st->object->abs);
 		}
@@ -197,7 +194,7 @@ sub _resource_statements
 			$DD->setAttribute('class', 'resource');
 			
 			my $A = $DD->addNewChild(XHTML_NS, 'a');
-			$A->setAttribute('rel',  $self->_make_curie($st->predicate->abs, $prefixes));
+			$A->setAttribute('rel',  $self->_make_curie($st->predicate));
 			$A->setAttribute('href', $st->object->abs);
 			$A->appendTextNode($st->object->abs);			
 		}
@@ -206,7 +203,7 @@ sub _resource_statements
 			$DD->setAttribute('class', 'blank');
 			
 			my $A = $DD->addNewChild(XHTML_NS, 'span');
-			$A->setAttribute('rel',  $self->_make_curie($st->predicate->abs, $prefixes));
+			$A->setAttribute('rel',  $self->_make_curie($st->predicate));
 			$A->setAttribute('resource', '[_:'.$st->object->value.']');
 			$A->appendTextNode('_:'.$st->object->value);
 		}
@@ -214,28 +211,28 @@ sub _resource_statements
 		&& $st->object->is_literal
 		&& $st->object->datatype eq 'http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral')
 		{
-			$DD->setAttribute('property',  $self->_make_curie($st->predicate->abs, $prefixes));
+			$DD->setAttribute('property',  $self->_make_curie($st->predicate));
 			$DD->setAttribute('class', 'typed-literal datatype-xmlliteral');
-			$DD->setAttribute('datatype',  $self->_make_curie($st->object->datatype, $prefixes));
+			$DD->setAttribute('datatype',  $self->_make_curie($st->object->datatype));
 			$DD->setAttribute('content', encode_utf8($st->object->value));
 			$DD->addNewChild(XHTML_NS, 'pre')->addNewChild(XHTML_NS, 'code')->appendTextNode(encode_utf8($st->object->value));
 		}
 		elsif ($st->object->is_literal
 		&& $st->object->datatype eq 'http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral')
 		{
-			$DD->setAttribute('property',  $self->_make_curie($st->predicate->abs, $prefixes));
+			$DD->setAttribute('property',  $self->_make_curie($st->predicate));
 			$DD->setAttribute('class', 'typed-literal datatype-xmlliteral');
-			$DD->setAttribute('datatype',  $self->_make_curie($st->object->datatype, $prefixes));
+			$DD->setAttribute('datatype',  $self->_make_curie($st->object->datatype));
 			$DD->appendWellBalancedChunk(encode_utf8($st->object->value));
 		}
 		elsif ($st->object->is_literal)
 		{
-			$DD->setAttribute('property',  $self->_make_curie($st->predicate->abs, $prefixes));
+			$DD->setAttribute('property',  $self->_make_curie($st->predicate));
 			$DD->setAttribute('class', 'typed-literal');
 			if ($st->object->has_language) {
 			  $DD->setAttribute('xml:lang',  ''.$st->object->language);
 			}
-			$DD->setAttribute('datatype',  $self->_make_curie($st->object->datatype, $prefixes));
+			$DD->setAttribute('datatype',  $self->_make_curie($st->object->datatype));
 			$DD->appendTextNode(encode_utf8($st->object->value));
 		}
 
@@ -266,7 +263,7 @@ sub _resource_statements
 			while (my $sast = $iter->next)
 			{
 				my $sas = $sast->subject->is_resource ? $sast->subject->abs : '_:'.$sast->subject->value;
-				my $p = $self->_make_curie($sast->predicate->abs, $prefixes);
+				my $p = $self->_make_curie($sast->predicate);
 				$sadata->{$sas}->{$p} = $sast->predicate->abs;
 			}
 			

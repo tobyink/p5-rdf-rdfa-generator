@@ -8,9 +8,10 @@ use URI::NamespaceMap;
 use RDF::NS::Curated;
 use XML::LibXML qw':all';
 use Carp;
+use Scalar::Util qw(blessed);
 
 use warnings;
-
+use Data::Dumper;
 
 our $VERSION = '0.105_01';
 
@@ -20,10 +21,10 @@ sub new
 
 	unless (blessed($opts{namespacemap}) && $opts{namespacemap}->isa('URI::NamespaceMap')) {
 	  if (defined $opts{namespaces}) {
-		 $self{namespacemap} = URI::NamespaceMap->new({$opts{namespaces}});
+		 $opts{namespacemap} = URI::NamespaceMap->new({$opts{namespaces}});
 	  } else {
 		 my $curated = RDF::NS::Curated->new;
-		 $self{namespacemap} = URI::NamespaceMap->new({$curated->all});
+		 $opts{namespacemap} = URI::NamespaceMap->new($curated->all);
 	  }
 	  
 	  # handle deprecated {ns}.
@@ -31,13 +32,13 @@ sub new
 		 carp "ns option is deprecated by the RDFa serializer";
 	  }
 	  while (my ($u,$p) = each %{ $opts{ns} }) {
-		 $self{namespacemap}->add_mapping($p => $u);
+		 $opts{namespacemap}->add_mapping($p => $u);
 	  }
 
 	  delete $opts{ns};
 	  delete $opts{namespaces}
 	}
-	
+	warn Data::Dumper::Dumper(\%opts);
 	bless \%opts, $class;
 }
 
@@ -105,7 +106,7 @@ sub nodes
 			XML::LibXML::Element->new('link');
 		$node->setNamespace('http://www.w3.org/1999/xhtml', undef, 1);
 		
-		my $prefixes = RDF::Prefixes->new($self->{namespaces});
+		my $prefixes = {foo => 'bar'};;# = RDF::Prefixes->new($self->{namespaces});
 		$self->_process_subject($st, $node, $prefixes)
 		     ->_process_predicate($st, $node, $prefixes)
 		     ->_process_object($st, $node, $prefixes);
@@ -115,15 +116,12 @@ sub nodes
 		if (defined($self->{'version'}) && $self->{'version'} == 1.1
 		and $self->{'prefix_attr'})
 		{
-			$node->setAttribute('prefix', $prefixes->rdfa)
+			$node->setAttribute('prefix', $self->{namespacemap}->rdfa->as_string)
 				if %$prefixes;
-		}
-		else
-		{
-			while (my ($u,$p) = each(%$prefixes))
-			{
-				$node->setNamespace($p, $u, 0);
-			}
+		} else {
+		  while (my ($prefix, $nsURI) = $self->{namespacemap}->each_map) {
+			 $node->setNamespace($nsURI->as_string, $prefix);
+		  }
 		}
 		
 		push @nodes, $node;

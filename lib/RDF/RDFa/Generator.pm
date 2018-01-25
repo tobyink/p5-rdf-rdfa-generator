@@ -17,17 +17,8 @@ our $VERSION = '0.105_01';
 use RDF::RDFa::Generator::HTML::Head;
 use RDF::RDFa::Generator::HTML::Hidden;
 use RDF::RDFa::Generator::HTML::Pretty;
-use RDF::Trine;
 use Carp;
 
-BEGIN
-{
-	$RDF::Trine::Serializer::serializer_names{ 'rdfa' }   = __PACKAGE__;
-	foreach my $type (qw(application/xhtml+xml text/html))
-	{
-		$RDF::Trine::Serializer::media_types{ $type }   = __PACKAGE__;
-	}
-}
 
 =head1 DESCRIPTION
 

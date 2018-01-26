@@ -48,7 +48,7 @@ subtest 'Pretty generator' => sub {
 subtest 'Pretty generator with interlink' => sub {
   ok(my $document = RDF::RDFa::Generator::HTML::Pretty->new()->create_document($model, interlink => 1, id_prefix => 'test'), 'Assignment OK');
   my $string = tests($document);
-  like($string, qr|</p>\s<div|, 'div element just local part');
+  like($string, qr|<main>\s?<div|, 'div element just local part');
   like($string, qr|<dd property="ex:title" class="typed-literal" xml:lang="fr" datatype="xsd:langString">Dahut</dd>|, 'Literals OK');
 };
 
@@ -56,6 +56,7 @@ sub tests {
   my $document = shift;
   isa_ok($document, 'XML::LibXML::Document');
   my $string = $document->toString;
+  print STDERR $string;
   like($string, qr|about="http://example.org/foo"|, 'Subject URI present');
   like($string, qr|rel="rdf:type"|, 'Type predicate present');
   like($string, qr|property="ex:pi"|, 'pi predicate present');

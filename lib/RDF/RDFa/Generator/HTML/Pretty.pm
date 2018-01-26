@@ -317,12 +317,12 @@ sub _resource_notes
 			if $note->is_relevant_to($subject);
 	}
 	
-	if (@relevant)
-	{
-		my $heading = $node->addNewChild(XHTML_NS, 'h4');
+	if (@relevant) {
+		my $wrapper = $node->addNewChild(XHTML_NS, 'aside');
+		my $heading = $wrapper->addNewChild(XHTML_NS, 'h4');
 		$heading->appendTextNode($notes_heading || 'Notes');
 
-		my $list = $node->addNewChild(XHTML_NS, 'ul');
+		my $list = $wrapper->addNewChild(XHTML_NS, 'ul');
 
 		foreach my $note (@relevant)
 		{

@@ -10,6 +10,7 @@ use 5.008;
 use strict;
 use constant XHTML_NS => 'http://www.w3.org/1999/xhtml';
 use XML::LibXML qw':all';
+use Carp;
 
 use warnings;
 
@@ -80,7 +81,7 @@ tag that can contain text nodes.
 sub node
 {
 	my ($self, $namespace, $element) = @_;
-	die "unknown namespace" unless $namespace eq XHTML_NS;
+	croak "unknown namespace" unless $namespace eq XHTML_NS;
 	
 	my $node = XML::LibXML::Element->new($element);
 	$node->setNamespace($namespace, undef, 1);

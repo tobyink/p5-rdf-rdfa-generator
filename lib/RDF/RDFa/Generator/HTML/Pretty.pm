@@ -243,7 +243,7 @@ sub _resource_statements
 				$DD->appendTextNode(' ');
 				my $seealso = $DD->addNewChild(XHTML_NS, 'a');
 				$seealso->setAttribute('about', $st->object->is_resource ? $st->object->abs : '[_:'.$st->object->value.']');
-				$seealso->setAttribute('rel', 'seeAlso');
+				$seealso->setAttribute('rel', $self->_make_curie('http://www.w3.org/2000/01/rdf-schema#seeAlso'));
 				$seealso->setAttribute('href', '#'._make_id($st->object->is_resource ? $st->object->abs : '_:'.$st->object->value, $id_prefix));
 				$seealso->appendTextNode($interlink);
 			}
@@ -285,7 +285,7 @@ sub _resource_statements
 				$span->appendTextNode(' of ');
 				my $a = $span->addNewChild(XHTML_NS, 'a');
 				$a->setAttribute('about', $sas !~ /^_:/ ? $sas : '[_:'.$sas.']');
-				$a->setAttribute('rel', 'seeAlso');
+				$a->setAttribute('rel', $self->_make_curie('http://www.w3.org/2000/01/rdf-schema#seeAlso'));
 				$a->setAttribute('href', '#'._make_id($sas, $id_prefix));
 				$a->appendTextNode($sas);
 				$seealso->appendTextNode( $sas eq $keys[-1] ? '.' : '; ' );

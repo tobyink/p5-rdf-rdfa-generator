@@ -182,9 +182,7 @@ Please report any bugs to L<https://github.com/kjetilk/p5-rdf-rdfa-generator/iss
 =head1 SEE ALSO
 
 L<HTML::HTML5::Writer>, L<XML::LibXML>, L<RDF::RDFa::Parser>, L<RDF::Trine>,
-L<RDF::Prefixes>.
-
-L<http://www.perlrdf.org/>.
+L<URI::NamespaceMap>, L<Attean>.
 
 =head1 AUTHOR
 

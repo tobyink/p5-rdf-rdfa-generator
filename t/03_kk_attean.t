@@ -25,7 +25,7 @@ my $model = Attean::QuadModel->new( store => $store );
 subtest 'Default generator' => sub {
   ok(my $document = RDF::RDFa::Generator->new->create_document($model), 'Assignment OK');
   my $string = tests($document);
-  
+  like($string, qr|<link|, 'link element just local part');
   like($string, qr|resource="http://example.org/Bar"|, 'Object present');
   like($string, qr|property="ex:title" content="Dahut"|, 'Literals OK');
 };
@@ -34,6 +34,7 @@ subtest 'Default generator' => sub {
 subtest 'Hidden generator' => sub {
   ok(my $document = RDF::RDFa::Generator::HTML::Hidden->new->create_document($model), 'Assignment OK');
   my $string = tests($document);
+  like($string, qr|<body>\s?<i|, 'i element just local part');
   like($string, qr|resource="http://example.org/Bar"|, 'Object present');
   like($string, qr|property="ex:title" content="Dahut"|, 'Literals OK');
 };
@@ -47,6 +48,7 @@ subtest 'Pretty generator' => sub {
 subtest 'Pretty generator with interlink' => sub {
   ok(my $document = RDF::RDFa::Generator::HTML::Pretty->new()->create_document($model, interlink => 1, id_prefix => 'test'), 'Assignment OK');
   my $string = tests($document);
+  like($string, qr|</p>\s<div|, 'div element just local part');
   like($string, qr|<dd property="ex:title" class="typed-literal" xml:lang="fr" datatype="xsd:langString">Dahut</dd>|, 'Literals OK');
 };
 

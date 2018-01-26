@@ -44,7 +44,7 @@ subtest 'Pretty generator' => sub {
 };
 
 subtest 'Pretty generator with interlink' => sub {
-	ok(my $document = RDF::RDFa::Generator::HTML::Pretty->new()->create_document($model, interlink => 1), 'Assignment OK');
+	ok(my $document = RDF::RDFa::Generator::HTML::Pretty->new()->create_document($model, interlink => 1, id_prefix => 'test'), 'Assignment OK');
 	my $string = tests($document);
 	like($string, qr|<dd property="ex:title" class="typed-literal" xml:lang="fr" datatype="xsd:langString">Dahut</dd>|, 'Literals OK');
 };

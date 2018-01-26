@@ -252,7 +252,7 @@ sub _resource_statements
 	
 	if ($interlink)
 	{
-		my $iter = $model->get_quads(undef, undef, $subject);
+		my $iter = $model->get_quads(undef, undef, $subject)->materialize;
 		if ($iter->peek)
 		{
 			my $seealsoDT = $DL->addNewChild(XHTML_NS, 'dt');

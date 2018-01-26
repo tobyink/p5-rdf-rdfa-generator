@@ -48,11 +48,11 @@ sub new
 
 =over 4
 
-=item C<< $note->is_relevent_to($node) >>
+=item C<< $note->is_relevant_to($node) >>
 
 $node is an L<RDF::Trine::Node> or L<Attean> IRI or blank. Checks if the subject of $note is $node.
 
-Alias: is_relevant_to.
+Alias: is_relevent_to.
 
 =cut
 
@@ -94,16 +94,11 @@ sub node
 
 __END__
 
-=head1 BUGS
-
-Please report any bugs to L<http://rt.cpan.org/>.
 
 =head1 SEE ALSO
 
 L<RDF::RDFa::Generator>,
 L<RDF::RDFa::Linter>.
-
-L<http://www.perlrdf.org/>.
 
 =head1 AUTHOR
 

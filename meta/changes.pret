@@ -78,3 +78,20 @@
           item [ label "Many minor improvements."@en ; a dcs:Change] ;
 
 ] .
+
+`RDF-RDFa-Generator 0.199_01 cpan:KJETILK`
+    issued   2018-01-26 ;
+    label "Extensive changes to support both Attean and Trine. Backwards incompatible changes."@en ;
+    changeset [
+	item [ label "Stop using the Trine API."@en ; a dcs:Removal ] ;
+	item [ label "Use the Attean API."@en ; a dcs:Addition ] ;
+	item [ label "Trine serialization methods are deprecated and will croak."@en ; a dcs:Removal ] ;
+        item [ label "data_context takes an object as input."@en ; a dcs:Change] ;
+        item [ label "Use URI::NamespaceMap for managing prefixes, RDF::Prefixes can be used through it."@en ; a dcs:Change] ;
+	item [ label "Remove serialization of plain literals as they don't exist in RDF 1.1."@en ; a dcs:Removal ] ;
+        item [ label "Improve CURIE generation."@en ; a dcs:Change] ;
+	item [ label "Use RDF::NS::Curated for the canonical list of namespaces."@en ; a dcs:Addition ] ;
+        item [ label "Improve the HTML of Pretty a bit."@en ; a dcs:Change] ;
+	item [ label "Many more tests."@en ; a dcs:Addition ] ;
+        item [ label "Many minor improvements."@en ; a dcs:Change] ;
+        ] .

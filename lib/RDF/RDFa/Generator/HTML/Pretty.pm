@@ -238,7 +238,7 @@ sub _resource_statements
 
 		if ($interlink && !$st->object->is_literal)
 		{
-			if ($model->count_statements($st->object, undef, undef))
+			if ($model->count_quads($st->object, undef, undef, undef))
 			{
 				$DD->appendTextNode(' ');
 				my $seealso = $DD->addNewChild(XHTML_NS, 'a');
@@ -252,7 +252,7 @@ sub _resource_statements
 	
 	if ($interlink)
 	{
-		my $iter = $model->get_quads(undef, undef, $subject)->materialize;
+		my $iter = $model->get_quads(undef, undef, $subject, undef)->materialize;
 		if ($iter->peek)
 		{
 			my $seealsoDT = $DL->addNewChild(XHTML_NS, 'dt');

@@ -13,7 +13,7 @@ use Scalar::Util qw(blessed);
 use warnings;
 use Data::Dumper;
 
-our $VERSION = '0.105_01';
+our $VERSION = '0.199_01';
 
 sub new
 {

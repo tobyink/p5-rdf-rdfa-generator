@@ -50,7 +50,7 @@ sub new
 
 =item C<< $note->is_relevent_to($node) >>
 
-$node is an RDF::Trine::Node. Checks if the subject of $note is $node.
+$node is an L<RDF::Trine::Node> or L<Attean> IRI or blank. Checks if the subject of $note is $node.
 
 Alias: is_relevant_to.
 
@@ -59,7 +59,7 @@ Alias: is_relevant_to.
 sub is_relevant_to
 {
 	my ($self, $something) = @_;
-	return $self->{'subject'}->equal($something);
+	return $self->{'subject'}->equals($something);
 }
 
 *is_relevent_to = \&is_relevant_to;

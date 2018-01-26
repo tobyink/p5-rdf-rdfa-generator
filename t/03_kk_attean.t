@@ -52,11 +52,19 @@ subtest 'Pretty generator with interlink' => sub {
   like($string, qr|<dd property="ex:title" class="typed-literal" xml:lang="fr" datatype="xsd:langString">Dahut</dd>|, 'Literals OK');
 };
 
+subtest 'Pretty generator with Note' => sub {
+  ok(my $note = RDF::RDFa::Generator::HTML::Pretty::Note->new(iri('http://example.org/foo'), 'This is a Note'), 'Note creation OK');
+  ok(my $document = RDF::RDFa::Generator::HTML::Pretty->new->create_document($model, notes => [$note]), 'Assignment OK');
+  my $string = tests($document);
+  like($string, qr|<aside>|, 'aside element found');
+  like($string, qr|This is a Note|, 'Note text found');
+};
+
+
 sub tests {
   my $document = shift;
   isa_ok($document, 'XML::LibXML::Document');
   my $string = $document->toString;
-  print STDERR $string;
   like($string, qr|about="http://example.org/foo"|, 'Subject URI present');
   like($string, qr|rel="rdf:type"|, 'Type predicate present');
   like($string, qr|property="ex:pi"|, 'pi predicate present');

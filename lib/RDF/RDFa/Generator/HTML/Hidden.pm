@@ -57,7 +57,7 @@ sub nodes
 	  }
 	} else {
 	  while (my ($prefix, $nsURI) = $self->{namespacemap}->each_map) {
-		 $rootnode->setNamespace($nsURI->as_string, $prefix);
+		 $rootnode->setNamespace($nsURI->as_string, $prefix, 0);
 	  }
 	}
 	

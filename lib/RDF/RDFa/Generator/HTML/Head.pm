@@ -22,7 +22,6 @@ sub new
 	unless (blessed($opts{namespacemap}) && $opts{namespacemap}->isa('URI::NamespaceMap')) {
 	  if (defined $opts{namespaces}) {
 		 $opts{namespacemap} = URI::NamespaceMap->new($opts{namespaces});
-		 $opts{namespacemap}->guess_and_add('rdfa', 'rdf', 'xsd');
 	  } else {
 		 my $curated = RDF::NS::Curated->new;
 		 $opts{namespacemap} = URI::NamespaceMap->new($curated->all);
@@ -39,6 +38,7 @@ sub new
 	  delete $opts{ns};
 	  delete $opts{namespaces}
 	}
+	$opts{namespacemap}->guess_and_add('rdfa', 'rdf', 'xsd');
 	bless \%opts, $class;
 }
 

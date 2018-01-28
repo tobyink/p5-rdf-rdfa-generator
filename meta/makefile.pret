@@ -9,6 +9,7 @@
     :test-requirement [ :on "Attean"^^:CpanId ];
     :test-requirement [ :on "RDF::Prefixes"^^:CpanId ];
     :runtime-recommendation [ :on "RDF::Prefixes"^^:CpanId ];
+    :runtime-recommendation [ :on "RDF::NS"^^:CpanId ];
     :runtime-recommendation [ :on "Attean"^^:CpanId ];
     :runtime-suggestion     [ :on "RDF::Trine 0.112"^^:CpanId ];
     :runtime-requirement    [ :on "URI::NamespaceMap 1.05"^^:CpanId ];

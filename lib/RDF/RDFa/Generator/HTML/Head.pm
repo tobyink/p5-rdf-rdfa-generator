@@ -249,7 +249,7 @@ sub _make_curie {
   my ($self, $uri) = @_;
   my $curie = $self->{namespacemap}->abbreviate($uri);
   unless (defined($curie)) {
-	 $self->{namespacemap}->guess_and_add($uri);
+	 $self->{namespacemap}->guess_and_add($uri->as_string);
 	 $curie = $self->{namespacemap}->abbreviate($uri);
   }
   unless (defined($curie)) {

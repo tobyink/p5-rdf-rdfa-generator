@@ -105,7 +105,7 @@ sub tests {
   my ($ns, $expect, $generator) = @_;
   my %opts = (namespaces => $ns);
   if ($generator) {
-	 $opts{generator} = $generator;
+	 $opts{style} = $generator;
   } else {
 	 $generator = 'default';
   }

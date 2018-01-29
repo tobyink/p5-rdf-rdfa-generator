@@ -38,7 +38,7 @@ sub new
 	  delete $opts{ns};
 	  delete $opts{namespaces}
 	}
-	$opts{namespacemap}->guess_and_add('rdfa', 'rdf', 'xsd');
+	$opts{namespacemap}->guess_and_add('rdfa', 'rdf', 'rdfs', 'xsd');
 	bless \%opts, $class;
 }
 

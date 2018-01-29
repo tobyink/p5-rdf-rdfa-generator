@@ -95,3 +95,8 @@
 	item [ label "Many more tests."@en ; a dcs:Addition ] ;
         item [ label "Many minor improvements."@en ; a dcs:Change] ;
         ] .
+
+`RDF-RDFa-Generator 0.199_02 cpan:KJETILK`
+    issued   2018-01-29 ;
+    label "Bugfix."@en .
+    

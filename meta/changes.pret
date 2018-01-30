@@ -104,3 +104,7 @@
     issued   2018-01-30 ;
     label "Improve documentation."@en .
 
+`RDF-RDFa-Generator 0.199_04 cpan:KJETILK`
+    issued   2018-01-30 ;
+    label "Fix bugs."@en .
+

@@ -12,7 +12,7 @@ use XML::LibXML qw':all';
 use warnings;
 
 
-our $VERSION = '0.199_03';
+our $VERSION = '0.199_04';
 
 sub create_document
 {

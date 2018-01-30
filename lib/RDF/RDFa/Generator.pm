@@ -77,10 +77,10 @@ sub new
 
 Creates a new RDFa file containing triples. $model is an RDF::Trine::Model object
 providing the triples. Returns an XML::LibXML::Document object suitable
-for serialising using its C<toString> method.
+for serializing using its C<toString> method.
 
 If you're planning on serving the RDFa with the text/html media type, then
-it is recommended that you use HTML::HTML5::Writer to serialise the
+it is recommended that you use HTML::HTML5::Writer to serialize the
 document rather than C<toString>.
 
 Can also be called as a class method:
@@ -105,7 +105,7 @@ sub create_document
 Injects an existing document with triples. $document is an XML::LibXML::Document
 to inject, or a well-formed XML string. $model is an RDF::Trine::Model object providing
 the triples. Returns an XML::LibXML::Document object suitable
-for serialising using its C<toString> method.
+for serializing using its C<toString> method.
 
 See C<create_document> for information about serving the RDFa with the
 text/html media type.
@@ -162,12 +162,12 @@ The methods C<serialize_model_to_file>, C<serialize_model_to_string>,
 C<serialize_iterator_to_file> and C<serialize_iterator_to_string> that
 were provided for compatibility with the L<RDF::Trine::Serializer>
 interface have been moved to a module L<RDF::Trine::Serializer::RDFa>
-that has to be installed separately.
+that has to be installed separately to use this with L<RDF::Trine>.
 
 C<data_context> previously accepted a plain-text string URI. Now, it
 requires an appropriate object, as documented.
 
-Since RDF 1.1 abandons untyped literals, this module also seizes to
+Since RDF 1.1 abandons untyped literals, this module also ceases to
 emit them.
 
 =head2 Namespace mappings

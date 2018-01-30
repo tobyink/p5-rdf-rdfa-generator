@@ -99,4 +99,8 @@
 `RDF-RDFa-Generator 0.199_02 cpan:KJETILK`
     issued   2018-01-29 ;
     label "Bugfix."@en .
-    
+
+`RDF-RDFa-Generator 0.199_03 cpan:KJETILK`
+    issued   2018-01-30 ;
+    label "Improve documentation."@en .
+

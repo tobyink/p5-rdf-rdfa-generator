@@ -213,6 +213,10 @@ Please report any bugs to L<https://github.com/kjetilk/p5-rdf-rdfa-generator/iss
 
 =head1 SEE ALSO
 
+You may want to use the framework-specific frontends: L<RDF::Trine::Serializer::RDFa> or L<AtteanX::Serializer::RDFa>.
+
+Other relevant modules:
+
 L<HTML::HTML5::Writer>, L<XML::LibXML>, L<RDF::RDFa::Parser>, L<RDF::Trine>,
 L<URI::NamespaceMap>, L<Attean>.
 

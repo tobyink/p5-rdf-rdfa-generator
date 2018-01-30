@@ -218,7 +218,7 @@ sub _resource_statements
 		}
 		elsif ($self->{'safe_xml_literals'}
 		&& $st->object->is_literal
-		&& $st->object->datatype eq 'http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral')
+		&& $st->object->datatype->value eq 'http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral')
 		{
 			$DD->setAttribute('property',  $self->_make_curie($st->predicate));
 			$DD->setAttribute('class', 'typed-literal datatype-xmlliteral');
@@ -227,7 +227,7 @@ sub _resource_statements
 			$DD->addNewChild(XHTML_NS, 'pre')->addNewChild(XHTML_NS, 'code')->appendTextNode(encode_utf8($st->object->value));
 		}
 		elsif ($st->object->is_literal
-		&& $st->object->datatype eq 'http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral')
+		&& $st->object->datatype->value eq 'http://www.w3.org/1999/02/22-rdf-syntax-ns#XMLLiteral')
 		{
 			$DD->setAttribute('property',  $self->_make_curie($st->predicate));
 			$DD->setAttribute('class', 'typed-literal datatype-xmlliteral');

@@ -42,6 +42,8 @@ Options include:
 
 =item * B<data_context> - if non-null, an L<Attean> Blank or IRI object or an L<RDF::Trine::Node> which indicates the context (named graph) containing the data to generate RDFa for.
 
+=item * B<namespacemap> - a L<URI::NamespaceMap> object containing preferred CURIE prefixes. This is the preferred method, see note below. 
+
 =item * B<namespaces> - a {prefix=>uri} hashref of preferred CURIE prefixes. 
 
 =item * B<ns> - a {uri=>prefix} hashref of preferred CURIE prefixes. DEPRECATED - use B<namespaces> instead.
@@ -71,7 +73,7 @@ sub new
 
 =over 4
 
-=item C<< $gen->create_document($model) >>
+=item C<< $gen->create_document($model, %opts) >>
 
 Creates a new RDFa file containing triples. $model is an RDF::Trine::Model object
 providing the triples. Returns an XML::LibXML::Document object suitable
@@ -86,6 +88,8 @@ Can also be called as a class method:
  $document = RDF::RDFa::Generator->create_document($model)
  # Same as:
  # $document = RDF::RDFa::Generator->new->create_document($model)
+
+Options can also be passed as a HASH. This is typically used for style-specific options.
 
 =cut
 
@@ -147,11 +151,39 @@ sub nodes
 
 =head1 NOTE
 
+Version 0.200 introduced a large number of changes to be compatible
+with both L<Attean> and L<RDF::Trine>. Some of these were
+backwards-incompatible, some were to support new features, such as the
+use of L<URI::NamespaceMap>.
+
+=head2 Backwards-incompatible changes
+
 The methods C<serialize_model_to_file>, C<serialize_model_to_string>,
 C<serialize_iterator_to_file> and C<serialize_iterator_to_string> that
 were provided for compatibility with the L<RDF::Trine::Serializer>
 interface have been moved to a module L<RDF::Trine::Serializer::RDFa>
 that has to be installed separately.
+
+C<data_context> previously accepted a plain-text string URI. Now, it
+requires an appropriate object, as documented.
+
+Since RDF 1.1 abandons untyped literals, this module also seizes to
+emit them.
+
+=head2 Namespace mappings
+
+The way namespace mappings are handled have been rewritten. Now, the
+preferred method to add them is to pass an L<URI::NamespaceMap> object
+to C<namespacemap>. This will override any other options.
+
+The namespace mappings for the following prefixes will always be
+added: C<rdfa>, C<rdf>, C<rdfs> and C<xsd>.
+
+If L<URI::NamespaceMap> is not used, but C<namespaces> is given as a
+hashref of prefix-URI pairs, the pairs will be added. If neither are
+given, all mappings from L<RDF::NS::Curated>, which includes all if
+RDFa Initial Context will be added. Finally, any pairs from the
+deprecated C<ns> option will be added, but a warning will be emitted.
 
 =cut
 

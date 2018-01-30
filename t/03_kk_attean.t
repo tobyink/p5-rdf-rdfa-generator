@@ -42,7 +42,8 @@ subtest 'Hidden generator' => sub {
 subtest 'Pretty generator' => sub {
   ok(my $document = RDF::RDFa::Generator::HTML::Pretty->new->create_document($model), 'Assignment OK');
   my $string = tests($document);
-  like($string, qr|<dd property="ex:title" class="typed-literal" xml:lang="fr" datatype="rdf:langString">Dahut</dd>|, 'Literals OK');
+  like($string, qr|<dd property="ex:title" class="typed-literal" xml:lang="fr" datatype="rdf:langString">Dahut</dd>|, 'Language Literal OK');
+  like($string, qr|<dd property="ex:else" class="typed-literal" datatype="xsd:string">Foo</dd>|, '"Plain" Literal OK');
 };
 
 subtest 'Pretty generator with interlink' => sub {

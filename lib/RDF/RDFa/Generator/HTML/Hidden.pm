@@ -8,7 +8,7 @@ use XML::LibXML qw':all';
 use warnings;
 
 
-our $VERSION = '0.199_04';
+our $VERSION = '0.199_05';
 
 sub injection_site
 {

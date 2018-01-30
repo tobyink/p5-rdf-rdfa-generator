@@ -108,3 +108,7 @@
     issued   2018-01-30 ;
     label "Fix bugs."@en .
 
+`RDF-RDFa-Generator 0.199_05 cpan:KJETILK`
+    issued   2018-01-30 ;
+    label "Fix bugs."@en .
+

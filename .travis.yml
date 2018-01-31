@@ -18,7 +18,7 @@ install:
   - cpan-install --deps
   - cpan-install --coverage
   - cpanm --notest KJETILK/RDF-NS-Curated-0.006_01.tar.gz
-  - cpanm --notest KJETILK/URI-NamespaceMap-1.05_02.tar.gz
+  - cpanm --notest GWILLIAMS/Attean-0.018_01.tar.gz
 before_script:
   - coverage-setup
 script:

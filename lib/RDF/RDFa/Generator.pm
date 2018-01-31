@@ -149,6 +149,16 @@ sub nodes
 
 =back
 
+=head1 UPGRADING TO 0.200
+
+If you are using this module directly, to upgrade from earlier releases, you would simply add
+
+ use RDF::TrineX::Compatibility::Attean;
+
+alongside the import of this module. If you use the
+L<RDF::Trine::Serializer> methods, you should instead use
+L<RDF::Trine::Serializer::RDFa>.
+
 =head1 NOTE
 
 Version 0.200 introduced a large number of changes to be compatible

@@ -151,13 +151,17 @@ sub nodes
 
 =head1 UPGRADING TO 0.200
 
-If you are using this module directly, to upgrade from earlier releases, you would simply add
+The recommended upgrade path is to migrate your application to use
+L<Attean> rather than L<RDF::Trine> as your RDF library. If that is
+not an option, you may continue to use L<RDF::Trine>, by using a
+compatibility layer.  If you are using this module directly, to
+upgrade from earlier releases, you would simply add
 
  use RDF::TrineX::Compatibility::Attean;
 
-alongside the import of this module. If you use the
-L<RDF::Trine::Serializer> methods, you should instead use
-L<RDF::Trine::Serializer::RDFa>.
+alongside the import of this module. It is in a separate distribution
+that needs to be installed. If you use the L<RDF::Trine::Serializer>
+methods, you should instead use L<RDF::Trine::Serializer::RDFa>.
 
 =head1 NOTE
 

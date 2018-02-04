@@ -6,14 +6,14 @@
     :test-requirement [ :on "Test::More 0.96"^^:CpanId ];
     :test-requirement [ :on "Test::Output"^^:CpanId ];
     :test-requirement [ :on "Test::Modern"^^:CpanId ];
-    :test-requirement [ :on "Attean"^^:CpanId ];
+    :test-requirement [ :on "Attean 0.019"^^:CpanId ];
     :test-requirement [ :on "RDF::Prefixes"^^:CpanId ];
     :runtime-recommendation [ :on "RDF::Prefixes"^^:CpanId ];
     :runtime-recommendation [ :on "RDF::NS"^^:CpanId ];
-    :runtime-recommendation [ :on "Attean"^^:CpanId ];
+    :runtime-recommendation [ :on "Attean 0.019"^^:CpanId ];
     :runtime-suggestion     [ :on "RDF::Trine 0.112"^^:CpanId ];
-    :runtime-requirement    [ :on "URI::NamespaceMap 1.05"^^:CpanId ];
-    :runtime-requirement    [ :on "RDF::NS::Curated 0.006"^^:CpanId ];
+    :runtime-requirement    [ :on "URI::NamespaceMap 1.06"^^:CpanId ];
+    :runtime-requirement    [ :on "RDF::NS::Curated 0.100"^^:CpanId ];
     :runtime-requirement    [ :on "perl 5.008"^^:CpanId ];
     :runtime-requirement    [ :on "Data::Dumper"^^:CpanId ];
     :runtime-requirement    [ :on "Icon::FamFamFam::Silk"^^:CpanId ];

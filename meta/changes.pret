@@ -79,8 +79,8 @@
 
 ] .
 
-`RDF-RDFa-Generator 0.199_01 cpan:KJETILK`
-    issued   2018-01-26 ;
+`RDF-RDFa-Generator 0.200 cpan:KJETILK`
+    issued   2018-02-11 ;
     label "Extensive changes to support both Attean and Trine. Backwards incompatible changes."@en ;
     changeset [
 	item [ label "Stop using the Trine API."@en ; a dcs:Removal ] ;
@@ -95,24 +95,4 @@
 	item [ label "Many more tests."@en ; a dcs:Addition ] ;
         item [ label "Many minor improvements."@en ; a dcs:Change] ;
         ] .
-
-`RDF-RDFa-Generator 0.199_02 cpan:KJETILK`
-    issued   2018-01-29 ;
-    label "Bugfix."@en .
-
-`RDF-RDFa-Generator 0.199_03 cpan:KJETILK`
-    issued   2018-01-30 ;
-    label "Improve documentation."@en .
-
-`RDF-RDFa-Generator 0.199_04 cpan:KJETILK`
-    issued   2018-01-30 ;
-    label "Fix bugs."@en .
-
-`RDF-RDFa-Generator 0.199_05 cpan:KJETILK`
-    issued   2018-01-30 ;
-    label "Fix bugs."@en .
-
-`RDF-RDFa-Generator 0.199_06 cpan:KJETILK`
-    issued   2018-02-05 ;
-    label "Prepare for release."@en .
 

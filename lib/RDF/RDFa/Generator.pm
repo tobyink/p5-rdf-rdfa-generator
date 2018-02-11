@@ -12,7 +12,7 @@ use strict;
 use warnings;
 
 
-our $VERSION = '0.199_06';
+our $VERSION = '0.200';
 
 use RDF::RDFa::Generator::HTML::Head;
 use RDF::RDFa::Generator::HTML::Hidden;

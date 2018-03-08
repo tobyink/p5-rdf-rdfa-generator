@@ -98,4 +98,5 @@
 
 `RDF-RDFa-Generator 0.201_01 cpan:KJETILK`
     issued   2018-03-08 ;
-    label "test."@en ;
+    label "test."@en .
+    

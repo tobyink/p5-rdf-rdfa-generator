@@ -75,7 +75,7 @@ sub new
 
 =item C<< $gen->create_document($model, %opts) >>
 
-Creates a new RDFa file containing triples. $model is an RDF::Trine::Model object
+Creates a new RDFa file containing triples. $model is an L<Attean::QuadModel> (where the graph name is not used) object
 providing the triples. Returns an XML::LibXML::Document object suitable
 for serializing using its C<toString> method.
 
@@ -103,7 +103,7 @@ sub create_document
 =item C<< $gen->inject_document($document, $model) >>
 
 Injects an existing document with triples. $document is an XML::LibXML::Document
-to inject, or a well-formed XML string. $model is an RDF::Trine::Model object providing
+to inject, or a well-formed XML string. $model is an L<Attean::QuadModel> (where the graph name is not used) object providing
 the triples. Returns an XML::LibXML::Document object suitable
 for serializing using its C<toString> method.
 
@@ -124,7 +124,7 @@ sub inject_document
 =item C<< $gen->nodes($model) >>
 
 Provides triple-laden XML::LibXML::Elements to be added to a document.
-$model is an RDF::Trine::Model object providing the triples. If called in
+$model is an L<Attean::QuadModel> (where the graph name is not used) object providing the triples. If called in
 list context, returns a list of XML::LibXML::Element objects which can be
 added to a document; otherwise returns an XML::LibXML::NodeList containing
 a list of such elements.

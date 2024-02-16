@@ -19,4 +19,3 @@ jobs:
       - uses: perlrdf/devops/github-actions/irc-notifications@main
         with:
           target-notifications: true
-	  

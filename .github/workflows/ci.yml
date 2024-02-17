@@ -37,10 +37,12 @@ jobs:
             Test::Pod::Coverage
             Test::Pod
             Test::Tester
+            Test::Output
             Test::More
             Test::Modern
             Attean
             RDF::Prefixes
+            RDF::NS::Curated
   test:
     needs: [ 'dist', 'notify' ]
     runs-on: ${{ matrix.os }}

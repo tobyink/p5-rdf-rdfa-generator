@@ -42,6 +42,11 @@ jobs:
             Test::Modern
             Attean
             RDF::Prefixes
+            RDF::NS
+            URI::NamespaceMap
+            Data::Dumper
+            Icon::FamFamFam::Silk
+            XML::LibXML
             RDF::NS::Curated
   test:
     needs: [ 'dist', 'notify' ]
